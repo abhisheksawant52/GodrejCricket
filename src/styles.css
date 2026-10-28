@@ -302,3 +302,67 @@ td small{color:#d1b1c2}
 @media(max-width:850px){.hero{min-height:525px}.matchday{padding:54px 0 62px}.register-section{padding:46px 0 50px}}
 @media(max-width:620px){.topline{font-size:6px}.topline-right{display:none}.hero{min-height:0;padding:36px 0 25px}.hero-art{height:350px;margin-top:8px}.ticker{margin-bottom:35px}.intro-section{padding-bottom:42px}.intro-grid{padding:18px 0 24px}.live-board{margin-top:22px;padding:16px}.register-heading{margin:18px 0 22px}.register-card{min-height:300px}.role-art{height:78px}.matchday{padding:48px 0 54px}.footer-bottom{font-size:7px}}
 @media(prefers-reduced-motion:reduce){.role-player,.player-bat,.role-ball,.jersey-one,.jersey-two,.owner-trophy,.audience-rings,.role-art>svg,.cheer-stars,.hero-art:before{animation:none!important}}
+
+/* Visibility, legibility, and match-day motion refinements. */
+.register-card{overflow:visible;isolation:isolate;animation:card-arrive .65s cubic-bezier(.2,.8,.2,1) both}
+.register-card:nth-child(2){animation-delay:.12s}
+.register-card:nth-child(3){animation-delay:.24s}
+.register-card:after{z-index:-1}
+.card-top,.role-art,.register-card h3,.register-card>p,.card-bottom{position:relative;z-index:1}
+.role-art{z-index:2;overflow:visible;height:100px;margin:3px 0 9px;transform:scale(1.08)}
+.role-player{animation:player-bounce 1.8s ease-in-out infinite}
+.player-bat{animation:mini-swing 2s ease-in-out infinite}
+.role-ball{animation:mini-ball-flight 2s cubic-bezier(.34,.01,.53,1) infinite}
+.jersey-one{animation:jersey-lift 1.9s ease-in-out infinite}
+.jersey-two{animation:jersey-lift 1.9s .18s ease-in-out infinite}
+.owner-trophy{animation:trophy-bob 1.7s ease-in-out infinite}
+.audience-rings{animation:cheer-pulse 1.35s ease-out infinite}
+.role-art>svg{animation:audience-bob .8s ease-in-out infinite}
+.cheer-stars{animation:star-twinkle 1.2s ease-in-out infinite}
+.register-card:hover .role-art{transform:scale(1.13)}
+.register-card h3{font-size:32px;line-height:1.02}
+.register-card>p{font-size:14px;line-height:1.6;min-height:54px}
+.card-number{font-size:10px;color:#f0c8da}
+.card-emoji{font-size:28px}
+.card-bottom>span,.card-bottom button{font-size:12px}
+.fee-note{font-size:12px;line-height:1.55}
+.nav-links{font-size:14px}
+.nav-admin{font-size:13px;padding:12px 16px}
+.topline{font-size:10px}
+.eyebrow,.section-tag{font-size:11px}
+.hero-text{font-size:16px;line-height:1.7;max-width:455px}
+.hero-actions .button,.text-link{font-size:13px}
+.hero-proof{font-size:12px}
+.intro-copy p,.matchday-left>p{font-size:15px;line-height:1.75}
+.underlink{font-size:13px}
+.stat-row strong{font-size:40px}
+.stat-row span,.stat-note{font-size:10px}
+.live-board-head{font-size:11px}
+.live-refresh{font-size:10px}
+.live-board-grid small{font-size:9px}
+.live-board-grid strong{font-size:42px}
+.live-board-grid .live-total strong{font-size:50px}
+.live-board-grid span{font-size:9px}
+.register-heading p{font-size:15px;line-height:1.65}
+.match-card-head{font-size:10px}
+.match-pill{font-size:9px}
+.match-meta small,.match-meta strong{font-size:9px}
+.match-card-foot{font-size:9px}
+.footer-main>p{font-size:13px}
+.footer-top,.footer-bottom{font-size:10px}
+.fee-note svg{flex:none}
+.hero-art:before{opacity:.8}
+.stadium-glow{animation:pulse 3.4s ease-in-out infinite}
+.ball-two{animation:ball-zip 3.4s ease-in-out infinite}
+.match-card{animation:card-arrive .75s .18s both,match-glow 4s 1s ease-in-out infinite}
+.match-card:before{content:'';position:absolute;top:-15%;left:-30%;width:26%;height:130%;background:linear-gradient(90deg,transparent,rgba(255,177,216,.12),transparent);transform:rotate(18deg);animation:scoreboard-sweep 5.5s ease-in-out infinite;pointer-events:none}
+.match-card:after{z-index:0}
+.register-card:focus-within{outline:2px solid #ff9ac7;outline-offset:3px}
+.register-card button:focus-visible,.nav-admin:focus-visible,.button:focus-visible{outline:3px solid #ffd5e7;outline-offset:3px}
+@keyframes card-arrive{from{opacity:0;translate:0 16px}to{opacity:1;translate:0 0}}
+@keyframes ball-zip{0%,8%{translate:0 0;opacity:0}15%{opacity:1}52%{translate:-80px -30px;opacity:1}65%,100%{translate:-100px -40px;opacity:0}}
+@keyframes match-glow{0%,100%{box-shadow:0 18px 45px rgba(6,0,4,.3),0 0 0 rgba(255,90,167,0)}50%{box-shadow:0 18px 45px rgba(6,0,4,.3),0 0 35px rgba(255,90,167,.16)}}
+@keyframes scoreboard-sweep{0%,15%{left:-30%;opacity:0}30%{opacity:1}58%,100%{left:115%;opacity:0}}
+@media(max-width:850px){.register-card h3{font-size:30px}.register-card>p{font-size:14px}.live-board-grid strong{font-size:38px}}
+@media(max-width:620px){.topline{font-size:8px}.nav-links{font-size:15px}.hero-text{font-size:15px}.eyebrow,.section-tag{font-size:10px}.register-card{min-height:315px}.role-art{height:92px;transform:scale(1.04)}.register-card:hover .role-art{transform:scale(1.06)}.register-card>p{font-size:14px}.card-bottom>span,.card-bottom button{font-size:12px}.live-board-grid small,.live-board-grid span{font-size:8px}.stat-row strong{font-size:34px}.footer-bottom{font-size:9px}}
+@media(prefers-reduced-motion:reduce){.register-card,.match-card{animation:none!important}.match-card:before{display:none}.stadium-glow{animation:none!important}.ball-two{animation:none!important}}
