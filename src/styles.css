@@ -366,6 +366,19 @@ td small{color:#d1b1c2}
 @media(max-width:850px){.register-card h3{font-size:30px}.register-card>p{font-size:14px}.live-board-grid strong{font-size:38px}}
 @media(max-width:620px){.topline{font-size:8px}.nav-links{font-size:15px}.hero-text{font-size:15px}.eyebrow,.section-tag{font-size:10px}.register-card{min-height:315px}.role-art{height:92px;transform:scale(1.04)}.register-card:hover .role-art{transform:scale(1.06)}.register-card>p{font-size:14px}.card-bottom>span,.card-bottom button{font-size:12px}.live-board-grid small,.live-board-grid span{font-size:8px}.stat-row strong{font-size:34px}.footer-bottom{font-size:9px}}
 @media(prefers-reduced-motion:reduce){.register-card,.match-card{animation:none!important}.match-card:before{display:none}.stadium-glow{animation:none!important}.ball-two{animation:none!important}}
-.brand-logo{width:58px;height:58px;object-fit:contain;flex:none;filter:drop-shadow(0 3px 9px rgba(0,0,0,.3))}.brand-copy{display:block}
-@media(max-width:760px){.brand-logo{width:48px;height:48px}.brand{gap:8px}}
+.brand-logo{width:78px;height:68px;object-fit:contain;flex:none;filter:drop-shadow(0 3px 9px rgba(0,0,0,.3))}.brand-copy{display:block}
+@media(max-width:760px){.brand-logo{width:54px;height:50px}.brand{gap:8px}}
 .site-shell{--display:'Barlow Condensed',Impact,sans-serif}.brand,.hero h1,.intro-grid h2,.register-heading h2,.matchday h2,.register-card h3,.dashboard-head h2{font-family:'Barlow Condensed',Impact,sans-serif}.hero h1,.intro-grid h2,.register-heading h2,.matchday h2{font-weight:800;letter-spacing:-.025em}.section-tag,.eyebrow{font-family:'DM Sans',sans-serif;font-weight:800}
+.nav{height:94px}.brand{gap:14px;font-size:34px;line-height:.86}.brand-logo{width:104px;height:82px}.brand small{font-size:9px;letter-spacing:.14em;margin-top:8px}
+@media(max-width:760px){.nav{height:78px}.brand{gap:9px;font-size:27px}.brand-logo{width:66px;height:58px}.brand small{font-size:7px;letter-spacing:.1em;margin-top:6px}}
+:root{--ink:#fff5fb;--muted:#f0cddd}
+body,.site-shell{color:#fff5fb}
+.hero-text,.intro-copy p,.register-card>p,.register-heading p,.matchday-left>p,.footer-main>p,.footer-bottom{color:#f3dce7}
+.eyebrow,.section-tag,.live-board-grid small,.match-meta small,.art-label{color:#ffc3dc}
+.nav-links{color:#fff2f8}.brand small{color:#ffd3e5}.scroll-cue,.hero-proof{color:#f4ddea}
+.button,.nav-admin,.register-card,.match-card,.text-link,.filters button{transition:transform .28s cubic-bezier(.2,.75,.25,1),color .25s ease,background-color .25s ease,border-color .25s ease,box-shadow .3s ease}
+.button:hover,.register-card:hover,.match-card:hover{transform:translateY(-5px)}
+.hero-stamp{animation:stamp-drift 4.2s ease-in-out infinite;transform-origin:center}
+.role-art>svg{filter:drop-shadow(0 0 15px rgba(255,122,187,.68))}
+@keyframes stamp-drift{0%,100%{translate:0 0;rotate:-3deg}50%{translate:0 -9px;rotate:3deg}}
+@media(prefers-reduced-motion:reduce){.hero-stamp{animation:none!important}.button,.nav-admin,.register-card,.match-card,.text-link,.filters button{transition:none!important}}
