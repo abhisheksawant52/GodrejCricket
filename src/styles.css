@@ -130,3 +130,175 @@ td small{color:#849087}
 .submit-button:disabled{opacity:.48;cursor:not-allowed;transform:none}
 @media(max-width:620px){.hero h1{font-size:clamp(48px,12.6vw,76px);line-height:.91}.live-board-head{align-items:flex-start;gap:10px;flex-direction:column}.confirm-dialog{padding:24px 20px}.confirm-actions>*{flex:1}}
 @media(prefers-reduced-motion:reduce){h1{animation:none!important}}
+
+/* Dark-pink match-night theme with brighter type and tighter section rhythm. */
+:root{color:#fff4fa;background:#180713;--ink:#fff4fa;--muted:#e4c8d6;--lime:#ff5aa7;--green:#83134f;--line:rgba(255,225,241,.15);--display:'Manrope',sans-serif}
+html{background:#180713}
+body{background:radial-gradient(ellipse at 80% 4%,rgba(192,27,107,.18),transparent 34%),#180713;color:#fff4fa}
+.site-shell{background:linear-gradient(180deg,#1a0714 0%,#210a1a 47%,#180713 100%)}
+.topline{background:#ff5aa7;color:#260a1b}
+.live-dot{color:#ff78b7}
+.topline .live-dot{color:#5c1038}
+.nav{height:70px;border-color:rgba(255,225,241,.12)}
+.brand-mark{color:#ff83bb;border-color:rgba(255,131,187,.42)}
+.brand-accent{color:#ff73b2}
+.brand small{color:#ddb6c9}
+.nav-links{color:#f8dce9}
+.nav-links.open{background:#290c21;border-color:rgba(255,225,241,.16)}
+.nav-links>a:hover,.nav-admin:hover{color:#ff83bb}
+.nav-admin{border-color:rgba(255,225,241,.23);color:#ffe8f2}
+.menu-toggle{color:#ffe8f2}
+.hero{min-height:570px;padding:18px 0 34px}
+.hero:before{background:radial-gradient(ellipse at 76% 50%,rgba(236,33,132,.22),transparent 49%)}
+.eyebrow,.section-tag{color:#ff9bc7}
+.eyebrow-line{background:#ff5aa7}
+h1{color:#fff7fb;animation:hero-reveal .8s cubic-bezier(.2,.75,.25,1) both}
+.hero h1{font-size:clamp(58px,7.2vw,100px);line-height:.88;letter-spacing:-.055em}
+h1 span{color:#ff5aa7}
+.hero h1 em{color:#ffd5e7}
+.hero-text{color:#f0d7e3}
+.hero-proof{color:#e4c7d6;margin-top:30px}
+.hero-proof strong{color:#fff4fa}
+.avatar-stack b{background:#561435;border-color:#1a0714}
+.avatar-stack b:last-child{background:#ff5aa7;color:#260a1b}
+.hero-art{height:490px;background:radial-gradient(ellipse at 52% 55%,rgba(239,47,139,.2),transparent 60%)}
+.stadium-glow{background:radial-gradient(ellipse,rgba(245,54,145,.27),transparent 70%)}
+.figure-body{background:linear-gradient(115deg,#ff8abe,#d62d82)}
+.hero-art:before{content:'';position:absolute;width:74%;height:72%;border:1px solid rgba(255,111,179,.24);border-radius:50%;box-shadow:0 0 0 18px rgba(255,90,167,.025),0 0 70px rgba(233,34,130,.14);animation:stadium-pulse 5s ease-in-out infinite}
+.hero-stamp{border-color:rgba(255,119,183,.52);color:#ffd8e9;box-shadow:0 0 36px rgba(255,70,159,.12)}
+.hero-stamp strong,.art-label svg{color:#ff64aa}
+.orbit{border-color:rgba(255,103,173,.2)}
+.art-ring{border-color:rgba(255,232,243,.34);color:#ffe7f1}
+.ball{background:#ff4f73;box-shadow:inset -3px -3px 0 rgba(0,0,0,.14),0 7px 22px rgba(255,67,122,.45)}
+.ball:after{border-color:rgba(255,255,255,.85)}
+.wicket i{background:#ffe8f2;box-shadow:0 0 9px rgba(255,90,167,.8)}
+.wicket b{background:#ff70b2}
+.scroll-cue{color:#e5c6d6}
+.button-lime{background:#ff5aa7;color:#260817;box-shadow:0 8px 26px rgba(255,53,148,.2)}
+.button-lime:hover{background:#ff85bd;box-shadow:0 10px 30px rgba(255,53,148,.32)}
+.text-link{color:#fff0f6}
+.text-link svg{color:#ff79b6}
+.ticker{height:40px;margin:0 0 42px;background:#ff5aa7;color:#280819;transform:none}
+.ticker-track{font-size:13px;animation-duration:23s}
+.ticker-track b{color:#7e174b}
+.intro-section{padding-bottom:56px}
+.intro-grid{gap:32px;padding:24px 0 30px}
+.intro-grid h2,.register-heading h2,.matchday h2,.dialog h2{color:#fff5fa}
+.intro-grid h2 em,.register-heading h2 em,.matchday h2 em,.dialog h2 em{color:#ff72b2}
+.intro-copy p,.matchday-left>p{color:#e6cbd8}
+.underlink{border-color:rgba(255,125,185,.52);color:#fff0f6}
+.underlink svg{color:#ff78b8}
+.stat-row{border-color:rgba(255,225,241,.15);padding-top:18px}
+.stat-row strong{color:#ff73b5}
+.stat-row span{color:#dfc3d1}
+.stat-note{color:#f3dbe6}
+.live-board{margin-top:28px;background:linear-gradient(130deg,#351027,#280c20 70%,#351027);border-color:rgba(255,110,179,.28);box-shadow:0 18px 55px rgba(7,0,5,.22)}
+.live-board:after{border-color:rgba(255,125,185,.1)}
+.live-board-head{color:#fff2f8}
+.live-refresh{color:#ddb9ca}
+.live-board-grid{border-color:rgba(255,225,241,.13)}
+.live-board-grid>div+div{border-color:rgba(255,225,241,.13)}
+.live-board-grid small{color:#e9c9d8}
+.live-board-grid strong{color:#ff75b7;text-shadow:0 0 22px rgba(255,72,160,.23)}
+.live-board-grid span{color:#d5b2c3}
+.register-section{padding:54px 0 58px;background:linear-gradient(180deg,#280c20,#200817);color:#fff4fa}
+.register-section:before{color:rgba(255,90,167,.035)}
+.register-section .section-tag{color:#ff9bc7}
+.register-heading{margin:22px 0 28px}
+.register-heading p{color:#e3c5d4}
+.register-card{min-height:315px;padding:20px;background:linear-gradient(145deg,#35112a,#2a0c21 70%);border:1px solid rgba(255,120,184,.2);border-radius:8px;box-shadow:0 8px 22px rgba(7,0,5,.15)}
+.register-card:hover{transform:translateY(-7px);border-color:rgba(255,116,181,.56);box-shadow:0 18px 38px rgba(9,0,6,.3),0 0 24px rgba(245,43,140,.08)}
+.register-card:after{background:radial-gradient(circle,rgba(255,90,167,.2),transparent 70%)}
+.card-number{color:#dcb5c9}
+.card-emoji{font-size:22px;filter:none}
+.register-card h3{color:#fff5fa;font-size:30px;margin:8px 0 9px}
+.register-card>p{color:#e3c7d5;min-height:38px}
+.card-bottom{border-color:rgba(255,225,241,.15)}
+.card-bottom>span{color:#e5c5d4}
+.card-bottom button{color:#ff9ac6}
+.card-bottom button svg{color:#ff63a9}
+.fee-note{color:#e5c8d5;margin-top:15px}
+.fee-note svg{color:#ff7cb8}
+.role-art{position:relative;isolation:isolate;height:86px;margin:2px 0 7px;display:flex;align-items:center;justify-content:center;gap:10px;color:#ff8fbe}
+.role-player{position:relative;width:96px;height:78px;animation:player-bounce 2.7s ease-in-out infinite}
+.player-helmet{position:absolute;left:25px;top:3px;width:26px;height:25px;border-radius:50% 50% 35% 35%;background:linear-gradient(135deg,#ffafd0,#ff4e9e);box-shadow:0 0 19px rgba(255,71,155,.32)}
+.player-body{position:absolute;left:28px;top:27px;width:33px;height:31px;background:linear-gradient(135deg,#ff77b4,#a71d62);clip-path:polygon(24% 0,76% 0,100% 24%,82% 100%,18% 100%,0 24%);border-radius:7px}
+.player-bat{position:absolute;left:65px;top:8px;width:8px;height:68px;border-radius:4px;background:linear-gradient(90deg,#ecc78f,#fff0cc,#b9814c);transform:rotate(25deg);transform-origin:bottom;animation:mini-swing 2.7s ease-in-out infinite}
+.role-ball{position:absolute;width:11px;height:11px;border-radius:50%;background:#ff5b73;box-shadow:0 0 12px #ff5b73;animation:mini-ball-flight 2.7s ease-in-out infinite}
+.owner-jersey{width:45px;height:52px;clip-path:polygon(25% 0,75% 0,100% 18%,82% 38%,82% 100%,18% 100%,18% 38%,0 18%);background:linear-gradient(145deg,#ff9bc5,#b51e68);filter:drop-shadow(0 5px 10px rgba(255,60,150,.2))}
+.jersey-one{transform:rotate(-9deg) translateY(3px);animation:jersey-lift 2.5s ease-in-out infinite}
+.jersey-two{transform:rotate(8deg) translateY(-3px);background:linear-gradient(145deg,#ffc0db,#ed438f);animation:jersey-lift 2.5s .25s ease-in-out infinite}
+.owner-trophy{position:absolute;left:calc(50% - 15px);top:22px;color:#ffe39d;filter:drop-shadow(0 0 12px rgba(255,208,109,.38));animation:trophy-bob 2.3s ease-in-out infinite}
+.audience-rings{position:absolute;width:65px;height:65px;border:1px solid rgba(255,129,187,.8);border-radius:50%;animation:cheer-pulse 1.8s ease-out infinite}
+.role-art>svg{position:relative;z-index:1;color:#ff9fc8;filter:drop-shadow(0 0 12px rgba(255,90,167,.45));animation:audience-bob 1.2s ease-in-out infinite}
+.cheer-stars{position:absolute;right:calc(50% - 72px);top:5px;font-size:11px;letter-spacing:8px;color:#ffe29d;animation:star-twinkle 1.8s ease-in-out infinite}
+.matchday{padding:64px 0 76px;gap:48px}
+.matchday h2{margin:18px 0 15px}
+.match-card{background:radial-gradient(ellipse at 50% 47%,rgba(221,35,128,.22),transparent 55%),linear-gradient(145deg,#351027,#200817);border-color:rgba(255,100,170,.34);border-radius:8px;box-shadow:0 18px 45px rgba(6,0,4,.3)}
+.match-card-head{color:#f1d4e2}
+.match-pill{border-color:rgba(255,111,178,.42);color:#ff95c1}
+.match-meta{border-color:rgba(255,225,241,.15)}
+.match-meta small{color:#e3c1d2}
+.match-card-foot{border-color:rgba(255,225,241,.15);color:#ff92c0}
+.footer{background:#14050f;border-color:rgba(255,225,241,.13);color:#f5dce8}
+.footer-main>p{color:#e2c4d2}
+.footer-main>p strong{color:#ff9ac7}
+.footer-top{color:#edcddd}
+.footer-bottom{border-color:rgba(255,225,241,.12);color:#cdaebe}
+.footer-bottom button{color:#ff9bc7}
+.lime{color:#ff73b5}
+.overlay{background:rgba(15,2,10,.76)}
+.dialog{background:linear-gradient(145deg,#351027,#25091d);color:#fff3f9;border-color:rgba(255,107,175,.28);border-radius:9px;box-shadow:0 30px 100px rgba(0,0,0,.52)}
+.dialog .section-tag{color:#ff9bc7}
+.registration-form label,.admin-login label{color:#f4d9e6}
+.form-grid input,.admin-login input{border-color:rgba(255,225,241,.18);background:#1d0715;color:#fff6fb;border-radius:4px}
+.form-grid input:focus,.admin-login input:focus{border-color:#ff67ad;box-shadow:0 0 0 3px rgba(255,90,167,.13)}
+.form-grid input::placeholder,.admin-login input::placeholder{color:#bc92a8}
+.field-hint,.form-privacy{color:#d7b5c7}
+.form-requirements{color:#ffcd8f}
+.form-requirements.complete{color:#a9edc3}
+.close{border-color:rgba(255,225,241,.2);color:#ffe8f2}
+.success-state p{color:#f2dbe7}
+.success-icon{background:#ff5aa7;color:#280918}
+.export-button{border-color:rgba(255,127,187,.4);color:#ff9bc7;border-radius:4px}
+.dash-stats>div{border-color:rgba(255,225,241,.15);border-radius:5px}
+.dash-stats span{color:#e1c1d1}
+.dash-stats strong{color:#ff83bb}
+.filters button{color:#e3c5d4}
+.filters button.active{border-color:rgba(255,128,187,.55);color:#ff98c4}
+.refresh-status{color:#e0c0cf}
+th{background:#2b0d22;color:#f0d4e1}
+td{border-color:rgba(255,225,241,.1);color:#efd9e4}
+td strong{color:#fff5fa}
+td small{color:#d1b1c2}
+.empty-state{color:#e1c5d3}
+.dash-foot{color:#d7b7c8}
+.notice{color:#ffd095}
+.confirm-overlay{background:rgba(12,1,8,.78)}
+.confirm-dialog{background:#321025;border-color:rgba(255,103,171,.32);border-radius:8px;box-shadow:0 24px 70px rgba(0,0,0,.5)}
+.confirm-dialog h2{color:#fff5fa}
+.confirm-dialog h2 em{color:#ff78b5}
+.confirm-dialog p{color:#ebccda}
+.confirm-dialog p strong{color:#fff5fa}
+.cancel-delete{border-color:rgba(255,225,241,.2);background:#24091b;color:#f8e4ed}
+.confirm-delete{border-color:#d92f7d;background:#d92f7d;color:#fff}
+.delete-button{border-color:rgba(255,119,181,.3);background:#300d24;color:#ff9bc7;border-radius:4px}
+.delete-button:hover{background:#48132f;border-color:#ff75b6}
+.field-hint{color:#dcb8ca}
+.form-requirements{font-size:10px}
+.submit-button:disabled{opacity:.42}
+.table-wrap table{min-width:820px}
+.card-bottom button,.nav-admin,.text-link,.underlink,.footer-top,.footer-bottom button{transition:color .2s ease,border-color .2s ease,transform .2s ease}
+.role-art{filter:drop-shadow(0 7px 14px rgba(0,0,0,.12))}
+@keyframes player-bounce{0%,100%{transform:translateY(3px) rotate(-3deg)}50%{transform:translateY(-4px) rotate(3deg)}}
+@keyframes mini-swing{0%,68%,100%{transform:rotate(25deg)}78%{transform:rotate(-15deg)}88%{transform:rotate(62deg)}94%{transform:rotate(25deg)}}
+@keyframes mini-ball-flight{0%,18%,100%{opacity:0;transform:translate(0,18px) scale(.5)}30%{opacity:1;transform:translate(-8px,4px) scale(1)}58%{opacity:1;transform:translate(86px,-42px) scale(.8)}68%{opacity:0;transform:translate(105px,-55px) scale(.5)}}
+@keyframes jersey-lift{0%,100%{filter:drop-shadow(0 5px 10px rgba(255,60,150,.2))}50%{filter:drop-shadow(0 10px 18px rgba(255,60,150,.42));translate:0 -4px}}
+@keyframes trophy-bob{0%,100%{translate:0 0;rotate:-5deg}50%{translate:0 -7px;rotate:5deg}}
+@keyframes cheer-pulse{0%{transform:scale(.65);opacity:.8}100%{transform:scale(1.55);opacity:0}}
+@keyframes audience-bob{0%,100%{translate:0 1px}50%{translate:0 -5px}}
+@keyframes star-twinkle{0%,100%{opacity:.45;transform:translateY(2px)}50%{opacity:1;transform:translateY(-3px)}}
+@keyframes stadium-pulse{0%,100%{opacity:.45;transform:scale(.98)}50%{opacity:.9;transform:scale(1.02)}}
+@media(max-width:850px){.hero{min-height:525px}.matchday{padding:54px 0 62px}.register-section{padding:46px 0 50px}}
+@media(max-width:620px){.topline{font-size:6px}.topline-right{display:none}.hero{min-height:0;padding:36px 0 25px}.hero-art{height:350px;margin-top:8px}.ticker{margin-bottom:35px}.intro-section{padding-bottom:42px}.intro-grid{padding:18px 0 24px}.live-board{margin-top:22px;padding:16px}.register-heading{margin:18px 0 22px}.register-card{min-height:300px}.role-art{height:78px}.matchday{padding:48px 0 54px}.footer-bottom{font-size:7px}}
+@media(prefers-reduced-motion:reduce){.role-player,.player-bat,.role-ball,.jersey-one,.jersey-two,.owner-trophy,.audience-rings,.role-art>svg,.cheer-stars,.hero-art:before{animation:none!important}}
