@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { ArrowDown, ArrowRight, ArrowUpRight, Check, CircleDot, Clock3, Download, Menu, Radio, ShieldCheck, Trophy, Users, X } from 'lucide-react';
 
 const types = [
