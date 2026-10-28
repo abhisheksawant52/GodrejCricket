@@ -26,6 +26,18 @@ function App() {
   const [formBusy, setFormBusy] = useState(false);
   const [notice, setNotice] = useState('');
   const [filter, setFilter] = useState('All');
+  const [registrationCounts, setRegistrationCounts] = useState(null);
+
+  const refreshRegistrationCounts = async () => {
+    try {
+      const response = await fetch('/api/stats', { cache: 'no-store' });
+      if (!response.ok) return;
+      const data = await response.json();
+      setRegistrationCounts(data.counts || null);
+    } catch {
+      // Keep the public counters in their loading state if the API is unavailable.
+    }
+  };
 
   const loadRows = async (pass = adminPass) => {
     if (!pass) return { ok: false, message: 'Enter the admin password to continue.' };
@@ -46,6 +58,11 @@ function App() {
       return { ok: false, message: 'Could not reach the registrations API. Check the deployment and try again.' };
     }
   };
+  useEffect(() => {
+    refreshRegistrationCounts();
+    const timer = setInterval(refreshRegistrationCounts, 12000);
+    return () => clearInterval(timer);
+  }, []);
   useEffect(() => { if (admin && online) { const timer = setInterval(() => loadRows(), 12000); return () => clearInterval(timer); } }, [admin, online, adminPass]);
   const counts = useMemo(() => ({ total: rows.length, paid: rows.filter(r => r.payment_status === 'Paid').length }), [rows]);
   const shown = filter === 'All' ? rows : rows.filter(r => r.type === filter);
@@ -59,6 +76,7 @@ function App() {
       const response = await fetch('/api/registrations', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
       if (response.ok && response.headers.get('content-type')?.includes('application/json')) {
         const result = await response.json(); setNotice(`You're on the list! Your ${modal.key.toLowerCase()} registration is confirmed. Payment will show as pending until reviewed.`);
+        await refreshRegistrationCounts();
         if (online) await loadRows();
       } else if (response.status === 503 || response.status === 404 || !response.headers.get('content-type')?.includes('application/json')) {
         const row = { ...payload, id: crypto.randomUUID(), created_at: new Date().toISOString(), payment_status: 'Pending' };
@@ -107,14 +125,14 @@ function App() {
 
       <section className="ticker" aria-label="Tournament highlights"><div className="ticker-track">{Array.from({ length: 2 }, (_, i) => <span key={i}>COMMUNITY FIRST <b>✳</b> CRICKET ALWAYS <b>✳</b> GOOD TIMES GUARANTEED <b>✳</b> GNPL 2026 <b>✳</b> COMMUNITY FIRST <b>✳</b> CRICKET ALWAYS <b>✳</b> GOOD TIMES GUARANTEED <b>✳</b></span>)}</div></section>
 
-      <section className="intro-section wrap" id="league"><div className="section-tag">01 / THE LEAGUE</div><div className="intro-grid"><h2>MORE THAN<br />A <em>MATCH.</em></h2><div className="intro-copy"><p>It’s the neighbour who bowls a mean yorker. The family in the front row. The team that starts as strangers and ends as friends.</p><p>Godrej Nest Premier League brings our community together through the game we all love.</p><a href="#register" className="underlink">Find your place in the league <ArrowRight size={15} /></a></div></div><div className="stat-row"><div><strong>03</strong><span>WAYS TO JOIN</span></div><div><strong>01</strong><span>COMMUNITY</span></div><div><strong>∞</strong><span>MEMORIES TO MAKE</span></div><div className="stat-note"><span className="live-dot" /> REGISTRATION IS OPEN</div></div></section>
+      <section className="intro-section wrap" id="league"><div className="section-tag">01 / THE LEAGUE</div><div className="intro-grid"><h2>MORE THAN<br />A <em>MATCH.</em></h2><div className="intro-copy"><p>It’s the neighbour who bowls a mean yorker. The family in the front row. The team that starts as strangers and ends as friends.</p><p>Godrej Nest Premier League brings every tower and every neighbour together through cricket. Arranged by the Nest Sanskriti Cultural Team.</p><a href="#register" className="underlink">Find your place in the league <ArrowRight size={15} /></a></div></div><div className="stat-row"><div><strong>03</strong><span>WAYS TO JOIN</span></div><div><strong>01</strong><span>COMMUNITY</span></div><div><strong>∞</strong><span>MEMORIES TO MAKE</span></div><div className="stat-note"><span className="live-dot" /> REGISTRATION IS OPEN</div></div><div className="live-board"><div className="live-board-head"><div><span className="live-dot" /> LIVE LEAGUE BOARD</div><span className="live-refresh">Updates every 12 seconds</span></div><div className="live-board-grid"><div className="live-total"><small>TOTAL REGISTRATIONS</small><strong>{registrationCounts ? registrationCounts.total : '—'}</strong><span>THE NEST IS FILLING UP</span></div><div className="live-count"><small>PLAYERS</small><strong>{registrationCounts ? registrationCounts.players : '—'}</strong><span>READY FOR THE SQUAD</span></div><div className="live-count"><small>TEAM OWNERS</small><strong>{registrationCounts ? registrationCounts.owners : '—'}</strong><span>BUILDING THEIR TEAMS</span></div><div className="live-count"><small>AUDIENCE</small><strong>{registrationCounts ? registrationCounts.audience : '—'}</strong><span>IN THE STANDS</span></div></div></div></section>
 
       <section className="register-section" id="register"><div className="wrap"><div className="section-tag">02 / YOUR MOVE</div><div className="register-heading"><div><h2>HOW WILL<br /><em>YOU PLAY?</em></h2></div><p>Every great season needs a full squad.<br />Pick your spot and sign up in a minute.</p></div><div className="register-grid">{types.map((t, i) => <article className={`register-card card-${i}`} key={t.key}><div className="card-top"><span className="card-number">0{i + 1} / GNPL</span><span className="card-emoji">{t.icon}</span></div><h3>{t.title}</h3><p>{t.desc}</p><div className="card-bottom"><span>{t.fee}</span><button onClick={() => { setNotice(''); setModal(t); }}>Choose your spot <ArrowUpRight size={16} /></button></div></article>)}</div><p className="fee-note"><ShieldCheck size={14} /> Registration fees and payment instructions are shared after sign-up by the tournament team.</p></div></section>
 
       <section className="matchday wrap" id="schedule"><div className="matchday-left"><div className="section-tag">03 / SAVE THE FEELING</div><h2>THE CROWD.<br /><em>THE CRACK.</em><br />THE CHEER.</h2><p>One boundary can bring the whole neighbourhood to its feet. Get ready for a season worth showing up for.</p><a href="#register" className="button button-lime">Count me in <ArrowRight size={17} /></a></div><div className="match-card"><div className="match-card-head"><span>GNPL · SEASON 2026</span><span className="match-pill"><span className="live-dot" /> COMING SOON</span></div><div className="match-emblem">🏆</div><div className="match-vs"><span>NEST<br />UNITED</span><b>VS</b><span>THE<br />STRIKERS</span></div><div className="match-meta"><div><small>VENUE</small><strong>GODREJ NEST</strong></div><div><small>FIXTURES</small><strong>TO BE ANNOUNCED</strong></div></div><div className="match-card-foot">YOUR COMMUNITY. YOUR TEAM. YOUR MOMENT.</div></div></section>
     </main>
 
-    <footer className="footer"><div className="wrap footer-main"><a href="#home" className="brand"><span className="brand-mark"><Trophy size={21} /></span><span>GN<span className="brand-accent">PL</span><small>GODREJ NEST PREMIER LEAGUE</small></span></a><p>Made for the love of the game<br />and the people who play it.</p><a className="footer-top" href="#home">BACK TO TOP ↑</a></div><div className="wrap footer-bottom"><span>© 2026 GNPL · GODREJ NEST COMMUNITY</span><button onClick={openAdmin}>Registration dashboard</button><span>PLAY WITH PRIDE <span className="lime">✳</span></span></div></footer>
+    <footer className="footer"><div className="wrap footer-main"><a href="#home" className="brand"><span className="brand-mark"><Trophy size={21} /></span><span>GN<span className="brand-accent">PL</span><small>GODREJ NEST PREMIER LEAGUE</small></span></a><p>Arranged by<br /><strong>Nest Sanskriti Cultural Team</strong></p><a className="footer-top" href="#home">BACK TO TOP ↑</a></div><div className="wrap footer-bottom"><span>© 2026 GNPL · GODREJ NEST PREMIER LEAGUE</span><button onClick={openAdmin}>Registration dashboard</button><span>Website created by Abhishek Hemant Sawant</span><span>PLAY WITH PRIDE <span className="lime">✳</span></span></div></footer>
 
     {modal && <div className="overlay" role="presentation" onMouseDown={e => e.target === e.currentTarget && setModal(null)}><div className="dialog register-dialog" role="dialog" aria-modal="true" aria-labelledby="reg-title"><button className="close" onClick={() => setModal(null)} aria-label="Close"><X /></button><div className="dialog-icon">{modal.icon}</div><div className="section-tag">GNPL 2026 / {modal.key.toUpperCase()}</div><h2 id="reg-title">Your place<br /><em>starts here.</em></h2>{notice ? <div className="success-state"><span className="success-icon"><Check /></span><p>{notice}</p><button className="button button-lime" onClick={() => { setModal(null); setNotice(''); }}>Done <ArrowRight size={16} /></button></div> : <form className="registration-form" onSubmit={submitRegistration}><div className="form-grid"><label>Full name<input name="name" required placeholder="Your name" autoComplete="name" /></label><label>Mobile number<input name="phone" required inputMode="tel" placeholder="+91 00000 00000" autoComplete="tel" /></label><label>Email address<input name="email" required type="email" placeholder="you@example.com" autoComplete="email" /></label><label>Apartment / Tower<input name="apartment" placeholder="e.g. Tower A, 204" /></label>{modal.fields.map((f, i) => <label key={f}>{f}<input name={`extra${i}`} required placeholder={`Your ${f.toLowerCase()}`} /></label>)}<label className="full-field">Payment reference <span className="optional">OPTIONAL</span><input name="payment" placeholder="UPI ref / transaction ID (if already paid)" /></label></div><button className="button button-lime submit-button" disabled={formBusy}>{formBusy ? 'Submitting…' : 'Submit registration'} <ArrowRight size={16} /></button><p className="form-privacy">Your details are shared only with the GNPL organising team. Payment is marked pending until verified.</p></form>}</div></div>}
 
