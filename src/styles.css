@@ -487,3 +487,7 @@ body,.site-shell{color:#fff5fb}
 .hero h1.league-title em{color:#ffd166}.ticker-track b:nth-of-type(3n+1){color:#ffd166}.ticker-track b:nth-of-type(3n+2){color:#73e4ee}.ticker-track b:nth-of-type(3n){color:#d2aaff}
 .hero-invite{border-image:linear-gradient(180deg,#ff5aa7,#ffd166,#57dbea) 1}.hero-invite-tag{color:#ffd166}.hero-invite strong{text-shadow:0 0 16px rgba(255,90,167,.22)}
 .tournament-invite{border-color:rgba(255,209,102,.42);background:linear-gradient(110deg,rgba(105,18,62,.78),rgba(34,11,42,.94));box-shadow:0 12px 32px rgba(13,0,8,.24),inset 0 1px rgba(87,219,234,.16)}
+.topline{height:44px}.topline-right{font-size:13px;font-weight:900;letter-spacing:.14em;color:#4d1237;opacity:1}
+.nav{height:200px}.brand-logo{width:260px;height:190px;animation:none!important}
+@media(max-width:760px){.topline{height:42px}.topline-right{font-size:10px}.nav{height:178px;grid-template-rows:112px 66px}.nav>.brand .brand-logo{width:126px;height:108px}}
+@media(max-width:380px){.nav{height:142px;grid-template-rows:84px 58px}.nav>.brand .brand-logo{width:96px;height:82px}.topline{height:40px}}
