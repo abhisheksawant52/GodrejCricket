@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { ArrowDown, ArrowRight, ArrowUpRight, Check, Clock3, Download, Menu, Radio, ShieldCheck, Trophy, Users, X } from 'lucide-react';
+import { ArrowDown, ArrowRight, ArrowUpRight, Check, CircleDot, Clock3, Download, Menu, Radio, ShieldCheck, Trophy, Users, X } from 'lucide-react';
 
 const types = [
   { key: 'Player', icon: '🏏', title: 'Play for the pride', desc: 'Bring your game. Find your team. Make your mark.', fee: 'Player entry', cta: 'Register as player', fields: ['Age', 'Playing role', 'Experience'] },
