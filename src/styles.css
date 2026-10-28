@@ -382,3 +382,5 @@ body,.site-shell{color:#fff5fb}
 .role-art>svg{filter:drop-shadow(0 0 15px rgba(255,122,187,.68))}
 @keyframes stamp-drift{0%,100%{translate:0 0;rotate:-3deg}50%{translate:0 -9px;rotate:3deg}}
 @media(prefers-reduced-motion:reduce){.hero-stamp{animation:none!important}.button,.nav-admin,.register-card,.match-card,.text-link,.filters button{transition:none!important}}
+.nav{height:126px}.brand{gap:18px;font-size:48px;line-height:.9}.brand-logo{width:142px;height:108px}.brand small{font-size:11px;letter-spacing:.16em;margin-top:10px}
+@media(max-width:760px){.nav{height:94px}.brand{gap:11px;font-size:34px}.brand-logo{width:82px;height:68px}.brand small{font-size:8px;letter-spacing:.1em;margin-top:7px}}
