@@ -384,3 +384,14 @@ body,.site-shell{color:#fff5fb}
 @media(prefers-reduced-motion:reduce){.hero-stamp{animation:none!important}.button,.nav-admin,.register-card,.match-card,.text-link,.filters button{transition:none!important}}
 .nav{height:126px}.brand{gap:18px;font-size:48px;line-height:.9}.brand-logo{width:142px;height:108px}.brand small{font-size:11px;letter-spacing:.16em;margin-top:10px}
 @media(max-width:760px){.nav{height:94px}.brand{gap:11px;font-size:34px}.brand-logo{width:82px;height:68px}.brand small{font-size:8px;letter-spacing:.1em;margin-top:7px}}
+.entry-fee{font-size:19px!important;font-weight:800!important;color:#fff4fa!important;text-shadow:0 0 16px rgba(255,90,167,.45)}
+.tournament-invite{position:relative;isolation:isolate;overflow:hidden;display:flex;align-items:center;justify-content:space-between;gap:22px;margin:30px 0 8px;padding:24px 30px;border:1px solid rgba(255,126,188,.48);border-radius:10px;background:linear-gradient(110deg,rgba(107,20,64,.7),rgba(42,10,31,.88));box-shadow:0 12px 32px rgba(13,0,8,.24)}
+.tournament-invite:before{content:'';position:absolute;inset:-40% auto -40% -28%;width:24%;z-index:-1;background:linear-gradient(90deg,transparent,rgba(255,255,255,.1),transparent);transform:skewX(-20deg);animation:invite-sweep 6s ease-in-out infinite}
+.tournament-invite strong{display:block;color:#fff4fa;font:800 25px/1.1 'Barlow Condensed',sans-serif}.tournament-invite p{margin:8px 0 0;color:#f3d7e5;font-size:14px;line-height:1.65}
+.invite-ball{width:25px;height:25px;flex:none;position:relative;border-radius:50%;background:radial-gradient(circle at 32% 28%,#ffbdd9,#ff468f 56%,#b41458);box-shadow:0 0 20px rgba(255,75,153,.5);animation:invite-ball-bounce 1.5s ease-in-out infinite}
+.invite-ball:after{content:'';position:absolute;inset:3px 10px;border:1px solid rgba(255,255,255,.9);border-radius:50%;transform:rotate(35deg)}.invite-ball-two{animation-delay:.55s}
+@keyframes invite-ball-bounce{0%,100%{translate:0 0;rotate:-16deg}50%{translate:0 -13px;rotate:18deg}}
+@keyframes invite-sweep{0%,20%{left:-28%;opacity:0}35%{opacity:1}60%,100%{left:125%;opacity:0}}
+.modal-entry-fee{margin:-12px 0 20px;color:#f3d7e5;font-size:14px}.modal-entry-fee strong{color:#fff4fa;font-size:18px}
+@media(max-width:620px){.tournament-invite{padding:19px 16px;gap:12px}.tournament-invite strong{font-size:22px}.tournament-invite p{font-size:13px}.invite-ball{width:18px;height:18px}.invite-ball:after{inset:2px 7px}}
+@media(prefers-reduced-motion:reduce){.tournament-invite:before,.invite-ball{animation:none!important}}
