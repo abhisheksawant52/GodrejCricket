@@ -28,12 +28,23 @@ function App() {
   const [filter, setFilter] = useState('All');
 
   const loadRows = async (pass = adminPass) => {
-    if (!pass) return;
+    if (!pass) return { ok: false, message: 'Enter the admin password to continue.' };
     try {
       const r = await fetch('/api/registrations', { headers: { 'x-admin-password': pass } });
-      if (!r.ok) throw new Error();
-      const data = await r.json(); setRows(data.registrations || []); setOnline(true); return true;
-    } catch { return false; }
+      const contentType = r.headers.get('content-type') || '';
+      if (!contentType.includes('application/json')) {
+        return { ok: false, message: `The registrations API returned a non-JSON response (HTTP ${r.status}). Check Vercel deployment protection and the API route.` };
+      }
+      const data = await r.json();
+      if (!r.ok) {
+        if (r.status === 401) return { ok: false, message: 'Password rejected, or ADMIN_PASSWORD is missing from this deployment.' };
+        if (r.status === 503) return { ok: false, message: 'Database configuration is missing. Check SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY.' };
+        return { ok: false, message: data.error || `The registrations API returned HTTP ${r.status}.` };
+      }
+      setRows(data.registrations || []); setOnline(true); return { ok: true };
+    } catch {
+      return { ok: false, message: 'Could not reach the registrations API. Check the deployment and try again.' };
+    }
   };
   useEffect(() => { if (admin && online) { const timer = setInterval(() => loadRows(), 12000); return () => clearInterval(timer); } }, [admin, online, adminPass]);
   const counts = useMemo(() => ({ total: rows.length, paid: rows.filter(r => r.payment_status === 'Paid').length }), [rows]);
@@ -62,13 +73,13 @@ function App() {
   async function openAdmin() {
     setAdmin(true); setLocalAdmin(false); setNotice('');
     const pass = sessionStorage.getItem('gnpl_admin') || ''; setAdminPass(pass);
-    if (pass && await loadRows(pass)) return;
+    if (pass && (await loadRows(pass)).ok) return;
   }
   async function signIn(e) {
     e.preventDefault(); const p = new FormData(e.currentTarget).get('password');
-    const ok = await loadRows(p);
-    if (ok) { setAdminPass(p); sessionStorage.setItem('gnpl_admin', p); }
-    else setNotice('Could not sign in. Check the admin password and database configuration.');
+    const result = await loadRows(p);
+    if (result.ok) { setAdminPass(p); sessionStorage.setItem('gnpl_admin', p); }
+    else setNotice(result.message);
   }
   async function setPaid(row) {
     const next = row.payment_status === 'Paid' ? 'Pending' : 'Paid';
