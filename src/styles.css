@@ -474,3 +474,16 @@ body,.site-shell{color:#fff5fb}
 @media(max-width:380px){.hero-invite{min-height:145px;padding-right:112px}.hero-invite .treat-card{min-width:50px;padding:3px 2px}.hero-invite .treat-card>svg{width:32px;height:32px}.hero-invite .treat-card>span{font-size:5px}}
 @media(prefers-reduced-motion:reduce){.button:active,.nav-admin:active,.nav-links>a[href="#register"]:active,.card-bottom button:active,.button:focus:not(:focus-visible),.nav-admin:focus:not(:focus-visible),.nav-links>a[href="#register"]:focus:not(:focus-visible),.card-bottom button:focus:not(:focus-visible){animation:none!important;filter:none;box-shadow:0 0 0 3px rgba(255,205,228,.5)}}
 .field-error{display:block;margin-top:6px;color:#ff9cc5;font-size:12px;font-weight:700;line-height:1.4}.field-error[hidden]{display:none}label:has(input[aria-invalid="true"]) input{border-color:#ff78ae;box-shadow:0 0 0 2px rgba(255,88,157,.18)}label:has(input[aria-invalid="true"]){color:#ffd3e5}
+.register-card{--role-accent:#ffd166;--role-glow:rgba(255,209,102,.14);border-color:color-mix(in srgb,var(--role-accent) 40%,transparent);border-top:3px solid var(--role-accent);background:radial-gradient(ellipse at 50% 5%,var(--role-glow),transparent 48%),linear-gradient(145deg,#35112a,#2a0c21 70%)}
+.register-card.card-1{--role-accent:#57dbea;--role-glow:rgba(87,219,234,.13)}.register-card.card-2{--role-accent:#bd91ff;--role-glow:rgba(189,145,255,.15)}
+.register-card .card-number,.register-card .card-bottom>span,.register-card .card-bottom button,.register-card .card-bottom button svg{color:var(--role-accent)}
+.register-card .card-emoji{filter:drop-shadow(0 0 9px var(--role-glow))}.register-card .role-art{color:var(--role-accent)}
+.card-0 .player-body{background:linear-gradient(135deg,#ff9bc5,#cf3c83)}.card-0 .role-ball{background:#ffd166;box-shadow:0 0 15px #ffd166}
+.card-1 .owner-jersey{background:linear-gradient(145deg,#a2f4f8,#258ca8);filter:drop-shadow(0 5px 12px rgba(67,218,235,.35))}.card-1 .jersey-two{background:linear-gradient(145deg,#c7fbff,#48bad0)}.card-1 .owner-trophy{color:#ffe18c}
+.card-2 .audience-rings{border-color:#c29cff;box-shadow:0 0 17px rgba(194,156,255,.25)}.card-2 .cheer-stars{color:#ffe28a}
+.live-board-grid>div:nth-child(1) strong{color:#ff7db5}.live-board-grid>div:nth-child(2) strong{color:#ffd166}.live-board-grid>div:nth-child(3) strong{color:#57dbea}.live-board-grid>div:nth-child(4) strong{color:#bd91ff}
+.live-board-grid>div:nth-child(2) small{color:#ffe19a}.live-board-grid>div:nth-child(3) small{color:#a5f1f6}.live-board-grid>div:nth-child(4) small{color:#d7c0ff}
+.stat-row>div:nth-child(1) strong{color:#ff83bb}.stat-row>div:nth-child(2) strong{color:#ffd166}.stat-row>div:nth-child(3) strong{color:#57dbea}
+.hero h1.league-title em{color:#ffd166}.ticker-track b:nth-of-type(3n+1){color:#ffd166}.ticker-track b:nth-of-type(3n+2){color:#73e4ee}.ticker-track b:nth-of-type(3n){color:#d2aaff}
+.hero-invite{border-image:linear-gradient(180deg,#ff5aa7,#ffd166,#57dbea) 1}.hero-invite-tag{color:#ffd166}.hero-invite strong{text-shadow:0 0 16px rgba(255,90,167,.22)}
+.tournament-invite{border-color:rgba(255,209,102,.42);background:linear-gradient(110deg,rgba(105,18,62,.78),rgba(34,11,42,.94));box-shadow:0 12px 32px rgba(13,0,8,.24),inset 0 1px rgba(87,219,234,.16)}
