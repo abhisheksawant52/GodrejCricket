@@ -491,3 +491,8 @@ body,.site-shell{color:#fff5fb}
 .nav{height:200px}.brand-logo{width:260px;height:190px;animation:none!important}
 @media(max-width:760px){.topline{height:42px}.topline-right{font-size:10px}.nav{height:178px;grid-template-rows:112px 66px}.nav>.brand .brand-logo{width:126px;height:108px}}
 @media(max-width:380px){.nav{height:142px;grid-template-rows:84px 58px}.nav>.brand .brand-logo{width:96px;height:82px}.topline{height:40px}}
+.nav{height:220px}.brand-logo{width:286px;height:210px;animation:none!important}
+.brand,.hero h1,.intro-grid h2,.register-heading h2,.matchday h2,.register-card h3,.dashboard-head h2,.dialog h2,.confirm-dialog h2,.hero-invite strong,.tournament-invite strong{font-family:'Russo One',sans-serif;font-weight:400;letter-spacing:-.025em}
+.hero h1.league-title{font-size:clamp(44px,5.25vw,72px);line-height:.96;letter-spacing:-.045em}.league-title-second{white-space:nowrap}.league-title em{font-size:.62em}
+@media(max-width:760px){.nav{height:190px;grid-template-rows:122px 68px}.nav>.brand .brand-logo{width:136px;height:116px}.brand{font-size:34px}.hero h1.league-title{font-size:clamp(30px,9vw,38px);line-height:1}.league-title em{display:block;font-size:.58em;line-height:1.15;margin-top:4px}}
+@media(max-width:380px){.nav{height:150px;grid-template-rows:90px 60px}.nav>.brand .brand-logo{width:102px;height:88px}.brand{font-size:30px}.hero h1.league-title{font-size:clamp(28px,9vw,34px)}}
