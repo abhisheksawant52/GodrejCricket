@@ -3,7 +3,7 @@ import { ArrowDown, ArrowRight, ArrowUpRight, Check, CircleDot, Clock3, Download
 
 const types = [
   { key: 'Player', icon: '🏏', title: 'Play for the pride', desc: 'New to cricket? Never held a bat? This is your time to start. Everyone is welcome.', fee: 'Men ₹500 · Women ₹400 · Kids ₹300', cta: 'Register as player', fields: ['Age', 'Player category', 'Playing role', 'Experience'] },
-  { key: 'Owner', icon: '🧢', title: 'Build your team', desc: 'Own a team. Sponsorship is limited to the first 6–8 qualifying team owners.', fee: '₹5,000 minimum', cta: 'Register as owner', fields: ['Team name'] },
+  { key: 'Owner', icon: '🧢', title: 'Own your team', desc: 'Sponsorship is available to the first 6–8 qualifying team owners.', fee: '₹5,000 minimum', cta: 'Register as owner', fields: ['Team name'] },
   { key: 'Audience', icon: '🙌', title: 'Be in the stands', desc: 'Get your pass and cheer your team on. One pass per registration.', fee: '₹300 per pass', cta: 'Register as audience', fields: [] },
 ];
 const teams = [
