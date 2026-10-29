@@ -554,3 +554,4 @@ body,.site-shell{color:#fff5fb}
 .squad-people{display:flex;padding-left:7px}.squad-people i{width:25px;height:25px;margin-left:-7px;border:2px solid #351027;border-radius:50%;background:linear-gradient(145deg,var(--team-accent),#fff0f7)}
 .squad-list{position:relative;z-index:1;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 16px;margin:14px 0 0;padding:0;list-style:none}.squad-list li{color:#f4ddea;font-size:10px}
 @media(max-width:760px){.teams-section{padding:25px 0 60px}.teams-heading{display:block;margin:18px 0 22px}.teams-heading p{margin-top:13px;font-size:12px}.teams-grid{grid-template-columns:1fr;gap:12px}.team-card{padding:18px}.team-identity{padding:22px 0 18px}.team-logo{width:70px;height:80px}}
+@media(min-width:761px){.nav>.header-cricket{display:none}}
