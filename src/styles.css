@@ -508,3 +508,26 @@ body,.site-shell{color:#fff5fb}
 @media(max-width:380px){.hero-art{height:280px}.cricket-figure{scale:.48;left:calc(50% - 100px)}.ball-one{animation-name:live-ball-tiny}}
 @keyframes live-ball-tiny{0%,6%{transform:translate(0,0) scale(.55);opacity:0}12%{opacity:1}30%{transform:translate(45px,16px) scale(.85);opacity:1}46%{transform:translate(90px,5px) scale(1.05);opacity:1}54%{transform:translate(112px,-9px) scale(1.15);opacity:1}68%,100%{transform:translate(130px,-25px) scale(.5);opacity:0}}
 @media(prefers-reduced-motion:reduce){.wicket b,.ball-one:before{animation:none!important}.hero-art:before,.stadium-glow{animation:none!important}}
+
+/* Keep the organiser dashboard usable on narrow screens. */
+@media(max-width:620px){
+  .nav{position:relative;z-index:10}
+  .nav-links{top:100%;left:0;right:0;max-height:calc(100dvh - 100px);overflow:auto;box-shadow:0 16px 30px rgba(0,0,0,.35)}
+  .overlay{z-index:100;place-items:start center;overflow-y:auto;padding: max(12px,env(safe-area-inset-top)) 12px max(12px,env(safe-area-inset-bottom))}
+  .admin-dialog,.admin-dialog:not(:has(.dashboard-head)){width:100%;max-width:100%;max-height:calc(100dvh - 24px);padding:24px 16px 18px;overscroll-behavior:contain}
+  .admin-dialog .close{right:12px;top:12px}
+  .admin-dialog h2,.admin-dialog .dashboard-head h2{font-size:clamp(38px,11vw,50px);line-height:.95}
+  .dashboard-head{align-items:flex-start;gap:12px;padding-right:34px}
+  .dashboard-head h2{margin-top:8px}
+  .export-button{flex:0 0 auto;padding:9px;font-size:8px}
+  .dash-stats{grid-template-columns:1fr;gap:7px;margin-bottom:14px}
+  .dash-stats>div{padding:9px 11px;flex-direction:row;align-items:center;justify-content:space-between;gap:8px}
+  .dash-stats span{font-size:7px;max-width:72%}
+  .dash-stats strong{font-size:23px}
+  .dash-toolbar{align-items:flex-start;flex-direction:column;gap:8px}
+  .filters{width:100%;display:grid;grid-template-columns:repeat(4,minmax(0,1fr))}
+  .filters button{padding:8px 4px;font-size:9px}
+  .refresh-status{font-size:8px}
+  .table-wrap{max-height:34dvh;max-height:min(34dvh,300px);overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch}
+  .dash-foot{align-items:flex-start;line-height:1.5}
+}
