@@ -50,10 +50,25 @@ export default async function handler(req, res) {
     return json(res, 200, { ok: true });
   }
   if (req.method === 'PATCH') {
-    const { id, payment_status } = req.body || {};
-    if (!id || !['Paid', 'Pending'].includes(payment_status)) return json(res, 400, { error: 'Invalid payment update.' });
-    const { error } = await supabase.from('registrations').update({ payment_status }).eq('id', id);
-    if (error) return json(res, 500, { error: 'Could not update payment status.' });
+    const { id, payment_status, team_name } = req.body || {};
+    if (typeof id !== 'string' || !/^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(id)) return json(res, 400, { error: 'Invalid registration ID.' });
+    const updates = {};
+    if (typeof payment_status !== 'undefined') {
+      if (!['Paid', 'Pending'].includes(payment_status)) return json(res, 400, { error: 'Invalid payment update.' });
+      updates.payment_status = payment_status;
+    }
+    if (typeof team_name !== 'undefined') {
+      const allowedTeams = ['Nest United', 'The Strikers', 'Boundary Breakers', 'Wicket Warriors', 'Pitch Panthers', 'Rising Royals', 'Power Hitters', 'Crease Kings'];
+      if (typeof team_name !== 'string' || (team_name !== '' && !allowedTeams.includes(team_name))) return json(res, 400, { error: 'Choose a valid team.' });
+      const { data: registration, error: readError } = await supabase.from('registrations').select('type, details').eq('id', id).maybeSingle();
+      if (readError) return json(res, 500, { error: 'Could not load the player registration.' });
+      if (!registration) return json(res, 404, { error: 'Registration was not found.' });
+      if (registration.type !== 'Player') return json(res, 400, { error: 'Only player registrations can be assigned to a team.' });
+      updates.details = { ...(registration.details && typeof registration.details === 'object' && !Array.isArray(registration.details) ? registration.details : {}), team_name: team_name || null };
+    }
+    if (!Object.keys(updates).length) return json(res, 400, { error: 'No supported registration update was provided.' });
+    const { error } = await supabase.from('registrations').update(updates).eq('id', id);
+    if (error) return json(res, 500, { error: 'Could not update registration.' });
     return json(res, 200, { ok: true });
   }
   res.setHeader('Allow', 'GET, POST, PATCH, DELETE');

@@ -15,11 +15,11 @@ export default async function handler(req, res) {
   try {
     const supabase = createClient(url, key, { auth: { persistSession: false } });
     const { data, error } = await supabase.from('registrations')
-      .select('name')
+      .select('name, details')
       .eq('type', 'Player')
       .order('created_at', { ascending: true });
     if (error) return json(res, 500, { error: 'Could not load the player list.' });
-    return json(res, 200, { players: data || [] });
+    return json(res, 200, { players: (data || []).map(player => ({ name: player.name, team_name: player.details?.team_name || null })) });
   } catch {
     return json(res, 500, { error: 'Could not load the player list.' });
   }
