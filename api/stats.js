@@ -14,15 +14,15 @@ export default async function handler(req, res) {
 
   try {
     const supabase = createClient(url, key, { auth: { persistSession: false } });
-    const types = ['Player', 'Owner', 'Audience'];
+    const types = ['Player', 'Owner'];
     const results = await Promise.all(types.map(type =>
       supabase.from('registrations').select('id', { count: 'exact', head: true }).eq('type', type)
     ));
     if (results.some(result => result.error)) return json(res, 500, { error: 'Could not load registration totals.' });
 
-    const [players, owners, audience] = results.map(result => result.count || 0);
+    const [players, owners] = results.map(result => result.count || 0);
     return json(res, 200, {
-      counts: { total: players + owners + audience, players, owners, audience },
+      counts: { total: players + owners, players, owners },
       updated_at: new Date().toISOString()
     });
   } catch {

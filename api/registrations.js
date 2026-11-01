@@ -16,13 +16,14 @@ export default async function handler(req, res) {
     const type = clean(body.type, 20);
     const name = clean(body.name);
     const phone = clean(body.phone, 24);
-    const email = clean(body.email, 180);
+    const email = '';
     const wing = clean(body.wing, 60);
     const flatNo = clean(body.flat_no, 60);
     const paymentReference = clean(body.payment_reference, 120);
-    if (!['Player', 'Owner', 'Audience'].includes(type) || !name || !phone || !email) return json(res, 400, { error: 'Please complete the required fields.' });
+    const paymentTime = clean(body.payment_time, 40);
+    if (!['Player', 'Owner'].includes(type) || !name || !phone) return json(res, 400, { error: 'Please complete the required fields.' });
     if (!wing || !flatNo) return json(res, 400, { error: 'Please enter your wing and flat number.' });
-    if (!paymentReference) return json(res, 400, { error: 'Enter a Google Pay transaction ID or payment time.' });
+    if (!paymentTime) return json(res, 400, { error: 'Enter your Google Pay payment time so we can identify your payment and notify you.' });
     const { data, error } = await supabase.from('registrations').insert({
       type, name, phone, email, apartment: `${wing} / ${flatNo}`,
       details: { ...(body.details && typeof body.details === 'object' && !Array.isArray(body.details) ? body.details : {}), wing, flat_no: flatNo },

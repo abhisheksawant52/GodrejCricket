@@ -574,3 +574,7 @@ body,.site-shell{color:#fff5fb}
 .form-grid select:invalid{color:#899487}
 .card-0 .entry-fee{max-width:180px;line-height:1.35}
 @media(max-width:380px){.card-0 .entry-fee{max-width:145px;font-size:10px}}
+
+.payment-qr-link{display:flex;flex-direction:column;align-items:center;gap:8px;margin:0 auto 20px;color:#b4c3aa;font-size:11px;text-align:center}.payment-qr-link img{display:block;width:min(210px,100%);height:auto;border-radius:10px;background:#fff}.payment-qr-link:hover span{color:var(--lime)}
+
+.organizer-banner{display:flex;flex-direction:column;gap:3px;margin:0 0 20px;padding-left:13px;border-left:3px solid var(--lime);color:#b4c3aa;font-size:10px;font-weight:800;letter-spacing:.2em}.organizer-banner strong{color:var(--lime);font:800 clamp(26px,3.6vw,44px)/.92 var(--display);letter-spacing:.035em}
