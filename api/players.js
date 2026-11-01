@@ -19,7 +19,7 @@ export default async function handler(req, res) {
       .eq('type', 'Player')
       .order('created_at', { ascending: true });
     if (error) return json(res, 500, { error: 'Could not load the player list.' });
-    return json(res, 200, { players: (data || []).map(player => ({ name: player.name, team_name: player.details?.team_name || null })) });
+    return json(res, 200, { players: (data || []).map(player => ({ name: player.name, role: player.details?.playing_role || null, team_name: player.details?.team_name || null })) });
   } catch {
     return json(res, 500, { error: 'Could not load the player list.' });
   }
