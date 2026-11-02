@@ -170,7 +170,7 @@ function App() {
     const paymentReference = paymentTransactionId ? `${paymentTransactionId} / ${paymentTime}` : paymentTime;
     const payload = { type: modal.key, name: form.get('name'), phone: form.get('phone'), email: '', wing, flat_no: flatNo, apartment: `${wing} / ${flatNo}`, payment_reference: paymentReference, payment_time: paymentTime, details: { ...details, wing, flat_no, ...(modal.key === 'Player' && playerPhoto ? { photo: playerPhoto } : {}) } };
     const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 12000);
+    const timeout = setTimeout(() => controller.abort(), 32000);
     try {
       const response = await fetch('/api/registrations', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload), signal: controller.signal });
       if (response.ok && response.headers.get('content-type')?.includes('application/json')) {

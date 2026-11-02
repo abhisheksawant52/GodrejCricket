@@ -27,15 +27,25 @@ export default async function handler(req, res) {
     const details = body.details && typeof body.details === 'object' && !Array.isArray(body.details) ? body.details : {};
     if (type === 'Player' && !details.photo) return json(res, 400, { error: 'A player photo is required to complete player registration.' });
     if (details.photo && (typeof details.photo !== 'string' || !/^data:image\/jpeg;base64,/.test(details.photo) || details.photo.length > 1800000)) return json(res, 400, { error: 'Player photo is too large. Please choose a smaller image and try again.' });
-    const { data, error } = await supabase.from('registrations').insert({
-      type, name, phone, email, apartment: `${wing} / ${flatNo}`,
-      details: { ...details, wing, flat_no: flatNo },
-      payment_reference: paymentReference, payment_status: 'Pending'
-    }).select('id, created_at').single();
+    const startedAt = Date.now();
+    console.info('[registrations] insert started', { type, photoBytes: details.photo ? Buffer.byteLength(details.photo) : 0 });
+    let result;
+    try {
+      result = await supabase.from('registrations').insert({
+        type, name, phone, email, apartment: `${wing} / ${flatNo}`,
+        details: { ...details, wing, flat_no: flatNo },
+        payment_reference: paymentReference, payment_status: 'Pending'
+      }).select('id, created_at').single();
+    } catch (cause) {
+      console.error('[registrations] insert request threw', { name: cause?.name, message: cause?.message, durationMs: Date.now() - startedAt });
+      return json(res, 502, { error: 'The registration database did not respond. Please retry in a moment.' });
+    }
+    const { data, error } = result;
     if (error) {
-      console.error('[registrations] Supabase insert failed', JSON.stringify({ code: error.code, message: error.message, details: error.details, hint: error.hint }));
+      console.error('[registrations] Supabase insert failed', JSON.stringify({ code: error.code, message: error.message, durationMs: Date.now() - startedAt }));
       return json(res, 500, { error: `Could not save registration${error.code ? ` (${error.code})` : ''}: ${error.message || 'database insert failed'}` });
     }
+    console.info('[registrations] insert completed', { type, durationMs: Date.now() - startedAt });
     return json(res, 201, { ok: true, ...data });
   }
 
