@@ -1,11 +1,37 @@
 import { createClient } from '@supabase/supabase-js';
+import { randomUUID } from 'node:crypto';
 
 const db = () => {
   if (!process.env.SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY) return null;
-  return createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY, { auth: { persistSession: false } });
+  const boundedFetch = (input, init = {}) => fetch(input, { ...init, signal: AbortSignal.timeout(7000) });
+  return createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY, {
+    auth: { persistSession: false }, global: { fetch: boundedFetch }
+  });
 };
 const json = (res, status, body) => res.status(status).setHeader('Cache-Control', 'no-store').json(body);
 const clean = (s, max = 160) => typeof s === 'string' ? s.trim().slice(0, max) : '';
+const PLAYER_PHOTO_BUCKET = 'player-photos';
+
+async function uploadPlayerPhoto(supabase, dataUrl, id) {
+  const match = /^data:image\/jpeg;base64,([\s\S]+)$/.exec(dataUrl);
+  if (!match) throw new Error('Player photo must be a compressed JPG image.');
+  const bucket = supabase.storage.from(PLAYER_PHOTO_BUCKET);
+  const { data: existingBucket, error: bucketError } = await supabase.storage.getBucket(PLAYER_PHOTO_BUCKET);
+  if (!existingBucket && (bucketError?.statusCode === '404' || /not found|does not exist/i.test(bucketError?.message || ''))) {
+    const { error: createError } = await supabase.storage.createBucket(PLAYER_PHOTO_BUCKET, {
+      public: true, fileSizeLimit: 1500000, allowedMimeTypes: ['image/jpeg']
+    });
+    if (createError && !/already exists/i.test(createError.message || '')) throw createError;
+  } else if (bucketError) {
+    throw bucketError;
+  }
+  const path = `${id}.jpg`;
+  const { error: uploadError } = await bucket.upload(path, Buffer.from(match[1], 'base64'), {
+    contentType: 'image/jpeg', upsert: true, cacheControl: '31536000'
+  });
+  if (uploadError) throw uploadError;
+  return bucket.getPublicUrl(path).data.publicUrl;
+}
 
 export default async function handler(req, res) {
   const supabase = db();
@@ -28,21 +54,32 @@ export default async function handler(req, res) {
     if (type === 'Player' && !details.photo) return json(res, 400, { error: 'A player photo is required to complete player registration.' });
     if (details.photo && (typeof details.photo !== 'string' || !/^data:image\/jpeg;base64,/.test(details.photo) || details.photo.length > 1800000)) return json(res, 400, { error: 'Player photo is too large. Please choose a smaller image and try again.' });
     const startedAt = Date.now();
-    console.info('[registrations] insert started', { type, photoBytes: details.photo ? Buffer.byteLength(details.photo) : 0 });
+    const id = randomUUID();
+    console.info('[registrations] request accepted', { type, photoBytes: details.photo ? Buffer.byteLength(details.photo) : 0 });
     let result;
+    if (type === 'Player') {
+      try {
+        details.photo = await uploadPlayerPhoto(supabase, details.photo, id);
+        console.info('[registrations] player photo stored', { id });
+      } catch (cause) {
+        console.error('[registrations] photo upload failed', { name: cause?.name, message: cause?.message, durationMs: Date.now() - startedAt });
+        return json(res, 502, { error: 'Could not upload the player photo. Please retry in a moment.' });
+      }
+    }
     try {
       result = await supabase.from('registrations').insert({
-        type, name, phone, email, apartment: `${wing} / ${flatNo}`,
+        id, type, name, phone, email, apartment: `${wing} / ${flatNo}`,
         details: { ...details, wing, flat_no: flatNo },
         payment_reference: paymentReference, payment_status: 'Pending'
       }).select('id, created_at').single();
     } catch (cause) {
-      console.error('[registrations] insert request threw', { name: cause?.name, message: cause?.message, durationMs: Date.now() - startedAt });
+      console.error('[registrations] save request threw', { name: cause?.name, message: cause?.message, durationMs: Date.now() - startedAt });
       return json(res, 502, { error: 'The registration database did not respond. Please retry in a moment.' });
     }
     const { data, error } = result;
     if (error) {
       console.error('[registrations] Supabase insert failed', JSON.stringify({ code: error.code, message: error.message, durationMs: Date.now() - startedAt }));
+      if (type === 'Player') void supabase.storage.from(PLAYER_PHOTO_BUCKET).remove([`${id}.jpg`]).catch(() => {});
       return json(res, 500, { error: `Could not save registration${error.code ? ` (${error.code})` : ''}: ${error.message || 'database insert failed'}` });
     }
     console.info('[registrations] insert completed', { type, durationMs: Date.now() - startedAt });
