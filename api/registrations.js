@@ -26,13 +26,16 @@ export default async function handler(req, res) {
     if (!/^([01]\d|2[0-3]):[0-5]\d$/.test(paymentTime)) return json(res, 400, { error: 'Choose a valid payment time using the time picker.' });
     const details = body.details && typeof body.details === 'object' && !Array.isArray(body.details) ? body.details : {};
     if (type === 'Player' && !details.photo) return json(res, 400, { error: 'A player photo is required to complete player registration.' });
-    if (details.photo && (typeof details.photo !== 'string' || !/^data:image\/jpeg;base64,/.test(details.photo) || details.photo.length > 350000)) return json(res, 400, { error: 'Player photo could not be optimized. Please choose a smaller image and try again.' });
+    if (details.photo && (typeof details.photo !== 'string' || !/^data:image\/jpeg;base64,/.test(details.photo) || details.photo.length > 1800000)) return json(res, 400, { error: 'Player photo is too large. Please choose a smaller image and try again.' });
     const { data, error } = await supabase.from('registrations').insert({
       type, name, phone, email, apartment: `${wing} / ${flatNo}`,
       details: { ...details, wing, flat_no: flatNo },
       payment_reference: paymentReference, payment_status: 'Pending'
     }).select('id, created_at').single();
-    if (error) return json(res, 500, { error: 'Could not save your registration. Please try again.' });
+    if (error) {
+      console.error('[registrations] Supabase insert failed', JSON.stringify({ code: error.code, message: error.message, details: error.details, hint: error.hint }));
+      return json(res, 500, { error: `Could not save registration${error.code ? ` (${error.code})` : ''}: ${error.message || 'database insert failed'}` });
+    }
     return json(res, 201, { ok: true, ...data });
   }
 
