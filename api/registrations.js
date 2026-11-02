@@ -54,8 +54,8 @@ export default async function handler(req, res) {
     if (type === 'Player') {
       const age = Number(details.age);
       const category = clean(details.player_category, 20);
-      const eligible = Number.isInteger(age) && (category === 'Kids' ? age >= 8 && age <= 17 : ['Men', 'Women'].includes(category) && age > 18);
-      if (!eligible) return json(res, 400, { error: category === 'Kids' ? 'Kids category is for ages 8–17.' : 'Men and Women categories are for ages above 18.' });
+      const eligible = Number.isInteger(age) && (category === 'Kids' ? age >= 8 && age <= 15 : ['Men', 'Women'].includes(category) && age >= 16);
+      if (!eligible) return json(res, 400, { error: category === 'Kids' ? 'Kids category is for ages 8–15.' : 'Men and Women categories are for ages 16+.' });
     }
     if (type === 'Player' && !details.photo) return json(res, 400, { error: 'A player photo is required to complete player registration.' });
     if (details.photo && (typeof details.photo !== 'string' || !/^data:image\/jpeg;base64,/.test(details.photo) || details.photo.length > 1800000)) return json(res, 400, { error: 'Player photo is too large. Please choose a smaller image and try again.' });
