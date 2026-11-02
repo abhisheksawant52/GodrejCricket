@@ -103,8 +103,18 @@ export default async function handler(req, res) {
     return json(res, 200, { ok: true });
   }
   if (req.method === 'PATCH') {
-    const { id, payment_status, team_name, captain_id, captain_team, player_profile, edit_registration } = req.body || {};
+    const { id, payment_status, team_name, captain_id, captain_team, jersey_issued, player_profile, edit_registration } = req.body || {};
     if (typeof captain_id === 'undefined' && (typeof id !== 'string' || !/^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(id))) return json(res, 400, { error: 'Invalid registration ID.' });
+    if (typeof jersey_issued !== 'undefined') {
+      if (typeof jersey_issued !== 'boolean') return json(res, 400, { error: 'Jersey status must be true or false.' });
+      const { data: registration, error: readError } = await supabase.from('registrations').select('type, details').eq('id', id).maybeSingle();
+      if (readError) return json(res, 500, { error: 'Could not load the player registration.' });
+      if (!registration || registration.type !== 'Player') return json(res, 404, { error: 'Player registration was not found.' });
+      const details = { ...(registration.details && typeof registration.details === 'object' && !Array.isArray(registration.details) ? registration.details : {}), jersey_issued, jersey_issued_at: jersey_issued ? new Date().toISOString() : null };
+      const { error } = await supabase.from('registrations').update({ details }).eq('id', id);
+      if (error) return json(res, 500, { error: 'Could not update jersey distribution.' });
+      return json(res, 200, { ok: true });
+    }
     if (typeof captain_id !== 'undefined') {
       const allowedTeams = ['Nest United', 'The Strikers', 'Boundary Breakers', 'Wicket Warriors', 'Pitch Panthers', 'Rising Royals', 'Power Hitters', 'Crease Kings'];
       if (typeof captain_team !== 'string' || !allowedTeams.includes(captain_team) || typeof captain_id !== 'string') return json(res, 400, { error: 'Choose a valid team and captain.' });
