@@ -69,7 +69,7 @@ export default async function handler(req, res) {
     try {
       result = await supabase.from('registrations').insert({
         id, type, name, phone, email, apartment: `${wing} / ${flatNo}`,
-        details: { ...details, wing, flat_no: flatNo },
+        details: { ...details, wing, flat_no: flatNo, payment_time: paymentTime },
         payment_reference: paymentReference, payment_status: 'Pending'
       }).select('id, created_at').single();
     } catch (cause) {
@@ -103,9 +103,33 @@ export default async function handler(req, res) {
     return json(res, 200, { ok: true });
   }
   if (req.method === 'PATCH') {
-    const { id, payment_status, team_name, player_profile } = req.body || {};
+    const { id, payment_status, team_name, player_profile, edit_registration } = req.body || {};
     if (typeof id !== 'string' || !/^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(id)) return json(res, 400, { error: 'Invalid registration ID.' });
     const updates = {};
+    if (typeof edit_registration !== 'undefined') {
+      if (!edit_registration || typeof edit_registration !== 'object' || Array.isArray(edit_registration)) return json(res, 400, { error: 'Invalid registration update.' });
+      const { data: registration, error: readError } = await supabase.from('registrations').select('type, details').eq('id', id).maybeSingle();
+      if (readError) return json(res, 500, { error: 'Could not load the registration.' });
+      if (!registration) return json(res, 404, { error: 'Registration was not found.' });
+      const name = clean(edit_registration.name);
+      const phone = clean(edit_registration.phone, 24);
+      if (!name || !phone) return json(res, 400, { error: 'Name and mobile number are required.' });
+      if (!['Paid', 'Pending'].includes(edit_registration.payment_status)) return json(res, 400, { error: 'Choose a valid payment status.' });
+      const incomingDetails = edit_registration.details;
+      if (!incomingDetails || typeof incomingDetails !== 'object' || Array.isArray(incomingDetails)) return json(res, 400, { error: 'Invalid registration details.' });
+      const details = {};
+      for (const [key, value] of Object.entries(incomingDetails)) {
+        if (!/^[a-z0-9_-]{1,60}$/i.test(key) || typeof value !== 'string') return json(res, 400, { error: 'Registration details must be text fields.' });
+        details[key] = clean(value, key === 'photo' ? 1200 : 2000);
+      }
+      updates.name = name;
+      updates.phone = phone;
+      updates.email = clean(edit_registration.email, 160);
+      updates.payment_reference = clean(edit_registration.payment_reference, 120);
+      updates.payment_status = edit_registration.payment_status;
+      updates.apartment = `${clean(details.wing, 60)} / ${clean(details.flat_no, 60)}`;
+      updates.details = { ...(registration.details && typeof registration.details === 'object' && !Array.isArray(registration.details) ? registration.details : {}), ...details };
+    }
     if (typeof payment_status !== 'undefined') {
       if (!['Paid', 'Pending'].includes(payment_status)) return json(res, 400, { error: 'Invalid payment update.' });
       updates.payment_status = payment_status;
