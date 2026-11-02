@@ -10,7 +10,7 @@ export default function PlayerProfile({ player, onClose, onSave, onPhotoChange, 
   const wing = player.details?.wing || player.wing;
   const flat = player.details?.flat_no || player.flat_no;
   const address = player.player_address || (wing && flat ? `${wing} / ${flat}` : player.apartment);
-  const subtitle = [category, role].filter(hasValue).join(' · ');
+  const subtitle = [category, role].filter(hasValue).join(' / ');
   const facts = [
     ['Player number', player.player_number],
     ['Player name', player.name],
@@ -28,7 +28,10 @@ export default function PlayerProfile({ player, onClose, onSave, onPhotoChange, 
     <div className="overlay player-detail-overlay" role="presentation" onMouseDown={event => event.target === event.currentTarget && onClose()}>
       <section className="dialog player-detail-dialog" role="dialog" aria-modal="true" aria-labelledby="player-detail-title">
         <button className="close" onClick={onClose} aria-label="Close player profile"><X /></button>
-        <div className="section-tag">GNPL 2026 / PLAYER PROFILE</div>
+        <div className="player-profile-topline">
+          <span className="player-profile-kicker">GNPL 2026 / PLAYER PRESENTATION</span>
+          <span className="player-profile-credit">AN INITIATIVE BY <strong>GODREJ NEST CULTURAL TEAM</strong></span>
+        </div>
         <div className={`player-detail-head ${player.photo ? 'has-photo' : 'no-photo'}`}>
           {player.photo
             ? <img src={player.photo} alt={`${player.name} player portrait`} />
@@ -42,6 +45,12 @@ export default function PlayerProfile({ player, onClose, onSave, onPhotoChange, 
         {facts.length > 0 && <div className="player-poster-facts">
           {facts.map(([label, value]) => <div key={label}><small>{label}</small><strong>{value}</strong></div>)}
         </div>}
+
+        <div className="profile-bidding-status" aria-label="Live player presentation. Owners are bidding verbally.">
+          <span className="profile-bidding-pulse" />
+          <span className="profile-bidding-label">LIVE PLAYER PRESENTATION</span>
+          <strong>OWNER BIDDING · VERBAL</strong>
+        </div>
 
         {player.adminProfile && editing ? (
           <form className="player-profile-form" onSubmit={onSave}>
