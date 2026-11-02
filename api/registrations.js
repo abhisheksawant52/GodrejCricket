@@ -24,9 +24,12 @@ export default async function handler(req, res) {
     if (!['Player', 'Owner'].includes(type) || !name || !phone) return json(res, 400, { error: 'Please complete the required fields.' });
     if (!wing || !flatNo) return json(res, 400, { error: 'Please enter your wing and flat number.' });
     if (!/^([01]\d|2[0-3]):[0-5]\d$/.test(paymentTime)) return json(res, 400, { error: 'Choose a valid payment time using the time picker.' });
+    const details = body.details && typeof body.details === 'object' && !Array.isArray(body.details) ? body.details : {};
+    if (type === 'Player' && !details.photo) return json(res, 400, { error: 'A player photo is required to complete player registration.' });
+    if (details.photo && (typeof details.photo !== 'string' || !/^data:image\/jpeg;base64,/.test(details.photo) || details.photo.length > 350000)) return json(res, 400, { error: 'Player photo could not be optimized. Please choose a smaller image and try again.' });
     const { data, error } = await supabase.from('registrations').insert({
       type, name, phone, email, apartment: `${wing} / ${flatNo}`,
-      details: { ...(body.details && typeof body.details === 'object' && !Array.isArray(body.details) ? body.details : {}), wing, flat_no: flatNo },
+      details: { ...details, wing, flat_no: flatNo },
       payment_reference: paymentReference, payment_status: 'Pending'
     }).select('id, created_at').single();
     if (error) return json(res, 500, { error: 'Could not save your registration. Please try again.' });
@@ -68,7 +71,7 @@ export default async function handler(req, res) {
     }
     if (typeof player_profile !== 'undefined') {
       if (!player_profile || typeof player_profile !== 'object' || Array.isArray(player_profile)) return json(res, 400, { error: 'Invalid player details.' });
-      const allowed = ['photo', 'age', 'player_category', 'playing_role', 'experience', 'batting', 'bowling', 'matches', 'runs', 'wickets', 'team_name'];
+      const allowed = ['photo', 'player_number', 'player_address', 'age', 'player_category', 'playing_role', 'experience', 'batting', 'bowling', 'matches', 'runs', 'wickets', 'team_name'];
       const { data: registration, error: readError } = await supabase.from('registrations').select('type, details').eq('id', id).maybeSingle();
       if (readError) return json(res, 500, { error: 'Could not load the player registration.' });
       if (!registration) return json(res, 404, { error: 'Registration was not found.' });
