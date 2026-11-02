@@ -4,7 +4,7 @@ import PlayerProfile from './PlayerProfile.jsx';
 
 const types = [
   { key: 'Player', icon: '\uD83C\uDFC6', title: 'Play for the pride', tagline: 'Your moment. Your match. Your story.', desc: 'Men, women and kids are welcome. Register and get ready for match day.', fee: 'Men ₹600 · Women ₹400 · Kids ₹300 · T-shirt included', deadline: '2026-11-16T00:00:00+05:30', cta: 'Register as player', fields: ['Age', 'Player category', 'Playing role', 'Experience'] },
-  { key: 'Owner', icon: '\uD83E\uDDE2', title: 'Own your team', tagline: 'Build a team. Back a champion.', desc: 'Two owners are registered so far. Secure your place before registration closes.', fee: '\u20B910,000 minimum \u00B7 closes 8 Nov', deadline: '2026-11-09T00:00:00+05:30', cta: 'Register as owner', fields: [] },
+  { key: 'Owner', icon: '\uD83E\uDDE2', title: 'Own your team', tagline: 'Build a team. Back a champion.', desc: 'Owner spots are limited and confirmed first come, first served. Registered owners will bid for players at the auction.', fee: '\u20B910,000 minimum \u00B7 closes 8 Nov', deadline: '2026-11-09T00:00:00+05:30', cta: 'Register as owner', fields: [] },
 ]
 const teams = [
   ['Nest United', 'NU', '#ff5aa7'], ['The Strikers', 'TS', '#ffd166'],
