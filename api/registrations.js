@@ -103,8 +103,24 @@ export default async function handler(req, res) {
     return json(res, 200, { ok: true });
   }
   if (req.method === 'PATCH') {
-    const { id, payment_status, team_name, player_profile, edit_registration } = req.body || {};
-    if (typeof id !== 'string' || !/^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(id)) return json(res, 400, { error: 'Invalid registration ID.' });
+    const { id, payment_status, team_name, captain_id, captain_team, player_profile, edit_registration } = req.body || {};
+    if (typeof captain_id === 'undefined' && (typeof id !== 'string' || !/^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(id))) return json(res, 400, { error: 'Invalid registration ID.' });
+    if (typeof captain_id !== 'undefined') {
+      const allowedTeams = ['Nest United', 'The Strikers', 'Boundary Breakers', 'Wicket Warriors', 'Pitch Panthers', 'Rising Royals', 'Power Hitters', 'Crease Kings'];
+      if (typeof captain_team !== 'string' || !allowedTeams.includes(captain_team) || typeof captain_id !== 'string') return json(res, 400, { error: 'Choose a valid team and captain.' });
+      const { data: players, error: readError } = await supabase.from('registrations').select('id, details').eq('type', 'Player');
+      if (readError) return json(res, 500, { error: 'Could not load team players.' });
+      if (captain_id && !players.some(player => player.id === captain_id && player.details?.team_name === captain_team)) return json(res, 400, { error: 'The captain must be assigned to this team first.' });
+      for (const player of players) {
+        if (player.details?.team_name !== captain_team) continue;
+        const isCaptain = Boolean(captain_id && player.id === captain_id);
+        if (Boolean(player.details?.is_team_captain) === isCaptain) continue;
+        const details = { ...(player.details && typeof player.details === 'object' && !Array.isArray(player.details) ? player.details : {}), is_team_captain: isCaptain };
+        const { error } = await supabase.from('registrations').update({ details }).eq('id', player.id);
+        if (error) return json(res, 500, { error: 'Could not save the team captain.' });
+      }
+      return json(res, 200, { ok: true });
+    }
     const updates = {};
     if (typeof edit_registration !== 'undefined') {
       if (!edit_registration || typeof edit_registration !== 'object' || Array.isArray(edit_registration)) return json(res, 400, { error: 'Invalid registration update.' });
@@ -141,7 +157,10 @@ export default async function handler(req, res) {
       if (readError) return json(res, 500, { error: 'Could not load the player registration.' });
       if (!registration) return json(res, 404, { error: 'Registration was not found.' });
       if (registration.type !== 'Player') return json(res, 400, { error: 'Only player registrations can be assigned to a team.' });
-      updates.details = { ...(registration.details && typeof registration.details === 'object' && !Array.isArray(registration.details) ? registration.details : {}), team_name: team_name || null };
+      const oldDetails = registration.details && typeof registration.details === 'object' && !Array.isArray(registration.details) ? registration.details : {};
+      const details = { ...oldDetails, team_name: team_name || null };
+      if (oldDetails.is_team_captain && team_name !== oldDetails.team_name) details.is_team_captain = false;
+      updates.details = details;
     }
     if (typeof player_profile !== 'undefined') {
       if (!player_profile || typeof player_profile !== 'object' || Array.isArray(player_profile)) return json(res, 400, { error: 'Invalid player details.' });

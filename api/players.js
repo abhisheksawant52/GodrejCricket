@@ -38,6 +38,7 @@ export default async function handler(req, res) {
       name: player.name,
       role: player.details?.playing_role || null,
       team_name: player.details?.team_name || null,
+      is_team_captain: Boolean(player.details?.is_team_captain),
       photo: player.details?.photo || null,
       payment_status: player.payment_status === 'Paid' ? 'Paid' : 'Pending'
     })) });
