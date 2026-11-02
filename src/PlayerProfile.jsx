@@ -1,9 +1,10 @@
-import React from 'react';
-import { ArrowRight, X } from 'lucide-react';
+import React, { useState } from 'react';
+import { ArrowRight, Pencil, X } from 'lucide-react';
 
 const hasValue = value => value !== undefined && value !== null && String(value).trim() !== '';
 
 export default function PlayerProfile({ player, onClose, onSave, onPhotoChange, profileBusy }) {
+  const [editing, setEditing] = useState(false);
   const category = player.player_category || player.category;
   const role = player.playing_role || player.role;
   const wing = player.details?.wing || player.wing;
@@ -42,7 +43,7 @@ export default function PlayerProfile({ player, onClose, onSave, onPhotoChange, 
           {facts.map(([label, value]) => <div key={label}><small>{label}</small><strong>{value}</strong></div>)}
         </div>}
 
-        {player.adminProfile ? (
+        {player.adminProfile && editing ? (
           <form className="player-profile-form" onSubmit={onSave}>
             <label className="full-field">Player photo
               <input type="file" accept="image/*" onChange={event => onPhotoChange(event.target.files?.[0])} />
@@ -58,6 +59,7 @@ export default function PlayerProfile({ player, onClose, onSave, onPhotoChange, 
             <button className="button button-lime" disabled={profileBusy}>
               {profileBusy ? 'Saving...' : 'Save player profile'} <ArrowRight size={16} />
             </button>
+            <button className="profile-cancel-edit" type="button" onClick={onClose} disabled={profileBusy}>Close without saving</button>
           </form>
         ) : (
           <>
@@ -67,6 +69,9 @@ export default function PlayerProfile({ player, onClose, onSave, onPhotoChange, 
             <small className={player.payment_status === 'Paid' ? 'public-payment paid' : 'public-payment pending'}>
               {player.payment_status === 'Paid' ? 'Payment completed - approved by admin' : 'Payment not done - awaiting admin approval'}
             </small>
+            {player.adminProfile && <button className="player-edit-details-button" onClick={() => setEditing(true)}>
+              Edit details <Pencil size={15} />
+            </button>}
           </>
         )}
       </section>
