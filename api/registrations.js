@@ -50,7 +50,7 @@ export default async function handler(req, res) {
     return json(res, 200, { ok: true });
   }
   if (req.method === 'PATCH') {
-    const { id, payment_status, team_name } = req.body || {};
+    const { id, payment_status, team_name, player_profile } = req.body || {};
     if (typeof id !== 'string' || !/^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(id)) return json(res, 400, { error: 'Invalid registration ID.' });
     const updates = {};
     if (typeof payment_status !== 'undefined') {
@@ -65,6 +65,17 @@ export default async function handler(req, res) {
       if (!registration) return json(res, 404, { error: 'Registration was not found.' });
       if (registration.type !== 'Player') return json(res, 400, { error: 'Only player registrations can be assigned to a team.' });
       updates.details = { ...(registration.details && typeof registration.details === 'object' && !Array.isArray(registration.details) ? registration.details : {}), team_name: team_name || null };
+    }
+    if (typeof player_profile !== 'undefined') {
+      if (!player_profile || typeof player_profile !== 'object' || Array.isArray(player_profile)) return json(res, 400, { error: 'Invalid player details.' });
+      const allowed = ['photo', 'age', 'player_category', 'playing_role', 'experience', 'batting', 'bowling', 'matches', 'runs', 'wickets', 'team_name'];
+      const { data: registration, error: readError } = await supabase.from('registrations').select('type, details').eq('id', id).maybeSingle();
+      if (readError) return json(res, 500, { error: 'Could not load the player registration.' });
+      if (!registration) return json(res, 404, { error: 'Registration was not found.' });
+      if (registration.type !== 'Player') return json(res, 400, { error: 'Only player registrations have player details.' });
+      const profile = Object.fromEntries(allowed.filter(key => typeof player_profile[key] !== 'undefined').map(key => [key, player_profile[key]]));
+      if (profile.photo && (typeof profile.photo !== 'string' || !/^data:image\/(jpeg|png|webp);base64,/.test(profile.photo) || profile.photo.length > 700000)) return json(res, 400, { error: 'Player photo must be a compressed JPG, PNG or WebP under 500 KB.' });
+      updates.details = { ...(registration.details && typeof registration.details === 'object' && !Array.isArray(registration.details) ? registration.details : {}), ...profile };
     }
     if (!Object.keys(updates).length) return json(res, 400, { error: 'No supported registration update was provided.' });
     const { error } = await supabase.from('registrations').update(updates).eq('id', id);
