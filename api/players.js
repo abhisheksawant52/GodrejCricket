@@ -33,7 +33,13 @@ export default async function handler(req, res) {
       .eq('type', 'Player')
       .order('created_at', { ascending: true });
     if (error) return json(res, 500, { error: 'Could not load the player list.' });
-    return json(res, 200, { players: (data || []).map(player => ({ id: player.id, name: player.name, role: player.details?.playing_role || null, team_name: player.details?.team_name || null, photo: player.details?.photo || null, player_number: player.details?.player_number || null, player_address: player.details?.player_address || [player.details?.wing, player.details?.flat_no].filter(Boolean).join(' / ') || null, category: player.details?.player_category || null, age: player.details?.age ?? null, experience: player.details?.experience ?? null, batting: player.details?.batting || null, bowling: player.details?.bowling || null, matches: player.details?.matches ?? null, runs: player.details?.runs ?? null, wickets: player.details?.wickets ?? null, payment_status: player.payment_status === 'Paid' ? 'Paid' : 'Pending' })) });
+    return json(res, 200, { players: (data || []).map(player => ({
+      id: player.id,
+      name: player.name,
+      role: player.details?.playing_role || null,
+      photo: player.details?.photo || null,
+      payment_status: player.payment_status === 'Paid' ? 'Paid' : 'Pending'
+    })) });
   } catch {
     return json(res, 500, { error: 'Could not load the player list.' });
   }
