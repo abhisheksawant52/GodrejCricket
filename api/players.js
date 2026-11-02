@@ -37,6 +37,7 @@ export default async function handler(req, res) {
       id: player.id,
       name: player.name,
       role: player.details?.playing_role || null,
+      team_name: player.details?.team_name || null,
       photo: player.details?.photo || null,
       payment_status: player.payment_status === 'Paid' ? 'Paid' : 'Pending'
     })) });
