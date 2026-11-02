@@ -11,17 +11,11 @@ export default function PlayerProfile({ player, onClose, onSave, onPhotoChange, 
   const flat = player.details?.flat_no || player.flat_no;
   const address = player.player_address || (wing && flat ? `${wing} / ${flat}` : player.apartment);
   const subtitle = [category, role].filter(hasValue).join(' / ');
-  const facts = [
-    ['Player number', player.player_number],
-    ['Player name', player.name],
-    ['Player role', role],
-    ['Player address', address],
-    ['Contact number', player.adminProfile ? player.phone : null],
-  ].filter(([, value]) => hasValue(value));
-  const metrics = [
-    ['Age', player.age], ['Experience', player.experience], ['Batting style', player.batting],
-    ['Bowling style', player.bowling], ['Matches', player.matches], ['Runs', player.runs],
-    ['Wickets', player.wickets], ['Team', player.team_name],
+  const profileRows = [
+    ['Player number', player.player_number], ['Player address', address], ['Age', player.age],
+    ['Experience', player.experience], ['Batting style', player.batting], ['Bowling style', player.bowling],
+    ['Matches', player.matches], ['Runs', player.runs], ['Wickets', player.wickets],
+    ['Team', player.team_name], ['Contact number', player.adminProfile ? player.phone : null],
   ].filter(([, value]) => hasValue(value));
 
   return (
@@ -32,27 +26,37 @@ export default function PlayerProfile({ player, onClose, onSave, onPhotoChange, 
           <span className="player-profile-kicker">GNPL 2026 / PLAYER PRESENTATION</span>
           <span className="player-profile-credit">AN INITIATIVE BY <strong>GODREJ NEST CULTURAL TEAM</strong></span>
         </div>
-        <div className={`player-detail-head ${player.photo ? 'has-photo' : 'no-photo'}`}>
-          {player.photo
-            ? <img src={player.photo} alt={`${player.name} player portrait`} />
-            : <div className="player-photo-missing">PLAYER IMAGE<br />NOT UPDATED</div>}
-          <div>
-            <h2 id="player-detail-title">{player.name}</h2>
-            {subtitle && <p>{subtitle}</p>}
+        <article className="player-showcase-poster">
+          <div className="player-showcase-photo">
+            {player.photo
+              ? <img src={player.photo} alt={`${player.name} player portrait`} />
+              : <div className="player-photo-missing">PLAYER IMAGE<br />NOT UPDATED</div>}
+            <span className="player-photo-ribbon">PLAYER PROFILE</span>
           </div>
-        </div>
+          <div className="player-showcase-info">
+            <div className="player-showcase-kicker">GNPL 2026 <span>PLAYER CARD</span></div>
+            <h2 id="player-detail-title">{player.name}</h2>
+            {subtitle && <p className="player-showcase-subtitle">{subtitle}</p>}
+            {profileRows.length > 0 && <div className="player-showcase-stats">
+              {profileRows.map(([label, value]) => <div className="player-showcase-stat" key={label}>
+                <span>{label}</span><strong>{value}</strong>
+              </div>)}
+            </div>}
+            <div className="profile-bidding-status" aria-label="Live player presentation. Owners are bidding verbally.">
+              <span className="profile-bidding-pulse" />
+              <span className="profile-bidding-label">LIVE PLAYER PRESENTATION</span>
+              <strong>OWNER BIDDING · VERBAL</strong>
+            </div>
+            <small className={player.payment_status === 'Paid' ? 'public-payment paid' : 'public-payment pending'}>
+              {player.payment_status === 'Paid' ? 'Payment completed - approved by admin' : 'Payment not done - awaiting admin approval'}
+            </small>
+            {player.adminProfile && <button className="player-edit-details-button" onClick={() => setEditing(true)}>
+              Edit details <Pencil size={15} />
+            </button>}
+          </div>
+        </article>
 
-        {facts.length > 0 && <div className="player-poster-facts">
-          {facts.map(([label, value]) => <div key={label}><small>{label}</small><strong>{value}</strong></div>)}
-        </div>}
-
-        <div className="profile-bidding-status" aria-label="Live player presentation. Owners are bidding verbally.">
-          <span className="profile-bidding-pulse" />
-          <span className="profile-bidding-label">LIVE PLAYER PRESENTATION</span>
-          <strong>OWNER BIDDING · VERBAL</strong>
-        </div>
-
-        {player.adminProfile && editing ? (
+        {player.adminProfile && editing && (
           <form className="player-profile-form" onSubmit={onSave}>
             <label className="full-field">Player photo
               <input type="file" accept="image/*" onChange={event => onPhotoChange(event.target.files?.[0])} />
@@ -70,18 +74,6 @@ export default function PlayerProfile({ player, onClose, onSave, onPhotoChange, 
             </button>
             <button className="profile-cancel-edit" type="button" onClick={onClose} disabled={profileBusy}>Close without saving</button>
           </form>
-        ) : (
-          <>
-            {metrics.length > 0 && <div className="player-metrics">
-              {metrics.map(([label, value]) => <div key={label}><small>{label}</small><strong>{value}</strong></div>)}
-            </div>}
-            <small className={player.payment_status === 'Paid' ? 'public-payment paid' : 'public-payment pending'}>
-              {player.payment_status === 'Paid' ? 'Payment completed - approved by admin' : 'Payment not done - awaiting admin approval'}
-            </small>
-            {player.adminProfile && <button className="player-edit-details-button" onClick={() => setEditing(true)}>
-              Edit details <Pencil size={15} />
-            </button>}
-          </>
         )}
       </section>
     </div>
