@@ -96,8 +96,13 @@ export default async function handler(req, res) {
 
   if (!process.env.ADMIN_PASSWORD || req.headers['x-admin-password'] !== process.env.ADMIN_PASSWORD) return json(res, 401, { error: 'Admin sign-in required.' });
   if (req.method === 'GET') {
+    console.info('[admin] registrations fetch started');
     const { data, error } = await supabase.from('registrations').select('*').order('created_at', { ascending: false });
-    if (error) return json(res, 500, { error: 'Could not load registrations.' });
+    if (error) {
+      console.error('[admin] registrations fetch failed', { code: error.code || 'unknown' });
+      return json(res, 500, { error: 'Could not load registrations.' });
+    }
+    console.info('[admin] registrations fetch completed', { count: data?.length || 0 });
     return json(res, 200, { registrations: data });
   }
   if (req.method === 'DELETE') {

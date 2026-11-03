@@ -18,7 +18,7 @@ const LOCAL_KEY = 'gnpl2026_registrations';
 const readLocal = () => { try { return JSON.parse(localStorage.getItem(LOCAL_KEY) || '[]'); } catch { return []; } };
 const normalizeRows = value => Array.isArray(value) ? value.filter(row => row && typeof row === 'object' && !Array.isArray(row)).map(row => ({ ...row, details: row.details && typeof row.details === 'object' && !Array.isArray(row.details) ? row.details : {} })) : [];
 const saveLocal = (rows) => localStorage.setItem(LOCAL_KEY, JSON.stringify(rows));
-class AdminRenderBoundary extends React.Component {
+export class AdminRenderBoundary extends React.Component {
   state = { error: null };
   static getDerivedStateFromError(error) { return { error }; }
   componentDidCatch(error, info) { console.error('GNPL admin dashboard render failed', error, info.componentStack); }
