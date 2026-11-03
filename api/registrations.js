@@ -107,12 +107,20 @@ export default async function handler(req, res) {
   }
   if (req.method === 'DELETE') {
     const { id } = req.body || {};
+    console.info('[admin] registration delete started');
     if (typeof id !== 'string' || !/^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(id)) {
       return json(res, 400, { error: 'Invalid registration ID.' });
     }
     const { data, error } = await supabase.from('registrations').delete().eq('id', id).select('id').maybeSingle();
-    if (error) return json(res, 500, { error: 'Could not delete registration.' });
-    if (!data) return json(res, 404, { error: 'Registration was not found.' });
+    if (error) {
+      console.error('[admin] registration delete failed', { code: error.code || 'unknown' });
+      return json(res, 500, { error: 'Could not delete registration.' });
+    }
+    if (!data) {
+      console.warn('[admin] registration delete found no row');
+      return json(res, 404, { error: 'Registration was not found.' });
+    }
+    console.info('[admin] registration delete completed');
     return json(res, 200, { ok: true });
   }
   if (req.method === 'PATCH') {
