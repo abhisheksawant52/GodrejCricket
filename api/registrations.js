@@ -47,10 +47,12 @@ export default async function handler(req, res) {
     const flatNo = clean(body.flat_no, 60);
     const paymentReference = clean(body.payment_reference, 120);
     const paymentTime = clean(body.payment_time, 40);
-    if (!['Player', 'Owner'].includes(type) || !name || !phone) return json(res, 400, { error: 'Please complete the required fields.' });
+    if (!['Player', 'Owner', 'Audience'].includes(type) || !name || !phone) return json(res, 400, { error: 'Please complete the required fields.' });
     if (!wing || !flatNo) return json(res, 400, { error: 'Please enter your wing and flat number.' });
     if (!/^([01]\d|2[0-3]):[0-5]\d$/.test(paymentTime)) return json(res, 400, { error: 'Choose a valid payment time using the time picker.' });
     const details = body.details && typeof body.details === 'object' && !Array.isArray(body.details) ? body.details : {};
+    if (type === 'Audience' && !['XS', 'S', 'M', 'L', 'XL', 'XXL', 'XXXL'].includes(clean(details['t-shirt_size'], 10))) return json(res, 400, { error: 'Choose a valid audience T-shirt size.' });
+    if (type === 'Audience' && (!clean(details['t-shirt_name'], 30) || !/^\d{1,3}$/.test(clean(details['t-shirt_number'], 3)))) return json(res, 400, { error: 'Enter the T-shirt name and a number from 0 to 999.' });
     if (type === 'Player') {
       const age = Number(details.age);
       const category = clean(details.player_category, 20);
@@ -115,7 +117,7 @@ export default async function handler(req, res) {
       if (typeof jersey_issued !== 'boolean') return json(res, 400, { error: 'Jersey status must be true or false.' });
       const { data: registration, error: readError } = await supabase.from('registrations').select('type, details').eq('id', id).maybeSingle();
       if (readError) return json(res, 500, { error: 'Could not load the player registration.' });
-      if (!registration || !['Player', 'Owner'].includes(registration.type)) return json(res, 404, { error: 'Player registration was not found.' });
+      if (!registration || !['Player', 'Owner', 'Audience'].includes(registration.type)) return json(res, 404, { error: 'Jersey registration was not found.' });
       const details = { ...(registration.details && typeof registration.details === 'object' && !Array.isArray(registration.details) ? registration.details : {}), jersey_issued, jersey_issued_at: jersey_issued ? new Date().toISOString() : null };
       const { error } = await supabase.from('registrations').update({ details }).eq('id', id);
       if (error) return json(res, 500, { error: 'Could not update jersey distribution.' });
