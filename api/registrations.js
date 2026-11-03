@@ -115,7 +115,7 @@ export default async function handler(req, res) {
       if (typeof jersey_issued !== 'boolean') return json(res, 400, { error: 'Jersey status must be true or false.' });
       const { data: registration, error: readError } = await supabase.from('registrations').select('type, details').eq('id', id).maybeSingle();
       if (readError) return json(res, 500, { error: 'Could not load the player registration.' });
-      if (!registration || registration.type !== 'Player') return json(res, 404, { error: 'Player registration was not found.' });
+      if (!registration || !['Player', 'Owner'].includes(registration.type)) return json(res, 404, { error: 'Player registration was not found.' });
       const details = { ...(registration.details && typeof registration.details === 'object' && !Array.isArray(registration.details) ? registration.details : {}), jersey_issued, jersey_issued_at: jersey_issued ? new Date().toISOString() : null };
       const { error } = await supabase.from('registrations').update({ details }).eq('id', id);
       if (error) return json(res, 500, { error: 'Could not update jersey distribution.' });
