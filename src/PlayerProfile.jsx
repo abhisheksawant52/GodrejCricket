@@ -21,6 +21,14 @@ export default function PlayerProfile({ player, onClose, onSave, onPhotoChange, 
   return (
     <div className="overlay player-detail-overlay" role="presentation" onMouseDown={event => event.target === event.currentTarget && onClose()}>
       <div className="tournament-atmosphere" aria-hidden="true">
+        <div className="stadium-beam stadium-beam-left" />
+        <div className="stadium-beam stadium-beam-right" />
+        <svg className="swinging-cricket-bat" viewBox="0 0 80 220">
+          <path d="M35 10c-7 2-11 10-9 18l7 86-9 26c-4 13 0 33 8 48l12 22 13-22c8-15 12-35 8-48l-9-26 7-86c2-8-2-16-9-18-6-2-13-2-19 0Z" fill="#e6c27a" stroke="#fff0bd" strokeWidth="3" />
+          <path d="m29 31 23-2M31 45l21-2M32 59l20-2M33 73l19-2" fill="none" stroke="#87673c" strokeWidth="2" />
+          <path d="M29 15 51 12M30 20l21-2" fill="none" stroke="#f3e5c2" strokeWidth="3" />
+        </svg>
+        <div className="profile-confetti">{Array.from({ length: 10 }, (_, index) => <i key={index} />)}</div>
         <div className="auction-bid-card auction-bid-left"><span>GNPL AUCTION</span><strong>OWNERS<br />ON THE BID</strong><i>BID</i></div>
         <div className="auction-bid-card auction-bid-right"><span>AUCTION FLOOR</span><strong>PLAYER<br />PICKED!</strong><i>🏏</i></div>
         <div className="audience-cheer-label"><span className="cheer-live-dot" /> THE NEST IS CHEERING</div>
