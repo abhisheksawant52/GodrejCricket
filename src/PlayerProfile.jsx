@@ -23,11 +23,39 @@ export default function PlayerProfile({ player, onClose, onSave, onPhotoChange, 
       <div className="tournament-atmosphere" aria-hidden="true">
         <div className="stadium-beam stadium-beam-left" />
         <div className="stadium-beam stadium-beam-right" />
-        <svg className="swinging-cricket-bat" viewBox="0 0 80 220">
-          <path d="M35 10c-7 2-11 10-9 18l7 86-9 26c-4 13 0 33 8 48l12 22 13-22c8-15 12-35 8-48l-9-26 7-86c2-8-2-16-9-18-6-2-13-2-19 0Z" fill="#e6c27a" stroke="#fff0bd" strokeWidth="3" />
-          <path d="m29 31 23-2M31 45l21-2M32 59l20-2M33 73l19-2" fill="none" stroke="#87673c" strokeWidth="2" />
-          <path d="M29 15 51 12M30 20l21-2" fill="none" stroke="#f3e5c2" strokeWidth="3" />
-        </svg>
+        <div className="cartoon-cricket-match">
+          <svg viewBox="0 0 320 220" role="img" aria-label="Animated cartoon bowler delivers to a batsman">
+            <ellipse cx="160" cy="195" rx="148" ry="16" fill="rgba(48,205,165,.16)" />
+            <path d="M20 184H300" stroke="rgba(149,235,224,.4)" strokeWidth="2" strokeDasharray="7 8" />
+            <path d="M126 177 224 177 238 190 112 190Z" fill="rgba(226,199,127,.35)" stroke="rgba(255,226,154,.7)" />
+            <g className="cartoon-bowler">
+              <path d="m47 153-11 32M64 153l11 31" stroke="#78e8f2" strokeWidth="9" strokeLinecap="round" />
+              <path d="M37 185h-9M76 184h10" stroke="#fff" strokeWidth="5" strokeLinecap="round" />
+              <path d="M42 113q18-10 36 1l7 42q-21 12-48 0Z" fill="#27b9cb" stroke="#9ff8ff" strokeWidth="2" />
+              <circle cx="60" cy="91" r="17" fill="#d99a71" />
+              <path d="M43 91q2-23 20-21 14 2 15 18l-8-6-10 4-12-3Z" fill="#162b4c" stroke="#ffdf42" strokeWidth="3" />
+              <circle cx="66" cy="91" r="2" fill="#172032" />
+              <path d="M71 98q-5 5-10 1" fill="none" stroke="#753e38" strokeWidth="2" strokeLinecap="round" />
+              <path d="M47 119 31 135" stroke="#d99a71" strokeWidth="8" strokeLinecap="round" />
+              <g className="cartoon-bowling-arm"><path d="M76 120 96 105 91 83" fill="none" stroke="#d99a71" strokeWidth="9" strokeLinecap="round" strokeLinejoin="round" /><circle cx="91" cy="81" r="5" fill="#d99a71" /></g>
+              <path d="m48 157-9 12M69 158l10 12" stroke="#ffdf42" strokeWidth="3" strokeLinecap="round" />
+            </g>
+            <g className="cartoon-batsman">
+              <path d="m242 151-7 34M261 151l11 33" stroke="#ff4c91" strokeWidth="10" strokeLinecap="round" />
+              <path d="M234 185h-10M273 184h9" stroke="#fff" strokeWidth="5" strokeLinecap="round" />
+              <path d="M231 112q20-12 38 2l-3 43q-25 10-46-1Z" fill="#ec3e88" stroke="#ff9ac2" strokeWidth="2" />
+              <circle cx="246" cy="91" r="17" fill="#bd805f" />
+              <path d="M229 91q1-21 18-22 20 1 18 23l-10-7-11 2-9-4Z" fill="#f8cb39" stroke="#fff1a1" strokeWidth="3" />
+              <path d="M232 94h28M250 96v8" fill="none" stroke="#1f354d" strokeWidth="2" />
+              <path d="m232 119-15 10" stroke="#bd805f" strokeWidth="8" strokeLinecap="round" />
+              <g className="cartoon-bat-swing"><path d="m229 120 22-17" stroke="#bd805f" strokeWidth="8" strokeLinecap="round" /><path d="m248 108 25-34q5-7 12-2l5 4q4 4 0 9l-29 31Z" fill="#e8c375" stroke="#fff0bd" strokeWidth="3" /><path d="m266 87 13 10M262 93l13 10M258 99l13 9" stroke="#947140" strokeWidth="2" /></g>
+            </g>
+            <path d="M292 144v39M300 144v39M308 144v39M289 145h22M289 151h22" stroke="#fff0bd" strokeWidth="3" strokeLinecap="round" />
+            <g className="cartoon-delivery-ball"><circle r="7" fill="#ec3546" stroke="#ffd5c8" strokeWidth="2" /><path d="M-2-4q5 4 0 8" fill="none" stroke="#fff" strokeWidth="1.5" /></g>
+            <path className="cartoon-ball-trail" d="M93 81q49 16 91 47" fill="none" stroke="rgba(255,255,255,.55)" strokeWidth="2" strokeDasharray="5 7" />
+            <text x="160" y="213" textAnchor="middle" fill="#d7ff59" fontSize="9" fontWeight="900" letterSpacing="2">BOWL • BAT • PLAY</text>
+          </svg>
+        </div>
         <div className="profile-confetti">{Array.from({ length: 10 }, (_, index) => <i key={index} />)}</div>
         <div className="auction-bid-card auction-bid-left"><span>GNPL AUCTION</span><strong>OWNERS<br />ON THE BID</strong><i>BID</i></div>
         <div className="auction-bid-card auction-bid-right"><span>AUCTION FLOOR</span><strong>PLAYER<br />PICKED!</strong><i>🏏</i></div>
