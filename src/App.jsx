@@ -550,21 +550,7 @@ function App() {
         </a>
         <div className="hero-trophy-stage" aria-label="GNPL 2026 trophy">
           <span className="hero-trophy-glow" />
-          <svg className="hero-trophy-art" viewBox="0 0 220 260" role="img" aria-labelledby="gnpl-trophy-title">
-            <title id="gnpl-trophy-title">Godrej Nest Premier League trophy</title>
-            <defs>
-              <linearGradient id="gnpl-gold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#fff2a3" /><stop offset=".28" stopColor="#ffdf43" /><stop offset=".62" stopColor="#d9951c" /><stop offset="1" stopColor="#fff0a0" /></linearGradient>
-              <linearGradient id="gnpl-base" x1="0" y1="0" x2="1" y2="0"><stop stopColor="#1bb8c8" /><stop offset=".52" stopColor="#153d75" /><stop offset="1" stopColor="#1bb8c8" /></linearGradient>
-            </defs>
-            <ellipse cx="110" cy="235" rx="69" ry="11" fill="rgba(0,0,0,.36)" />
-            <path d="M69 31h82v43c0 35-18 59-41 68-23-9-41-33-41-68z" fill="url(#gnpl-gold)" stroke="#fff2ac" strokeWidth="4" />
-            <path d="M69 43H39c0 38 16 57 43 59M151 43h30c0 38-16 57-43 59" fill="none" stroke="url(#gnpl-gold)" strokeWidth="13" strokeLinecap="round" />
-            <path d="M110 140v42m-28 0h56m-68 10h80v15H70z" fill="url(#gnpl-gold)" stroke="#ffeba0" strokeWidth="3" strokeLinejoin="round" />
-            <path d="M76 48h70v15H76z" fill="rgba(255,255,255,.2)" />
-            <path d="m110 76 5 12 13 1-10 8 3 13-11-7-11 7 3-13-10-8 13-1z" fill="#fff4bd" />
-            <rect x="46" y="211" width="128" height="18" rx="4" fill="url(#gnpl-base)" stroke="#72eaf1" strokeWidth="2" />
-            <text x="110" y="224" textAnchor="middle" fill="#fff" fontSize="9" fontWeight="900" letterSpacing="2">GNPL 2026</text>
-          </svg>
+          <img className="hero-trophy-art" src="/gnpl-trophy-3d.png" alt="3D gold and silver GNPL cricket trophy" />
           <span className="hero-trophy-label">CHASE THE CUP <b>2026</b></span>
         </div>
         <div className="scroll-cue"><span /> SCROLL TO EXPLORE</div>
