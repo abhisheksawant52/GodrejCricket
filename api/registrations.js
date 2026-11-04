@@ -128,7 +128,7 @@ export default async function handler(req, res) {
     return json(res, 200, { ok: true });
   }
   if (req.method === 'PATCH') {
-    const { id, ids, payment_status, team_name, captain_id, captain_team, jersey_issued, player_profile, edit_registration } = req.body || {};
+    const { id, ids, payment_status, team_name, captain_id, captain_team, jersey_issued, duplicate_reviewed, player_profile, edit_registration } = req.body || {};
     if (Array.isArray(ids)) {
       if (!['Paid', 'Pending'].includes(payment_status) || ids.length < 1 || ids.length > 500 || ids.some(value => typeof value !== 'string' || !/^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(value))) return json(res, 400, { error: 'Choose registrations and a valid payment status.' });
       const { error } = await supabase.from('registrations').update({ payment_status }).in('id', [...new Set(ids)]);
@@ -144,6 +144,16 @@ export default async function handler(req, res) {
       const details = { ...(registration.details && typeof registration.details === 'object' && !Array.isArray(registration.details) ? registration.details : {}), jersey_issued, jersey_issued_at: jersey_issued ? new Date().toISOString() : null };
       const { error } = await supabase.from('registrations').update({ details }).eq('id', id);
       if (error) return json(res, 500, { error: 'Could not update jersey distribution.' });
+      return json(res, 200, { ok: true });
+    }
+    if (typeof duplicate_reviewed !== 'undefined') {
+      if (typeof duplicate_reviewed !== 'boolean') return json(res, 400, { error: 'Review status must be true or false.' });
+      const { data: registration, error: readError } = await supabase.from('registrations').select('details').eq('id', id).maybeSingle();
+      if (readError) return json(res, 500, { error: 'Could not load the registration.' });
+      if (!registration) return json(res, 404, { error: 'Registration was not found.' });
+      const details = { ...(registration.details && typeof registration.details === 'object' && !Array.isArray(registration.details) ? registration.details : {}), duplicate_reviewed };
+      const { error } = await supabase.from('registrations').update({ details }).eq('id', id);
+      if (error) return json(res, 500, { error: 'Could not save duplicate review status.' });
       return json(res, 200, { ok: true });
     }
     if (typeof captain_id !== 'undefined') {
