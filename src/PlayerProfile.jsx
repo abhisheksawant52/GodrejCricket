@@ -78,6 +78,7 @@ export default function PlayerProfile({ player, onClose, onSave, onPhotoChange, 
         </div>
         <article className="player-showcase-poster">
           <div className="player-showcase-photo">
+            <span className="profile-photo-rays" />
             {player.photo
               ? <img src={player.photo} alt={`${player.name} player portrait`} decoding="async" fetchPriority="high" />
               : <div className="player-photo-missing">PLAYER IMAGE<br />NOT UPDATED</div>}
