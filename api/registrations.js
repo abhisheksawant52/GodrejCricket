@@ -227,7 +227,16 @@ export default async function handler(req, res) {
         if (!Number.isInteger(age) || age < 8 || age > 120) return json(res, 400, { error: 'Age must be a whole number from 8 to 120.' });
         if (!Number.isInteger(experience) || experience < 0 || experience > 80 || experience > age) return json(res, 400, { error: 'Experience must be whole years from 0 to 80 and cannot exceed age.' });
       }
-      if (profile.photo && (typeof profile.photo !== 'string' || !/^data:image\/(jpeg|png|webp);base64,/.test(profile.photo) || profile.photo.length > 700000)) return json(res, 400, { error: 'Player photo must be a compressed JPG, PNG or WebP under 500 KB.' });
+      if (typeof profile.photo !== 'undefined') {
+        if (typeof profile.photo !== 'string') return json(res, 400, { error: 'Choose a valid player photo.' });
+        if (profile.photo.startsWith('data:')) {
+          if (!/^data:image\/jpeg;base64,/.test(profile.photo) || profile.photo.length > 1800000) return json(res, 400, { error: 'Player photo is too large or not a supported image.' });
+          try { profile.photo = `${await uploadPlayerPhoto(supabase, profile.photo, id)}?v=${Date.now()}`; }
+          catch { return json(res, 502, { error: 'Could not upload the higher-resolution player photo.' }); }
+        } else if (!/^https:\/\//i.test(profile.photo)) {
+          return json(res, 400, { error: 'Choose a valid player photo.' });
+        }
+      }
       updates.details = { ...(registration.details && typeof registration.details === 'object' && !Array.isArray(registration.details) ? registration.details : {}), ...profile };
     }
     if (!Object.keys(updates).length) return json(res, 400, { error: 'No supported registration update was provided.' });
