@@ -56,8 +56,12 @@ export default async function handler(req, res) {
     if (type === 'Player') {
       const age = Number(details.age);
       const category = clean(details.player_category, 20);
-      const eligible = Number.isInteger(age) && (category === 'Kids' ? age >= 8 && age <= 15 : ['Men', 'Women'].includes(category) && age >= 16);
-      if (!eligible) return json(res, 400, { error: category === 'Kids' ? 'Kids category is for ages 8–15.' : 'Men and Women categories are for ages 16+.' });
+      if (!Number.isInteger(age) || age < 8 || age > 120) return json(res, 400, { error: 'Age must be a whole number from 8 to 120.' });
+      const eligible = category === 'Kids' ? age <= 15 : ['Men', 'Women'].includes(category) && age >= 16;
+      if (!eligible) return json(res, 400, { error: category === 'Kids' ? 'Kids category is for ages 8–15.' : 'Men and Women categories are for ages 16–120.' });
+      const experienceText = clean(details.experience, 10);
+      const experience = Number(experienceText);
+      if (!/^\d+$/.test(experienceText) || !Number.isInteger(experience) || experience > 80 || experience > age) return json(res, 400, { error: 'Enter cricket experience as whole years from 0 to 80, no more than the player’s age.' });
     }
     if (type === 'Player' && !details.photo) return json(res, 400, { error: 'A player photo is required to complete player registration.' });
     if (details.photo && (typeof details.photo !== 'string' || !/^data:image\/jpeg;base64,/.test(details.photo) || details.photo.length > 1800000)) return json(res, 400, { error: 'Player photo is too large. Please choose a smaller image and try again.' });
@@ -124,7 +128,13 @@ export default async function handler(req, res) {
     return json(res, 200, { ok: true });
   }
   if (req.method === 'PATCH') {
-    const { id, payment_status, team_name, captain_id, captain_team, jersey_issued, player_profile, edit_registration } = req.body || {};
+    const { id, ids, payment_status, team_name, captain_id, captain_team, jersey_issued, player_profile, edit_registration } = req.body || {};
+    if (Array.isArray(ids)) {
+      if (!['Paid', 'Pending'].includes(payment_status) || ids.length < 1 || ids.length > 500 || ids.some(value => typeof value !== 'string' || !/^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(value))) return json(res, 400, { error: 'Choose registrations and a valid payment status.' });
+      const { error } = await supabase.from('registrations').update({ payment_status }).in('id', [...new Set(ids)]);
+      if (error) return json(res, 500, { error: 'Could not update payment statuses.' });
+      return json(res, 200, { ok: true });
+    }
     if (typeof captain_id === 'undefined' && (typeof id !== 'string' || !/^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(id))) return json(res, 400, { error: 'Invalid registration ID.' });
     if (typeof jersey_issued !== 'undefined') {
       if (typeof jersey_issued !== 'boolean') return json(res, 400, { error: 'Jersey status must be true or false.' });
@@ -201,6 +211,12 @@ export default async function handler(req, res) {
       if (!registration) return json(res, 404, { error: 'Registration was not found.' });
       if (registration.type !== 'Player') return json(res, 400, { error: 'Only player registrations have player details.' });
       const profile = Object.fromEntries(allowed.filter(key => typeof player_profile[key] !== 'undefined').map(key => [key, player_profile[key]]));
+      if (typeof profile.age !== 'undefined' || typeof profile.experience !== 'undefined') {
+        const age = Number(profile.age ?? registration.details?.age);
+        const experience = Number(profile.experience ?? registration.details?.experience);
+        if (!Number.isInteger(age) || age < 8 || age > 120) return json(res, 400, { error: 'Age must be a whole number from 8 to 120.' });
+        if (!Number.isInteger(experience) || experience < 0 || experience > 80 || experience > age) return json(res, 400, { error: 'Experience must be whole years from 0 to 80 and cannot exceed age.' });
+      }
       if (profile.photo && (typeof profile.photo !== 'string' || !/^data:image\/(jpeg|png|webp);base64,/.test(profile.photo) || profile.photo.length > 700000)) return json(res, 400, { error: 'Player photo must be a compressed JPG, PNG or WebP under 500 KB.' });
       updates.details = { ...(registration.details && typeof registration.details === 'object' && !Array.isArray(registration.details) ? registration.details : {}), ...profile };
     }
