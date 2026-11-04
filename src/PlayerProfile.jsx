@@ -73,7 +73,7 @@ export default function PlayerProfile({ player, onClose, onSave, onPhotoChange, 
       <section className="dialog player-detail-dialog" role="dialog" aria-modal="true" aria-labelledby="player-detail-title">
         <button className="close" onClick={onClose} aria-label="Close player profile"><X /></button>
         <div className="player-profile-topline">
-          <span className="player-profile-kicker">GNPL 2026 / PLAYER PRESENTATION</span>
+          <span className="player-profile-kicker">GODREJ NEST PREMIER LEAGUE 2026 / PLAYER AUCTION</span>
           <span className="player-profile-credit">AN INITIATIVE BY <strong>GODREJ NEST CULTURAL TEAM</strong></span>
         </div>
         <article className="player-showcase-poster">
@@ -81,10 +81,10 @@ export default function PlayerProfile({ player, onClose, onSave, onPhotoChange, 
             {player.photo
               ? <img src={player.photo} alt={`${player.name} player portrait`} decoding="async" fetchPriority="high" />
               : <div className="player-photo-missing">PLAYER IMAGE<br />NOT UPDATED</div>}
-            <span className="player-photo-ribbon">PLAYER PROFILE</span>
+            <span className="player-photo-ribbon">GNPL 2026 AUCTION</span>
           </div>
           <div className="player-showcase-info">
-            <div className="player-showcase-kicker">GNPL 2026 <span>PLAYER CARD</span></div>
+            <div className="player-showcase-kicker">GODREJ NEST PREMIER LEAGUE <span>PLAYER AUCTION 2026</span></div>
             <h2 id="player-detail-title">{player.name}</h2>
             {subtitle && <p className="player-showcase-subtitle">{subtitle}</p>}
             {profileRows.length > 0 && <div className="player-showcase-stats">
