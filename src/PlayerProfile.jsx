@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { ArrowRight, Pencil, X } from 'lucide-react';
+import { ArrowRight, ExternalLink, Pencil, X } from 'lucide-react';
 
 const hasValue = value => value !== undefined && value !== null && String(value).trim() !== '';
 
-export default function PlayerProfile({ player, onClose, onSave, onPhotoChange, profileBusy }) {
+export default function PlayerProfile({ player, onClose, onSave, onPhotoChange, profileBusy, displayOnly = false, onOpenDisplay }) {
   const [editing, setEditing] = useState(false);
   const category = player.player_category || player.category;
   const role = player.playing_role || player.role;
@@ -71,7 +71,7 @@ export default function PlayerProfile({ player, onClose, onSave, onPhotoChange, 
         </svg>
       </div>
       <section className="dialog player-detail-dialog" role="dialog" aria-modal="true" aria-labelledby="player-detail-title">
-        <button className="close" onClick={onClose} aria-label="Close player profile"><X /></button>
+        {!displayOnly && <button className="close" onClick={onClose} aria-label="Close player profile"><X /></button>}
         <div className="player-profile-topline">
           <span className="player-profile-kicker">GODREJ NEST PREMIER LEAGUE 2026 / PLAYER AUCTION</span>
           <span className="player-profile-credit">AN INITIATIVE BY <strong>GODREJ NEST CULTURAL TEAM</strong></span>
@@ -101,6 +101,9 @@ export default function PlayerProfile({ player, onClose, onSave, onPhotoChange, 
             <small className={player.payment_status === 'Paid' ? 'public-payment paid' : 'public-payment pending'}>
               {player.payment_status === 'Paid' ? 'Payment completed - approved by admin' : 'Payment not done - awaiting admin approval'}
             </small>
+            {!displayOnly && <button className="player-edit-details-button" type="button" onClick={onOpenDisplay}>
+              Open full screen in new tab <ExternalLink size={15} />
+            </button>}
             {player.adminProfile && <button className="player-edit-details-button" onClick={() => setEditing(true)}>
               Edit details <Pencil size={15} />
             </button>}
