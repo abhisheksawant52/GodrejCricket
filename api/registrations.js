@@ -40,6 +40,20 @@ export default async function handler(req, res) {
   if (req.method === 'POST') {
     const body = req.body || {};
     const type = clean(body.type, 20);
+    const isAdmin = Boolean(process.env.ADMIN_PASSWORD && req.headers['x-admin-password'] === process.env.ADMIN_PASSWORD);
+    const audienceOrdersClosed = Date.now() >= Date.parse('2026-11-23T00:00:00+05:30');
+    if (!isAdmin && (['Player', 'Owner'].includes(type) || (type === 'Audience' && audienceOrdersClosed))) return json(res, 403, { error: 'Registrations are closed now. Please contact Abhishek from the Cultural Team for Offline Registration.' });
+    if (isAdmin && ['Player', 'Owner'].includes(type)) {
+      const name = clean(body.name), phone = clean(body.phone, 24);
+      const wing = clean(body.wing, 60), flatNo = clean(body.flat_no, 60);
+      const details = body.details && typeof body.details === 'object' && !Array.isArray(body.details) ? body.details : {};
+      if (!name || !phone || !wing || !flatNo) return json(res, 400, { error: 'Name, phone, wing, and flat number are required.' });
+      if (type === 'Player' && (!Number.isInteger(Number(details.age)) || !['Men','Women','Kids'].includes(details.player_category))) return json(res, 400, { error: 'Enter a valid player age and category.' });
+      const id = randomUUID();
+      const { data, error } = await supabase.from('registrations').insert({ id, type, name, phone, email: '', apartment: `${wing} / ${flatNo}`, details: { ...details, wing, flat_no: flatNo }, payment_reference: '', payment_status: 'Pending' }).select('id, created_at').single();
+      if (error) return json(res, 500, { error: 'Could not save registration.' });
+      return json(res, 201, { ok: true, ...data });
+    }
     const name = clean(body.name);
     const phone = clean(body.phone, 24);
     const email = '';
