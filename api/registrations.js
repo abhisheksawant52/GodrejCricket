@@ -198,6 +198,11 @@ export default async function handler(req, res) {
       if (!['Paid', 'Pending'].includes(edit_registration.payment_status)) return json(res, 400, { error: 'Choose a valid payment status.' });
       const incomingDetails = edit_registration.details;
       if (!incomingDetails || typeof incomingDetails !== 'object' || Array.isArray(incomingDetails)) return json(res, 400, { error: 'Invalid registration details.' });
+      if (typeof incomingDetails.photo === 'string' && incomingDetails.photo.startsWith('data:')) {
+        if (registration.type !== 'Player' || !/^data:image\/jpeg;base64,/.test(incomingDetails.photo) || incomingDetails.photo.length > 1800000) return json(res, 400, { error: 'Choose a valid player photo under 1.3 MB.' });
+        try { incomingDetails.photo = `${await uploadPlayerPhoto(supabase, incomingDetails.photo, id)}?v=${Date.now()}`; }
+        catch { return json(res, 502, { error: 'Could not upload the player photo.' }); }
+      }
       const details = {};
       for (const [key, value] of Object.entries(incomingDetails)) {
         if (!/^[a-z0-9_-]{1,60}$/i.test(key) || typeof value !== 'string') return json(res, 400, { error: 'Registration details must be text fields.' });
