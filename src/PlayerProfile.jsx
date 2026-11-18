@@ -53,12 +53,12 @@ export default function PlayerProfile({ player, onClose, onSave, onPhotoChange, 
             <path d="M292 144v39M300 144v39M308 144v39M289 145h22M289 151h22" stroke="#fff0bd" strokeWidth="3" strokeLinecap="round" />
             <g className="cartoon-delivery-ball"><circle r="7" fill="#ec3546" stroke="#ffd5c8" strokeWidth="2" /><path d="M-2-4q5 4 0 8" fill="none" stroke="#fff" strokeWidth="1.5" /></g>
             <path className="cartoon-ball-trail" d="M93 81q49 16 91 47" fill="none" stroke="rgba(255,255,255,.55)" strokeWidth="2" strokeDasharray="5 7" />
-            <text x="160" y="213" textAnchor="middle" fill="#d7ff59" fontSize="9" fontWeight="900" letterSpacing="2">BOWL â€¢ BAT â€¢ PLAY</text>
+            <text x="160" y="213" textAnchor="middle" fill="#d7ff59" fontSize="9" fontWeight="900" letterSpacing="2">BOWL • BAT • PLAY</text>
           </svg>
         </div>
         <div className="profile-confetti">{Array.from({ length: 10 }, (_, index) => <i key={index} />)}</div>
         <div className="auction-bid-card auction-bid-left"><span>GNPL AUCTION</span><strong>OWNERS<br />ON THE BID</strong><i>BID</i></div>
-        <div className="auction-bid-card auction-bid-right"><span>AUCTION FLOOR</span><strong>PLAYER<br />PICKED!</strong><i>ðŸ</i></div>
+        <div className="auction-bid-card auction-bid-right"><span>AUCTION FLOOR</span><strong>PLAYER<br />PICKED!</strong><i>🏏</i></div>
         <div className="audience-cheer-label"><span className="cheer-live-dot" /> THE NEST IS CHEERING</div>
         <svg className="audience-silhouettes" viewBox="0 0 1200 170" preserveAspectRatio="xMidYMax slice">
           <g className="cheering-person person-one"><circle cx="90" cy="83" r="19"/><path d="M58 170v-36l-22-27 13-9 28 22 10-27 13-38 14 5-7 42 18-35 14 7-17 47 26 18v31z"/></g>
@@ -96,7 +96,7 @@ export default function PlayerProfile({ player, onClose, onSave, onPhotoChange, 
             <div className="profile-bidding-status" aria-label="Live player presentation. Owners are bidding verbally.">
               <span className="profile-bidding-pulse" />
               <span className="profile-bidding-label">LIVE PLAYER PRESENTATION</span>
-              <strong>OWNER BIDDING Â· VERBAL</strong>
+              <strong>OWNER BIDDING · VERBAL</strong>
             </div>
             <small className={player.payment_status === 'Paid' ? 'public-payment paid' : 'public-payment pending'}>
               {player.payment_status === 'Paid' ? 'Payment completed - approved by admin' : 'Payment not done - awaiting admin approval'}
