@@ -87,7 +87,7 @@ export default function PlayerProfile({ player, onClose, onSave, onPhotoChange, 
           </div>
           <div className="player-showcase-info">
             <div className="player-showcase-kicker">GODREJ NEST PREMIER LEAGUE <span>PLAYER AUCTION 2026</span></div>
-            <h2 id="player-detail-title">{player.name}</h2>{grade && <div className="player-grade-tag" aria-label={`Player grade ${grade}`}>GRADE <strong>{grade}</strong></div>}{player.auction_sold && <div className="player-sold-tag" role="status"><span>✓</span> SOLD{player.team_name ? ` · ${player.team_name}` : ''}</div>}
+            <h2 id="player-detail-title">{player.name}</h2>{grade && <div className="player-grade-tag" aria-label={`Player grade ${grade}`}><span>PLAYER GRADE</span><strong>{grade}</strong></div>}{player.auction_sold && <div className="player-sold-tag" role="status"><span>✓</span> SOLD{player.team_name ? ` · ${player.team_name}` : ''}</div>}
             {subtitle && <p className="player-showcase-subtitle">{subtitle}</p>}
             {profileRows.length > 0 && <div className="player-showcase-stats">
               {profileRows.map(([label, value]) => <div className="player-showcase-stat" key={label}>
