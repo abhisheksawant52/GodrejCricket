@@ -49,6 +49,7 @@ export default async function handler(req, res) {
       id: player.id,
       name: player.name,
       role: player.details?.playing_role || null,
+      grade: player.details?.player_grade || null,
       team_name: player.details?.team_name || null,
       is_team_captain: Boolean(player.details?.is_team_captain),
       photo: player.details?.photo || null,
