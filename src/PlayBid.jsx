@@ -87,7 +87,6 @@ function AuctionRoom({ onExit, notice }) {
       </div><footer className="pb-room-footer">Powered by <b>PlayBid</b> — Host your Cricket Auction</footer></main>
       {dialog&&<div className="pb-dialog-back" onMouseDown={e=>e.target===e.currentTarget&&setDialog('')}><section><button className="pb-dialog-close" onClick={()=>setDialog('')}><X size={17}/></button><small>GODREJ NEST CRICKET LEAGUE</small><h3>{dialog}</h3>{dialog==='Bid History'?<div className="pb-bid-history-list">{currentBidHistory.length?currentBidHistory.slice().reverse().map(entry=><div key={entry.id}><span><b>{entry.action==='Undo'?`Undo · ${entry.team}`:entry.team}</b><small>{entry.action==='Undo'?'Bid reversed · ':''}{entry.player} · {new Date(entry.createdAt).toLocaleString()}</small></span><strong>P {Number(entry.amount).toLocaleString('en-IN')}</strong></div>):<p>No bids recorded for this player yet.</p>}</div>:<p>{dialog==='Custom Bid'?'Enter a custom bid amount for this player.':dialog==='Auction settings'?'Manage bidding increments, timer, sound, and auction rules.':'Auction control tools for the selected tournament.'}</p>}{dialog==='Custom Bid'&&<input type="number" min="1000" step="1000" placeholder="Enter bid amount"/>}<button className="pb-dialog-action" onClick={()=>{setDialog('');if(dialog==='Custom Bid'){setActiveTeam('Team 1');setBid(v=>v+5000);}}}>{dialog==='Full standings'||dialog==='Bid History'?'Close':'Continue'}</button></section></div>}
       {initOpen&&<AuctionInitialization onCancel={onExit} onContinue={()=>setInitOpen(false)}/>}
-    </div>
   </div>;
 }
 
