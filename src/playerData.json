@@ -1,0 +1,492 @@
+﻿[
+    {
+        "lot":  1,
+        "name":  "Anand Sonwadekar",
+        "category":  "A+",
+        "role":  "Batter",
+        "basePrice":  1000,
+        "status":  "Available",
+        "soldPrice":  null,
+        "team":  "Unassigned"
+    },
+    {
+        "lot":  2,
+        "name":  "Ankit Sharma",
+        "category":  "A+",
+        "role":  "Bowler",
+        "basePrice":  1000,
+        "status":  "Available",
+        "soldPrice":  null,
+        "team":  "Unassigned"
+    },
+    {
+        "lot":  3,
+        "name":  "Deepak Biyani",
+        "category":  "A+",
+        "role":  "Batter",
+        "basePrice":  1000,
+        "status":  "Available",
+        "soldPrice":  null,
+        "team":  "Unassigned"
+    },
+    {
+        "lot":  4,
+        "name":  "Gaurav S",
+        "category":  "A+",
+        "role":  "Batter",
+        "basePrice":  1000,
+        "status":  "Available",
+        "soldPrice":  null,
+        "team":  "Unassigned"
+    },
+    {
+        "lot":  5,
+        "name":  "Jagdish choudhary",
+        "category":  "A+",
+        "role":  "Batter",
+        "basePrice":  1000,
+        "status":  "Available",
+        "soldPrice":  null,
+        "team":  "Unassigned"
+    },
+    {
+        "lot":  6,
+        "name":  "Kevin B.",
+        "category":  "A+",
+        "role":  "Batter",
+        "basePrice":  1000,
+        "status":  "Available",
+        "soldPrice":  null,
+        "team":  "Unassigned"
+    },
+    {
+        "lot":  7,
+        "name":  "Mangesh Mathe",
+        "category":  "A+",
+        "role":  "Batter",
+        "basePrice":  1000,
+        "status":  "Available",
+        "soldPrice":  null,
+        "team":  "Unassigned"
+    },
+    {
+        "lot":  8,
+        "name":  "Pranav",
+        "category":  "A+",
+        "role":  "Batter",
+        "basePrice":  1000,
+        "status":  "Available",
+        "soldPrice":  null,
+        "team":  "Unassigned"
+    },
+    {
+        "lot":  9,
+        "name":  "Romil",
+        "category":  "A+",
+        "role":  "Batter",
+        "basePrice":  1000,
+        "status":  "Available",
+        "soldPrice":  null,
+        "team":  "Unassigned"
+    },
+    {
+        "lot":  10,
+        "name":  "Shikhar Tripathi",
+        "category":  "A+",
+        "role":  "Batter",
+        "basePrice":  1000,
+        "status":  "Available",
+        "soldPrice":  null,
+        "team":  "Unassigned"
+    },
+    {
+        "lot":  11,
+        "name":  "Vedant Desai",
+        "category":  "A+",
+        "role":  "Batter",
+        "basePrice":  1000,
+        "status":  "Available",
+        "soldPrice":  null,
+        "team":  "Unassigned"
+    },
+    {
+        "lot":  12,
+        "name":  "Vinod Choudhary",
+        "category":  "A+",
+        "role":  "Bowler",
+        "basePrice":  1000,
+        "status":  "Available",
+        "soldPrice":  null,
+        "team":  "Unassigned"
+    },
+    {
+        "lot":  13,
+        "name":  "Aditya Panchal",
+        "category":  "A",
+        "role":  "Bowler",
+        "basePrice":  1000,
+        "status":  "Available",
+        "soldPrice":  null,
+        "team":  "Unassigned"
+    },
+    {
+        "lot":  14,
+        "name":  "Akhil jha",
+        "category":  "A",
+        "role":  "Bowler",
+        "basePrice":  1000,
+        "status":  "Available",
+        "soldPrice":  null,
+        "team":  "Unassigned"
+    },
+    {
+        "lot":  15,
+        "name":  "Ankur Mishra",
+        "category":  "A",
+        "role":  "Batter",
+        "basePrice":  1000,
+        "status":  "Available",
+        "soldPrice":  null,
+        "team":  "Unassigned"
+    },
+    {
+        "lot":  16,
+        "name":  "Anshuman Mishra",
+        "category":  "A",
+        "role":  "Bowler",
+        "basePrice":  1000,
+        "status":  "Available",
+        "soldPrice":  null,
+        "team":  "Unassigned"
+    },
+    {
+        "lot":  17,
+        "name":  "Ashish Dhandar",
+        "category":  "A",
+        "role":  "Bowler",
+        "basePrice":  1000,
+        "status":  "Available",
+        "soldPrice":  null,
+        "team":  "Unassigned"
+    },
+    {
+        "lot":  18,
+        "name":  "BONI AASHISH",
+        "category":  "A",
+        "role":  "Batter",
+        "basePrice":  1000,
+        "status":  "Available",
+        "soldPrice":  null,
+        "team":  "Unassigned"
+    },
+    {
+        "lot":  19,
+        "name":  "Hitendra Patel",
+        "category":  "A",
+        "role":  "Bowler",
+        "basePrice":  1000,
+        "status":  "Available",
+        "soldPrice":  null,
+        "team":  "Unassigned"
+    },
+    {
+        "lot":  20,
+        "name":  "Hitesh B",
+        "category":  "A",
+        "role":  "Batter",
+        "basePrice":  1000,
+        "status":  "Available",
+        "soldPrice":  null,
+        "team":  "Unassigned"
+    },
+    {
+        "lot":  21,
+        "name":  "Jian Badiyani",
+        "category":  "A",
+        "role":  "Batter",
+        "basePrice":  1000,
+        "status":  "Available",
+        "soldPrice":  null,
+        "team":  "Unassigned"
+    },
+    {
+        "lot":  22,
+        "name":  "Mayank Vakharia",
+        "category":  "A",
+        "role":  "Bowler",
+        "basePrice":  1000,
+        "status":  "Available",
+        "soldPrice":  null,
+        "team":  "Unassigned"
+    },
+    {
+        "lot":  23,
+        "name":  "Pratik Agrawal",
+        "category":  "A",
+        "role":  "Batter",
+        "basePrice":  1000,
+        "status":  "Available",
+        "soldPrice":  null,
+        "team":  "Unassigned"
+    },
+    {
+        "lot":  24,
+        "name":  "Pratik Revankar",
+        "category":  "A",
+        "role":  "Batter",
+        "basePrice":  1000,
+        "status":  "Available",
+        "soldPrice":  null,
+        "team":  "Unassigned"
+    },
+    {
+        "lot":  25,
+        "name":  "Rohit",
+        "category":  "A",
+        "role":  "Batter",
+        "basePrice":  1000,
+        "status":  "Available",
+        "soldPrice":  null,
+        "team":  "Unassigned"
+    },
+    {
+        "lot":  26,
+        "name":  "sagar khatav",
+        "category":  "A",
+        "role":  "Batter",
+        "basePrice":  1000,
+        "status":  "Available",
+        "soldPrice":  null,
+        "team":  "Unassigned"
+    },
+    {
+        "lot":  27,
+        "name":  "Sajan Shetty",
+        "category":  "A",
+        "role":  "Batter",
+        "basePrice":  1000,
+        "status":  "Available",
+        "soldPrice":  null,
+        "team":  "Unassigned"
+    },
+    {
+        "lot":  28,
+        "name":  "Vaibhav Dubey",
+        "category":  "A",
+        "role":  "Batter",
+        "basePrice":  1000,
+        "status":  "Available",
+        "soldPrice":  null,
+        "team":  "Unassigned"
+    },
+    {
+        "lot":  29,
+        "name":  "Vanaparthi Akshit",
+        "category":  "A",
+        "role":  "Bowler",
+        "basePrice":  1000,
+        "status":  "Available",
+        "soldPrice":  null,
+        "team":  "Unassigned"
+    },
+    {
+        "lot":  30,
+        "name":  "Vikas Devnani",
+        "category":  "A",
+        "role":  "Bowler",
+        "basePrice":  1000,
+        "status":  "Available",
+        "soldPrice":  null,
+        "team":  "Unassigned"
+    },
+    {
+        "lot":  31,
+        "name":  "Abhay Tiwari",
+        "category":  "B",
+        "role":  "Bowler",
+        "basePrice":  1000,
+        "status":  "Available",
+        "soldPrice":  null,
+        "team":  "Unassigned"
+    },
+    {
+        "lot":  32,
+        "name":  "Arun Parab",
+        "category":  "B",
+        "role":  "Batter",
+        "basePrice":  1000,
+        "status":  "Available",
+        "soldPrice":  null,
+        "team":  "Unassigned"
+    },
+    {
+        "lot":  33,
+        "name":  "Arvind Kumar",
+        "category":  "B",
+        "role":  "Bowler",
+        "basePrice":  1000,
+        "status":  "Available",
+        "soldPrice":  null,
+        "team":  "Unassigned"
+    },
+    {
+        "lot":  34,
+        "name":  "Ayushman Thakur",
+        "category":  "B",
+        "role":  "Bowler",
+        "basePrice":  1000,
+        "status":  "Available",
+        "soldPrice":  null,
+        "team":  "Unassigned"
+    },
+    {
+        "lot":  35,
+        "name":  "Chirantan more",
+        "category":  "B",
+        "role":  "Batter",
+        "basePrice":  1000,
+        "status":  "Available",
+        "soldPrice":  null,
+        "team":  "Unassigned"
+    },
+    {
+        "lot":  36,
+        "name":  "Dhaval Vasi",
+        "category":  "B",
+        "role":  "Batter",
+        "basePrice":  1000,
+        "status":  "Available",
+        "soldPrice":  null,
+        "team":  "Unassigned"
+    },
+    {
+        "lot":  37,
+        "name":  "Lee Fernandes",
+        "category":  "B",
+        "role":  "Batter",
+        "basePrice":  1000,
+        "status":  "Available",
+        "soldPrice":  null,
+        "team":  "Unassigned"
+    },
+    {
+        "lot":  38,
+        "name":  "Manak Desarda",
+        "category":  "B",
+        "role":  "Bowler",
+        "basePrice":  1000,
+        "status":  "Available",
+        "soldPrice":  null,
+        "team":  "Unassigned"
+    },
+    {
+        "lot":  39,
+        "name":  "MURARI CHAUDHARY",
+        "category":  "B",
+        "role":  "Batter",
+        "basePrice":  1000,
+        "status":  "Available",
+        "soldPrice":  null,
+        "team":  "Unassigned"
+    },
+    {
+        "lot":  40,
+        "name":  "Nikhil Sudrik",
+        "category":  "B",
+        "role":  "Batter",
+        "basePrice":  1000,
+        "status":  "Available",
+        "soldPrice":  null,
+        "team":  "Unassigned"
+    },
+    {
+        "lot":  41,
+        "name":  "OM PANDEY",
+        "category":  "B",
+        "role":  "Bowler",
+        "basePrice":  1000,
+        "status":  "Available",
+        "soldPrice":  null,
+        "team":  "Unassigned"
+    },
+    {
+        "lot":  42,
+        "name":  "Pramod Kumar",
+        "category":  "B",
+        "role":  "Batter",
+        "basePrice":  1000,
+        "status":  "Available",
+        "soldPrice":  null,
+        "team":  "Unassigned"
+    },
+    {
+        "lot":  43,
+        "name":  "Siddharth Singh",
+        "category":  "B",
+        "role":  "Batter",
+        "basePrice":  1000,
+        "status":  "Available",
+        "soldPrice":  null,
+        "team":  "Unassigned"
+    },
+    {
+        "lot":  44,
+        "name":  "Suraj Iyer",
+        "category":  "B",
+        "role":  "Batter",
+        "basePrice":  1000,
+        "status":  "Available",
+        "soldPrice":  null,
+        "team":  "Unassigned"
+    },
+    {
+        "lot":  45,
+        "name":  "Suraj Shah",
+        "category":  "B",
+        "role":  "Batter",
+        "basePrice":  1000,
+        "status":  "Available",
+        "soldPrice":  null,
+        "team":  "Unassigned"
+    },
+    {
+        "lot":  46,
+        "name":  "Sushil kumar",
+        "category":  "B",
+        "role":  "Bowler",
+        "basePrice":  1000,
+        "status":  "Available",
+        "soldPrice":  null,
+        "team":  "Unassigned"
+    },
+    {
+        "lot":  47,
+        "name":  "Vijay modak",
+        "category":  "B",
+        "role":  "Bowler",
+        "basePrice":  1000,
+        "status":  "Available",
+        "soldPrice":  null,
+        "team":  "Unassigned"
+    },
+    {
+        "lot":  48,
+        "name":  "Vithoba Jivale",
+        "category":  "B",
+        "role":  "Bowler",
+        "basePrice":  1000,
+        "status":  "Available",
+        "soldPrice":  null,
+        "team":  "Unassigned"
+    },
+    {
+        "lot":  49,
+        "name":  "Yogesh Diwan",
+        "category":  "B",
+        "role":  "Batter",
+        "basePrice":  1000,
+        "status":  "Available",
+        "soldPrice":  null,
+        "team":  "Unassigned"
+    }
+]
