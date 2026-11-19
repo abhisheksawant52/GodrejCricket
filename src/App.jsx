@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { ArrowDown, ArrowRight, Check, CircleDot, Clock3, Download, Printer, Menu, Radio, Share2, ShieldCheck, Trash2, Trophy, Users, X, Upload, MapPin, Shirt, Cookie, GlassWater, Megaphone, Camera } from 'lucide-react';
+import { ArrowDown, ArrowRight, ArrowUpRight, Check, CircleDot, Clock3, Download, Printer, Menu, Radio, Share2, ShieldCheck, Trash2, Trophy, Users, X, Upload, MapPin, Shirt, Cookie, GlassWater, Megaphone, Camera } from 'lucide-react';
 import PlayerProfile from './PlayerProfile.jsx';
 import { createPortal } from 'react-dom';
 
