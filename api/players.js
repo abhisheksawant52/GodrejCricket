@@ -52,6 +52,16 @@ export default async function handler(req, res) {
       grade: player.details?.player_grade || null,
       team_name: player.details?.team_name || null,
       is_team_captain: Boolean(player.details?.is_team_captain),
+      age: Number(player.details?.age) || null,
+      playerCategory: player.details?.player_category || null,
+      experience: Number(player.details?.experience) || null,
+      batting: player.details?.batting || null,
+      bowling: player.details?.bowling || null,
+      matches: Number(player.details?.matches) || 0,
+      runs: Number(player.details?.runs) || 0,
+      wickets: Number(player.details?.wickets) || 0,
+      playerNumber: player.details?.player_number || null,
+      basePrice: Number(player.details?.base_price) || 1000,
       photo: player.details?.photo || null,
       payment_status: player.payment_status === 'Paid' ? 'Paid' : 'Pending'
     })) });

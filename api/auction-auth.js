@@ -10,7 +10,8 @@ function readCookie(req) {
   return entry ? decodeURIComponent(entry.slice(COOKIE.length + 1)) : '';
 }
 
-function sessionIsValid(req, secret) {
+export function sessionIsValid(req, secret = process.env.ADMIN_PASSWORD) {
+  if (!secret) return false;
   const [expiresText, supplied = ''] = readCookie(req).split('.');
   const expires = Number(expiresText);
   if (!Number.isSafeInteger(expires) || expires <= Date.now()) return false;

@@ -12,6 +12,7 @@ import './bid-history.css';
 import './gnpl-auction.css';
 import './auction-auth.css';
 import './auction-workspace.css';
+import './auction-pink.css';
 
 const isPlayBidPreview = window.location.pathname === '/playbid' || window.location.pathname.startsWith('/playbid/');
 if (isPlayBidPreview) document.title = 'PlayBid — Cricket Auction Platform';
@@ -49,7 +50,7 @@ function AuctionAdminGate() {
   if (checking) return <main className="auction-auth-screen"><section className="auction-auth-card"><span className="auction-auth-mark">GN</span><p>VERIFYING ADMIN ACCESS</p></section></main>;
   if (authenticated) return <PlayBid onLogout={signOut} />;
   return <main className="auction-auth-screen"><form className="auction-auth-card" onSubmit={signIn}>
-    <span className="auction-auth-mark">GN</span><div className="auction-auth-kicker">GODREJ NEST PREMIER LEAGUE</div>
+    <span className="auction-auth-mark">GN</span><div className="auction-auth-kicker">GODREJ NEST PREMIER LEAGUE</div><div className="auction-auth-user">USER: ABHISHEK · ADMIN ACCESS</div>
     <h1>Admin <em>access</em></h1><p>Sign in with your GNPL admin password to open the Auction Portal.</p>
     <label htmlFor="auction-admin-password">Admin password</label>
     <input id="auction-admin-password" type="password" autoComplete="current-password" required value={password} onChange={event => setPassword(event.target.value)} />
