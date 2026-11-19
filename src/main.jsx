@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client';
 import App, { AdminRenderBoundary } from './App.jsx';
 import PlayBid from './PlayBid.jsx';
 import './styles.css';
+import './nav-highlights.css';
 import './playbid.css';
 import './auction-state.css';
 import './tournament-management.css';
