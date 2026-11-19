@@ -1,1 +1,1 @@
-{ "functions": { "api/*.js": { "maxDuration": 30 } }, "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }] }
+{ "redirects": [{ "source": "/playbid", "destination": "/", "permanent": false }, { "source": "/playbid/:path*", "destination": "/", "permanent": false }], "functions": { "api/*.js": { "maxDuration": 30 } }, "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }] }

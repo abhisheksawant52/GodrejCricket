@@ -1,19 +1,5 @@
-﻿/* Primary navigation highlights: keep Register, Portal, and Admin easy to spot. */
-.nav-links>a[href="/playbid"]{
-  min-height:46px;padding:0 16px;display:inline-flex;align-items:center;gap:8px;
-  border:1px solid rgba(255,105,176,.8);border-radius:4px;
-  background:linear-gradient(115deg,#ff4fa0,#d92779);color:#fff7fb;font-weight:900;
-  box-shadow:0 6px 22px rgba(255,61,148,.24),0 0 16px rgba(255,61,148,.12);
-  transition:transform .22s ease,filter .22s ease,box-shadow .22s ease;
-}
-.nav-links>a[href="/playbid"]:hover{color:#fff;transform:translateY(-2px);filter:brightness(1.12);box-shadow:0 9px 28px rgba(255,61,148,.38),0 0 22px rgba(255,61,148,.2)}
-.nav-links>button.nav-admin{
-  min-height:46px;padding:0 16px;border:1px solid rgba(79,222,235,.72);border-radius:4px;
-  background:linear-gradient(115deg,rgba(38,167,181,.24),rgba(31,105,126,.3));color:#baf8ff;font-weight:900;
-  box-shadow:0 5px 19px rgba(48,204,220,.12);transition:transform .22s ease,background .22s ease,box-shadow .22s ease;
-}
+/* Keep the GNPL Admin entry distinct from the lime registration action. */
+.nav-links>button.nav-admin{min-height:46px;padding:0 16px;border:1px solid rgba(79,222,235,.72);border-radius:4px;background:linear-gradient(115deg,rgba(38,167,181,.24),rgba(31,105,126,.3));color:#baf8ff;font-weight:900;box-shadow:0 5px 19px rgba(48,204,220,.12);transition:transform .22s ease,background .22s ease,box-shadow .22s ease}
 .nav-links>button.nav-admin:hover{border-color:#68eff3;background:linear-gradient(115deg,rgba(42,189,202,.4),rgba(36,129,148,.4));color:#fff;transform:translateY(-2px);box-shadow:0 8px 25px rgba(48,204,220,.24)}
-.nav-links>a[href="/playbid"]:focus-visible,.nav-links>button.nav-admin:focus-visible{outline:3px solid #e1ff68;outline-offset:4px}
-@media(max-width:760px){
-  .nav-links>a[href="/playbid"],.nav-links>button.nav-admin{width:100%;min-height:46px;justify-content:center}
-}
+.nav-links>button.nav-admin:focus-visible{outline:3px solid #e1ff68;outline-offset:4px}
+@media(max-width:760px){.nav-links>button.nav-admin{width:100%;min-height:46px;justify-content:center}}
