@@ -9,6 +9,6 @@ import './tournament-management.css';
 import './auction-initialization.css';
 import './bid-history.css';
 
-const isPlayBidPreview = !window.location.pathname.startsWith('/gnpl');
-document.title = isPlayBidPreview ? 'PlayBid — Cricket Auction Platform' : document.title;
+const isPlayBidPreview = window.location.pathname === '/playbid' || window.location.pathname.startsWith('/playbid/');
+if (isPlayBidPreview) document.title = 'PlayBid — Cricket Auction Platform';
 createRoot(document.getElementById('root')).render(<React.StrictMode>{isPlayBidPreview ? <PlayBid /> : <AdminRenderBoundary><App /></AdminRenderBoundary>}</React.StrictMode>);
