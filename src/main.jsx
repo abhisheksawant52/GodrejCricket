@@ -10,6 +10,7 @@ import './tournament-management.css';
 import './auction-initialization.css';
 import './bid-history.css';
 import './gnpl-auction.css';
+import './auction-auth.css';
 
 const isPlayBidPreview = window.location.pathname === '/playbid' || window.location.pathname.startsWith('/playbid/');
 if (isPlayBidPreview) document.title = 'PlayBid — Cricket Auction Platform';
