@@ -13,6 +13,7 @@ import './gnpl-auction.css';
 import './auction-auth.css';
 import './auction-workspace.css';
 import './auction-pink.css';
+import './auction-player-profile.css';
 
 const isPlayBidPreview = window.location.pathname === '/playbid' || window.location.pathname.startsWith('/playbid/');
 if (isPlayBidPreview) document.title = 'PlayBid — Cricket Auction Platform';
