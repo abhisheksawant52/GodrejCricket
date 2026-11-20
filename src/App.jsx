@@ -17,7 +17,7 @@ const teams = [
   ['Ashish Knight Riders', 'AKR', '#9333ea', 'Kids', '06_Ashish_Knight_Riders_Kids.png'],
   ['Titan Thunder', 'TT', '#facc15', 'Men', '07_Titan_Thunder_Men.png'],
   ['Black Thunder', 'BT', '#c084fc', 'Kids', '08_Black_Thunder_Kids.png'],
-  ['Nest Worriers', 'NW', '#0ea5e9', 'Men', '09_Nest_Worriers_Men.jpeg'],
+  ['Nest Warriors', 'NW', '#0ea5e9', 'Men', '09_Nest_Warriors_Men.jpeg'],
   ['Nest Sanskriti', 'NS', '#ec4899', 'Men', '10_Nest_Sanskriti_Men.png'],
 ].map(([name, short, color, category, logo]) => ({ name, short, color, category, logo: `/team-logos/${logo}`, captain: 'To be announced', players: [] }));
 const LOCAL_KEY = 'gnpl2026_registrations';
