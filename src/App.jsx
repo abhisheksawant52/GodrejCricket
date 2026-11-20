@@ -12,12 +12,12 @@ const teams = [
   ['Prudentech Power Panthers', 'PPP', '#a855f7', 'Men', '01_PrudenTech_Power_Panthers_Men.png'],
   ['Prudentech Power Leopards', 'PPL', '#f59e0b', 'Women', '02_PrudenTech_Power_Leopards_Women.png'],
   ['Preetam Paltan', 'PP', '#ef4444', 'Men', '03_Preetam_Paltan_Men.png'],
-  ['Preetam Risers', 'PR', '#38bdf8', 'Women', '04_Preetam_Risers_Women.png'],
+  ['Prisha Smash Queens', 'PSQ', '#38bdf8', 'Women', '04_Preetam_Risers_Women.png'],
   ['Bigtrip Royal Lions', 'BRL', '#fbbf24', 'Men', '05_BIGTRIP_Royal_Lions_Men.png'],
   ['Ashish Knight Riders', 'AKR', '#9333ea', 'Kids', '06_Ashish_Knight_Riders_Kids.png'],
   ['Titan Thunder', 'TT', '#facc15', 'Men', '07_Titan_Thunder_Men.png'],
   ['Black Thunder', 'BT', '#c084fc', 'Kids', '08_Black_Thunder_Kids.png'],
-  ['Nest Strikers', 'NS', '#0ea5e9', 'Men', '09_Nest_Strikers_Men.png'],
+  ['Nest Worriers', 'NW', '#0ea5e9', 'Men', '09_Nest_Strikers_Men.png'],
   ['Nest Sanskriti', 'NS', '#ec4899', 'Men', '10_Nest_Sanskriti_Men.png'],
 ].map(([name, short, color, category, logo]) => ({ name, short, color, category, logo: `/team-logos/${logo}`, captain: 'To be announced', players: [] }));
 const LOCAL_KEY = 'gnpl2026_registrations';
