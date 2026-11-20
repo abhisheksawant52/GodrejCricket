@@ -9,11 +9,17 @@ const types = [
   { key: 'Audience', icon: '\uD83D\uDC55', title: 'GNPL fan T-shirt', tagline: 'Back the team. Wear the colours.', desc: 'Order the GNPL 2026 audience jersey. Orders close 22 November. Choose your size and personalize the back.', fee: '₹300 each', deadline: '2026-11-23T00:00:00+05:30', cta: 'Buy now', fields: ['T-shirt Size', 'T-Shirt Name', 'T-Shirt Number'] },
 ]
 const teams = [
-  ['Nest United', 'NU', '#ff5aa7'], ['The Strikers', 'TS', '#ffd166'],
-  ['Boundary Breakers', 'BB', '#70d6ff'], ['Wicket Warriors', 'WW', '#c5f363'],
-  ['Pitch Panthers', 'PP', '#ff8fab'], ['Rising Royals', 'RR', '#b8a1ff'],
-  ['Power Hitters', 'PH', '#ff9f1c'], ['Crease Kings', 'CK', '#65d6ad'],
-].map(([name, short, color]) => ({ name, short, color, captain: 'To be announced', players: [] }));
+  ['Prudentech Power Panthers', 'PPP', '#a855f7', 'Men'],
+  ['Prudentech Power Leopards', 'PPL', '#f59e0b', 'Women'],
+  ['Preetam Paltan', 'PP', '#ef4444', 'Men'],
+  ['Preetam Risers', 'PR', '#38bdf8', 'Women'],
+  ['Bigtrip Royal Lions', 'BRL', '#fbbf24', 'Men'],
+  ['Ashish Knight Riders', 'AKR', '#9333ea', 'Kids'],
+  ['Titan Thunder', 'TT', '#facc15', 'Men'],
+  ['Black Thunder', 'BT', '#c084fc', 'Kids'],
+  ['Nest Strikers', 'NS', '#0ea5e9', 'Men'],
+  ['Nest Sanskriti', 'NS', '#ec4899', 'Men'],
+].map(([name, short, color, category]) => ({ name, short, color, category, captain: 'To be announced', players: [] }));
 const LOCAL_KEY = 'gnpl2026_registrations';
 const readLocal = () => { try { return JSON.parse(localStorage.getItem(LOCAL_KEY) || '[]'); } catch { return []; } };
 const normalizeRows = value => Array.isArray(value) ? value.filter(row => row && typeof row === 'object' && !Array.isArray(row)).map(row => ({ ...row, details: row.details && typeof row.details === 'object' && !Array.isArray(row.details) ? row.details : {} })) : [];
@@ -711,7 +717,7 @@ function App() {
           const captainName = squad.find(player => player.is_team_captain)?.name || team.captain;
           return <article className="team-card team-card-clickable" key={team.name} style={{'--team-accent': team.color}} role="button" tabIndex={0} aria-label={`View ${team.name} team roster`} onClick={() => setSelectedTeam(team)} onKeyDown={event => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); setSelectedTeam(team); } }}>
             <div className="team-card-top"><span>GNPL 2026 / TEAM {String(index + 1).padStart(2, '0')}</span><span className="team-status">{squad.length ? 'SQUAD CONFIRMED' : 'TO BE ANNOUNCED'}</span></div>
-            <div className="team-identity"><div className="team-logo" aria-label={`${team.name} logo`}><span>{team.short}</span><small>GNPL</small></div><div><h3>{team.name}</h3><p><Trophy size={14} /> Captain: <strong>{captainName}</strong></p></div></div>
+            <div className="team-identity"><div className="team-logo" aria-label={`${team.name} logo`}><span>{team.short}</span><small>GNPL</small></div><div><h3>{team.name}</h3><p className="team-category">{team.category} team</p><p><Trophy size={14} /> Captain: <strong>{captainName}</strong></p></div></div>
             <div className="squad-heading"><span><Users size={15} /> PLAYER SQUAD</span><strong>{squad.length ? `${squad.length} PLAYERS` : 'TO BE ANNOUNCED'}</strong></div>
             {squad.length ? <ul className="squad-list">{squad.map((player, playerIndex) => <li key={`${player.name}-${playerIndex}`}><span>{player.name}</span>{player.role && <small className="player-role-badge">{player.role}</small>}</li>)}</ul> : <div className="squad-empty"><span className="squad-people"><i/><i/><i/><i/></span><p>Player names will appear here after team assignments are finalized.</p></div>}
           </article>;
