@@ -1423,3 +1423,56 @@ body{overflow-x:clip}
   .match-countdown-values strong{font-size:14px}
   .match-countdown-values small{font-size:5px}
 }
+
+/* Readable mobile type scale and restrained motion on key calls to action. */
+@media(max-width:620px){
+  .hero h1.league-title{font-size:clamp(18px,5.7vw,31px)!important;letter-spacing:-.055em}
+  .hero-tagline{font-size:22px!important}
+  .hero-text{font-size:14px!important;line-height:1.55!important}
+  .eyebrow,.section-tag{font-size:10px;letter-spacing:.12em}
+  .front-status-tag{font-size:9px}
+  .front-status-item strong{font-size:13px}
+  .hero-actions>.button-lime,.hero-actions>.hero-player-list-button{font-size:12px}
+  .hero-actions>.tshirt-buy-shortcut strong{font-size:12px}
+  .hero-actions>.tshirt-buy-shortcut small{font-size:9px}
+  .auction-update-kicker{font-size:11px}
+  .auction-update-copy h2{font-size:clamp(31px,8vw,42px)}
+  .auction-update-lede{font-size:15px;line-height:1.5}
+  .auction-update-statuses span{font-size:12px}
+  .auction-highlight-title{font-size:10px}
+  .auction-highlight-player strong{font-size:12px}
+  .auction-highlight-player small{font-size:10px}
+  .auction-highlight>b{font-size:13px}
+  .auction-update-deadline{font-size:12px;line-height:1.5}
+  .team-card-top{font-size:11px}
+  .team-identity h3{font-size:clamp(25px,6.6vw,33px)}
+  .team-identity p:not(.team-category){font-size:14px}
+  .team-identity .team-owner-name small,.team-identity .team-captain-name small{font-size:9px}
+  .squad-heading{font-size:12px}
+  .squad-list li{font-size:14px}
+  .match-ready-kicker{font-size:10px}
+  .match-ready-copy h2{font-size:clamp(27px,7vw,36px)}
+  .match-ready-copy p{font-size:13px}
+  .match-countdown-label{font-size:9px}
+  .match-countdown-values strong{font-size:18px}
+  .match-countdown-values small{font-size:7px}
+  .match-ready-date{font-size:20px}
+  .match-ready-venue{font-size:11px}
+  .mobile-quick-actions a{font-size:12px}
+}
+@media(max-width:380px){
+  .hero h1.league-title{font-size:18px!important;letter-spacing:-.06em}
+  .front-status-item strong{font-size:12px}
+  .match-countdown-label{font-size:8px}
+  .match-countdown-values strong{font-size:16px}
+  .match-countdown-values small{font-size:7px}
+  .mobile-quick-actions a{font-size:11px}
+}
+.hero-actions>.button-lime{animation:register-cta-glow 4.2s ease-in-out infinite}
+.auction-update-card{animation:panel-arrive .65s cubic-bezier(.2,.7,.25,1) both}
+.match-ready-card{animation:panel-arrive .7s .12s cubic-bezier(.2,.7,.25,1) both}
+.team-filter-bar button.active{animation:filter-active-glow 3.4s ease-in-out infinite}
+@keyframes register-cta-glow{0%,100%{box-shadow:0 8px 25px rgba(215,255,89,.16),0 5px 18px rgba(255,90,167,.08)}50%{box-shadow:0 10px 29px rgba(215,255,89,.32),0 6px 22px rgba(255,90,167,.16)}}
+@keyframes panel-arrive{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+@keyframes filter-active-glow{0%,100%{box-shadow:0 0 10px rgba(215,255,89,.07)}50%{box-shadow:0 0 18px rgba(215,255,89,.2)}}
+@media(prefers-reduced-motion:reduce){.hero-actions>.button-lime,.auction-update-card,.match-ready-card,.team-filter-bar button.active{animation:none!important}}
