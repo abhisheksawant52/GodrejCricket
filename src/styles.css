@@ -1513,3 +1513,32 @@ body{overflow-x:clip}
 .registration-update-bar small{color:#d6c8dc;font-size:12px}
 .registration-update-bar>a{display:flex;align-items:center;gap:7px;flex:none;padding:9px 12px;border-radius:7px;background:linear-gradient(105deg,#d7ff59,#ffe078);color:#1b1020;font-size:12px;font-weight:900}
 @media(max-width:620px){.registration-update-bar{align-items:flex-start;flex-direction:column;gap:10px;margin:20px 0;padding:12px}.registration-update-bar small{font-size:12px;line-height:1.45}.registration-update-bar>a{width:100%;justify-content:center}}
+
+/* Coordinated GNPL jewel palette and subtle ambient motion. */
+@property --hero-glow-x{syntax:'<percentage>';inherits:false;initial-value:76%}
+:root{--gnpl-violet:#9d7bff;--gnpl-coral:#ff719d;--gnpl-ice:#9bf4f4;--gnpl-champagne:#ffe18a}
+body{background-color:#0d0814;background-image:radial-gradient(ellipse at 7% 18%,rgba(255,87,165,.14),transparent 30%),radial-gradient(ellipse at 93% 31%,rgba(105,232,241,.1),transparent 31%),radial-gradient(ellipse at 48% 100%,rgba(157,123,255,.08),transparent 43%),linear-gradient(145deg,#0c0712 0%,#120a1b 52%,#090c16 100%);background-attachment:fixed}
+.topline{background:linear-gradient(100deg,#d7ff59 0%,#eaff82 48%,#ffe18a 100%)}
+.nav{box-shadow:0 7px 24px rgba(5,3,12,.16)}
+.nav-links>a{transition:color .22s ease,text-shadow .22s ease}
+.nav-links>a:hover{color:#a8f4f4;text-shadow:0 0 14px rgba(105,232,241,.3)}
+.button-lime{background:linear-gradient(105deg,#d7ff59,#ffe18a);transition:transform .2s ease,box-shadow .25s ease,filter .25s ease}
+.button-lime:hover{transform:translateY(-2px);filter:saturate(1.12)}
+.auction-update-card{box-shadow:0 18px 42px rgba(0,0,0,.27),inset 0 1px rgba(255,255,255,.075),0 0 30px rgba(157,123,255,.055);animation:auction-card-breathe 8s ease-in-out infinite}
+.auction-closed-badge{background:linear-gradient(100deg,rgba(255,90,167,.16),rgba(157,123,255,.15));border-color:rgba(255,137,197,.62)}
+.auction-highlight{position:relative;overflow:hidden}
+.auction-highlight:after{position:absolute;inset:0;content:"";background:linear-gradient(110deg,transparent 28%,rgba(255,255,255,.12) 50%,transparent 68%);transform:translateX(-115%);pointer-events:none}
+.auction-highlight:hover:after{animation:highlight-sweep .7s ease-out}
+.match-ready-card{position:relative;isolation:isolate;overflow:hidden;border-color:rgba(255,113,157,.43);background:radial-gradient(ellipse at 84% 52%,rgba(105,232,241,.12),transparent 38%),radial-gradient(ellipse at 12% 0,rgba(255,113,157,.16),transparent 40%),linear-gradient(120deg,#23132f,#120d21 56%,#0e2630);box-shadow:0 15px 38px rgba(0,0,0,.24),inset 0 1px rgba(255,255,255,.07)}
+.match-ready-card:after{position:absolute;z-index:0;inset:0;content:"";border-radius:inherit;background:linear-gradient(112deg,transparent 27%,rgba(255,255,255,.065) 49%,transparent 69%);transform:translateX(-110%);pointer-events:none;animation:match-panel-sweep 9s ease-in-out infinite}
+.match-ready-copy,.match-ready-graphic{position:relative;z-index:1}
+.team-card-clickable .team-logo{transform-origin:50% 65%}
+.team-card-clickable:hover .team-logo,.team-card-clickable:focus-visible .team-logo{animation:team-logo-pop .7s cubic-bezier(.2,.75,.25,1)}
+.team-filter-bar button.active{background:linear-gradient(110deg,rgba(215,255,89,.18),rgba(105,232,241,.12));border-color:rgba(215,255,89,.72)}
+.registration-update-bar{position:relative;overflow:hidden;border-color:rgba(157,123,255,.28);background:linear-gradient(105deg,rgba(39,22,51,.94),rgba(14,24,35,.94));box-shadow:inset 3px 0 #ff719d,0 12px 30px rgba(0,0,0,.16)}
+.registration-update-bar>div>span{color:#ffb3d2}
+@keyframes auction-card-breathe{0%,100%{box-shadow:0 18px 42px rgba(0,0,0,.27),inset 0 1px rgba(255,255,255,.075),0 0 23px rgba(157,123,255,.04)}50%{box-shadow:0 18px 42px rgba(0,0,0,.27),inset 0 1px rgba(255,255,255,.075),0 0 34px rgba(255,90,167,.1)}}
+@keyframes match-panel-sweep{0%,70%,100%{transform:translateX(-110%)}36%{transform:translateX(110%)}}
+@keyframes highlight-sweep{to{transform:translateX(115%)}}
+@keyframes team-logo-pop{0%,100%{transform:translateY(-3px) rotate(-2deg) scale(1.045)}45%{transform:translateY(-8px) rotate(2deg) scale(1.09)}}
+@media(prefers-reduced-motion:reduce){.auction-update-card,.match-ready-card:after,.auction-highlight:after{animation:none!important}.team-card-clickable:hover .team-logo,.team-card-clickable:focus-visible .team-logo{animation:none!important}}
