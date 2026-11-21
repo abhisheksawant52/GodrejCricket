@@ -192,7 +192,7 @@ export default async function handler(req, res) {
       return json(res, 200, { ok: true });
     }
     if (typeof captain_id !== 'undefined') {
-      const allowedTeams = ['Nest United', 'The Strikers', 'Boundary Breakers', 'Wicket Warriors', 'Pitch Panthers', 'Rising Royals', 'Power Hitters', 'Crease Kings'];
+      const allowedTeams = ['Prudentech Power Panthers', 'Prudentech Power Leopards', 'Preetam Paltan', 'Prisha Smash Queens', 'Bigtrip Royal Lions', 'Ashish Knight Riders', 'Titan Thunder', 'Black Thunder', 'Nest Warriors', 'Nest Sanskriti'];
       if (typeof captain_team !== 'string' || !allowedTeams.includes(captain_team) || typeof captain_id !== 'string') return json(res, 400, { error: 'Choose a valid team and captain.' });
       const { data: players, error: readError } = await supabase.from('registrations').select('id, details').eq('type', 'Player');
       if (readError) return json(res, 500, { error: 'Could not load team players.' });
@@ -242,7 +242,7 @@ export default async function handler(req, res) {
       updates.payment_status = payment_status;
     }
     if (typeof team_name !== 'undefined') {
-      const allowedTeams = ['Nest United', 'The Strikers', 'Boundary Breakers', 'Wicket Warriors', 'Pitch Panthers', 'Rising Royals', 'Power Hitters', 'Crease Kings'];
+      const allowedTeams = ['Prudentech Power Panthers', 'Prudentech Power Leopards', 'Preetam Paltan', 'Prisha Smash Queens', 'Bigtrip Royal Lions', 'Ashish Knight Riders', 'Titan Thunder', 'Black Thunder', 'Nest Warriors', 'Nest Sanskriti'];
       if (typeof team_name !== 'string' || (team_name !== '' && !allowedTeams.includes(team_name))) return json(res, 400, { error: 'Choose a valid team.' });
       const { data: registration, error: readError } = await supabase.from('registrations').select('type, details').eq('id', id).maybeSingle();
       if (readError) return json(res, 500, { error: 'Could not load the player registration.' });
