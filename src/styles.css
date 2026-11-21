@@ -1766,3 +1766,10 @@ main>section{scroll-margin-top:96px}
   .organizer-banner strong{font-size:14px}
   .hero h1.league-title{font-size:clamp(32px,9.2vw,36px)!important;letter-spacing:-.045em}
 }
+
+/* Sportier, clearer headline typography. */
+.hero h1.league-title{font-family:'Russo One',sans-serif!important;font-weight:400;letter-spacing:-.055em;column-gap:.24em;row-gap:.06em}
+.hero h1.league-title>span{font-family:'Russo One',sans-serif!important;letter-spacing:-.055em}
+.hero h1.league-title em{font-family:'Playfair Display',Georgia,serif!important;font-weight:600;letter-spacing:-.03em}
+@media(max-width:760px){.hero h1.league-title{font-size:clamp(30px,8.8vw,42px)!important;column-gap:.2em;letter-spacing:-.06em}}
+@media(max-width:360px){.hero h1.league-title{font-size:clamp(27px,8.1vw,32px)!important}}
