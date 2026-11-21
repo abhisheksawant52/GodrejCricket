@@ -143,7 +143,37 @@ export default async function handler(req, res) {
     return json(res, 200, { ok: true });
   }
   if (req.method === 'PATCH') {
-    const { id, ids, payment_status, team_name, captain_id, captain_team, jersey_issued, duplicate_reviewed, auction_sold, player_grade, player_profile, edit_registration } = req.body || {};
+    const { id, ids, auction_import, payment_status, team_name, captain_id, captain_team, jersey_issued, duplicate_reviewed, auction_sold, player_grade, player_profile, edit_registration } = req.body || {};
+    if (Array.isArray(auction_import)) {
+      const allowedTeams = ['Prudentech Power Panthers', 'Prudentech Power Leopards', 'Preetam Paltan', 'Prisha Smash Queens', 'Bigtrip Royal Lions', 'Ashish Knight Riders', 'Titan Thunder', 'Black Thunder', 'Nest Warriors', 'Nest Sanskriti'];
+      const validIds = values => values.every(value => typeof value === 'string' && /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(value));
+      if (auction_import.length < 1 || auction_import.length > 500 || !validIds(auction_import.map(item => item?.id)) || new Set(auction_import.map(item => item.id)).size !== auction_import.length) return json(res, 400, { error: 'Upload must contain 1 to 500 unique player records.' });
+      if (auction_import.some(item => !['Sold', 'Available'].includes(item.status) || (item.team_name !== null && !allowedTeams.includes(item.team_name)) || !Number.isFinite(item.sold_price) || item.sold_price < 0 || !Number.isFinite(item.base_price) || item.base_price < 0 || !['A+', 'A', 'B', 'B+'].includes(item.player_grade))) return json(res, 400, { error: 'The auction file contains an invalid status, team, price, or grade.' });
+      const { data: players, error: readError } = await supabase.from('registrations').select('id, type, details').in('id', auction_import.map(item => item.id));
+      if (readError) return json(res, 500, { error: 'Could not verify the auction player records.' });
+      if (!players || players.length !== auction_import.length || players.some(player => player.type !== 'Player')) return json(res, 400, { error: 'One or more uploaded players no longer match a player registration. Refresh the dashboard and retry.' });
+      const byId = new Map(players.map(player => [player.id, player]));
+      const savedAt = new Date().toISOString();
+      const results = await Promise.all(auction_import.map(item => {
+        const player = byId.get(item.id);
+        const oldDetails = player.details && typeof player.details === 'object' && !Array.isArray(player.details) ? player.details : {};
+        const sold = item.status === 'Sold';
+        const details = {
+          ...oldDetails,
+          team_name: item.team_name,
+          auction_sold: sold,
+          auction_sold_at: sold ? (oldDetails.auction_sold ? oldDetails.auction_sold_at || savedAt : savedAt) : null,
+          sold_price: sold ? item.sold_price : null,
+          base_price: item.base_price,
+          player_grade: item.player_grade,
+          auction_lot: item.lot
+        };
+        return supabase.from('registrations').update({ details }).eq('id', item.id);
+      }));
+      const failed = results.filter(result => result.error);
+      if (failed.length) return json(res, 500, { error: `Auction data was saved for ${results.length - failed.length} players; ${failed.length} updates failed. Refresh the dashboard before retrying.` });
+      return json(res, 200, { ok: true, updated: auction_import.length });
+    }
     if (Array.isArray(ids)) {
       if (!['Paid', 'Pending'].includes(payment_status) || ids.length < 1 || ids.length > 500 || ids.some(value => typeof value !== 'string' || !/^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(value))) return json(res, 400, { error: 'Choose registrations and a valid payment status.' });
       const { error } = await supabase.from('registrations').update({ payment_status }).in('id', [...new Set(ids)]);

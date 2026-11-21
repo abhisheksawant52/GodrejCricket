@@ -24,6 +24,23 @@ const LOCAL_KEY = 'gnpl2026_registrations';
 const readLocal = () => { try { return JSON.parse(localStorage.getItem(LOCAL_KEY) || '[]'); } catch { return []; } };
 const normalizeRows = value => Array.isArray(value) ? value.filter(row => row && typeof row === 'object' && !Array.isArray(row)).map(row => ({ ...row, details: row.details && typeof row.details === 'object' && !Array.isArray(row.details) ? row.details : {} })) : [];
 const saveLocal = (rows) => localStorage.setItem(LOCAL_KEY, JSON.stringify(rows));
+const parseCsv = text => {
+  const rows = []; let row = []; let value = ''; let quoted = false;
+  const source = text.replace(/^\uFEFF/, '');
+  for (let i = 0; i < source.length; i += 1) {
+    const char = source[i];
+    if (quoted && char === '"' && source[i + 1] === '"') { value += '"'; i += 1; }
+    else if (char === '"') quoted = !quoted;
+    else if (!quoted && char === ',') { row.push(value.trim()); value = ''; }
+    else if (!quoted && (char === '\n' || char === '\r')) {
+      row.push(value.trim()); value = '';
+      if (row.some(cell => cell)) rows.push(row);
+      row = []; if (char === '\r' && source[i + 1] === '\n') i += 1;
+    } else value += char;
+  }
+  if (value || row.length) { row.push(value.trim()); if (row.some(cell => cell)) rows.push(row); }
+  return rows;
+};
 export class AdminRenderBoundary extends React.Component {
   state = { error: null };
   static getDerivedStateFromError(error) { return { error }; }
@@ -90,6 +107,7 @@ function App() {
   const [formBusy, setFormBusy] = useState(false);
   const [formReady, setFormReady] = useState(false);
   const [notice, setNotice] = useState('');
+  const [auctionImportBusy, setAuctionImportBusy] = useState(false);
   const [receipt, setReceipt] = useState(null);
   const [filter, setFilter] = useState('All');
   const [adminSearch, setAdminSearch] = useState('');
@@ -548,6 +566,72 @@ function App() {
       if (sold) announceSold(row);
     } catch { setNotice('Could not reach the registrations API. Auction status was not updated.'); }
     finally { setSoldBusyId(null); }
+  }
+  async function importAuctionCsv(event) {
+    const file = event.target.files?.[0];
+    event.target.value = '';
+    if (!file) return;
+    if (!online) { setNotice('Sign in to the live admin dashboard before importing auction results.'); return; }
+    setNotice(''); setAuctionImportBusy(true);
+    try {
+      const parsed = parseCsv(await file.text());
+      if (parsed.length < 2) throw new Error('The CSV has no player rows.');
+      const headers = parsed[0].map(header => header.toLowerCase());
+      const field = name => headers.indexOf(name.toLowerCase());
+      const required = ['Player Name', 'Category', 'Base Price', 'Status', 'Sold Price', 'Assigned Team'];
+      if (required.some(name => field(name) < 0)) throw new Error('This file is missing one or more required auction columns.');
+      const normalize = value => String(value || '').normalize('NFKD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]/g, '');
+      const teamLookup = new Map(teams.map(team => [normalize(team.name), team.name]));
+      const playerLookup = new Map();
+      rows.filter(row => row.type === 'Player').forEach(row => {
+        const key = normalize(row.name);
+        playerLookup.set(key, [...(playerLookup.get(key) || []), row]);
+      });
+      const updates = []; const unmatched = []; const invalid = [];
+      for (const cells of parsed.slice(1)) {
+        const get = name => cells[field(name)] || '';
+        const name = get('Player Name');
+        const matches = playerLookup.get(normalize(name)) || [];
+        if (!name || matches.length !== 1) { unmatched.push(name || '(blank name)'); continue; }
+        const status = get('Status').trim().toLowerCase();
+        const grade = get('Category').replace(/\s/g, '').toUpperCase();
+        const basePrice = Number(get('Base Price'));
+        const soldPrice = Number(get('Sold Price') || 0);
+        const teamLabel = get('Assigned Team').trim();
+        const canonicalTeam = teamLabel && normalize(teamLabel) !== normalize('Unassigned') ? teamLookup.get(normalize(teamLabel)) : null;
+        if (!['sold', 'available'].includes(status) || !['A+', 'A', 'B', 'B+'].includes(grade) || !Number.isFinite(basePrice) || basePrice < 0 || !Number.isFinite(soldPrice) || soldPrice < 0 || (teamLabel && normalize(teamLabel) !== normalize('Unassigned') && !canonicalTeam)) {
+          invalid.push(name); continue;
+        }
+        updates.push({
+          id: matches[0].id,
+          status: status === 'sold' ? 'Sold' : 'Available',
+          team_name: status === 'sold' ? canonicalTeam : null,
+          player_grade: grade,
+          base_price: basePrice,
+          sold_price: soldPrice,
+          lot: Number(get('Lot #')) || null
+        });
+      }
+      if (invalid.length) throw new Error(`Invalid auction values for: ${invalid.slice(0, 6).join(', ')}${invalid.length > 6 ? ', …' : ''}. No rows were imported.`);
+      if (!updates.length) throw new Error(`No CSV players matched registrations. ${unmatched.length} rows were not imported.`);
+      const soldCount = updates.filter(item => item.status === 'Sold').length;
+      const message = `Import ${updates.length} matched players from “${file.name}”? This will set ${soldCount} as Sold and ${updates.length - soldCount} as Available, update their team assignments, and replace those auction values. ${unmatched.length ? `${unmatched.length} unmatched rows will be skipped.` : ''}`;
+      if (!window.confirm(message)) return;
+      const response = await fetch('/api/registrations', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json', 'x-admin-password': adminPass },
+        body: JSON.stringify({ auction_import: updates })
+      });
+      const data = await response.json().catch(() => ({}));
+      if (!response.ok) throw new Error(data.error || 'Could not import auction results.');
+      await loadRows();
+      const listResponse = await fetch('/api/players', { cache: 'no-store' });
+      const listData = await listResponse.json().catch(() => ({}));
+      if (listResponse.ok) { setRegisteredPlayers(listData.players || []); setPlayersLoaded(true); }
+      setNotice(`Imported auction data for ${data.updated} players.${unmatched.length ? ` ${unmatched.length} unmatched rows skipped: ${unmatched.slice(0, 5).join(', ')}${unmatched.length > 5 ? ', …' : ''}.` : ''}`);
+    } catch (error) {
+      setNotice(error.message || 'Could not read the auction CSV.');
+    } finally { setAuctionImportBusy(false); }
   }
   async function setTeamAssignment(row, teamName) {
     if (row.type !== 'Player') return;
