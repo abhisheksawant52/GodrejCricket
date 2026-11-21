@@ -874,3 +874,44 @@ body,.site-shell{color:#fff5fb}
   .squad-list{grid-template-columns:1fr;gap:10px;margin-top:14px}
   .squad-list li{font-size:13px}
 }
+/* Homepage auction close and late-registration update */
+.auction-update{padding:14px 0 34px}
+.auction-update-card{position:relative;isolation:isolate;display:grid;grid-template-columns:minmax(0,1.25fr) minmax(260px,.75fr);align-items:center;gap:24px;min-height:315px;overflow:hidden;padding:clamp(24px,4vw,48px);border:1px solid rgba(83,222,232,.34);border-radius:16px;background:radial-gradient(ellipse at 88% 50%,rgba(83,222,232,.14),transparent 35%),radial-gradient(ellipse at 12% 0,rgba(255,90,167,.19),transparent 42%),linear-gradient(125deg,#26102c 0%,#170d25 55%,#10232d 100%);box-shadow:0 22px 56px rgba(0,0,0,.32),inset 0 1px rgba(255,255,255,.08)}
+.auction-update-card:before{position:absolute;z-index:-1;top:-35%;bottom:-35%;left:-40%;width:22%;content:"";background:linear-gradient(90deg,transparent,rgba(255,255,255,.09),transparent);transform:skewX(-22deg);animation:auction-panel-sweep 8s ease-in-out infinite}
+.auction-update-copy{position:relative;z-index:1;max-width:720px}
+.auction-update-kicker{display:flex;align-items:center;gap:10px;color:#b7f6fa;font-size:11px;font-weight:900;letter-spacing:.16em}
+.auction-update-pulse{width:10px;height:10px;border-radius:50%;background:#ff6eaf;box-shadow:0 0 0 5px rgba(255,110,175,.13),0 0 18px rgba(255,110,175,.75);animation:auction-status-pulse 1.8s ease-in-out infinite}
+.auction-update-copy h2{margin:18px 0 12px;color:#fff5fb;font:900 clamp(38px,5.2vw,66px)/.94 'Barlow Condensed',Impact,sans-serif;letter-spacing:-.02em}
+.auction-update-copy h2 em{color:#ff72b2;font-style:normal;text-shadow:0 0 24px rgba(255,90,167,.35)}
+.auction-update-lede{max-width:610px;margin:0;color:#f0ddeb;font-size:clamp(16px,1.7vw,20px);line-height:1.55}
+.auction-update-statuses{display:flex;flex-wrap:wrap;gap:10px;margin-top:19px}
+.auction-update-statuses span{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border:1px solid rgba(83,222,232,.3);border-radius:99px;background:rgba(5,18,29,.38);color:#e8fbff;font-size:12px;font-weight:800}
+.auction-update-statuses svg{color:#72eff1}
+.auction-update-actions{display:flex;align-items:center;flex-wrap:wrap;gap:17px;margin-top:23px}
+.auction-update-actions .button-lime{min-height:48px;padding:0 18px;font-size:14px}
+.auction-update-teams-link{display:inline-flex;align-items:center;gap:7px;color:#fff1f7;font-size:14px;font-weight:800;text-decoration:none}
+.auction-update-teams-link:hover{color:#d7ff59}
+.auction-update-deadline{max-width:610px;margin:15px 0 0;color:#e2d2e4;font-size:13px;line-height:1.55}
+.auction-update-deadline strong{color:#e4ff76}
+.auction-update-art{position:relative;justify-self:center;width:min(100%,340px);height:275px;display:grid;place-items:center;isolation:isolate}
+.auction-art-orbit{position:absolute;left:50%;top:50%;border:1px solid rgba(108,234,242,.22);border-radius:50%;transform:translate(-50%,-50%)}
+.auction-art-orbit-one{width:250px;height:180px;animation:auction-orbit-spin 16s linear infinite}
+.auction-art-orbit-two{width:190px;height:240px;border-color:rgba(255,114,178,.26);animation:auction-orbit-spin 19s linear infinite reverse}
+.auction-art-trophy{position:relative;z-index:2;display:grid;place-items:center;width:128px;height:128px;border:1px solid rgba(255,227,123,.44);border-radius:36px;background:linear-gradient(145deg,rgba(255,226,110,.22),rgba(255,114,178,.13));color:#ffe47a;filter:drop-shadow(0 10px 24px rgba(255,201,69,.18));animation:auction-trophy-float 3.6s ease-in-out infinite}
+.auction-art-ball{position:absolute;z-index:3;top:25px;right:38px;width:34px;height:34px;border:2px solid #ff7182;border-radius:50%;background:radial-gradient(circle at 30% 28%,#ffb4a1,#ec475f 70%);box-shadow:0 0 22px rgba(255,88,112,.65);animation:auction-ball-flight 3.2s ease-in-out infinite}
+.auction-art-ball i{position:absolute;top:4px;bottom:4px;left:13px;width:2px;border-left:1px dashed rgba(255,255,255,.85);transform:rotate(28deg)}
+.auction-art-stump{position:absolute;z-index:2;bottom:43px;width:5px;height:49px;border-radius:4px;background:linear-gradient(#f7e99e,#ffbd55);box-shadow:0 0 13px rgba(255,195,85,.4)}
+.stump-one{left:calc(50% - 18px)}.stump-two{left:50%}.stump-three{left:calc(50% + 18px)}
+.auction-art-bail{position:absolute;z-index:2;bottom:94px;left:calc(50% - 22px);width:45px;height:4px;border-radius:5px;background:#ffe99c;box-shadow:0 0 12px rgba(255,223,119,.65)}
+.auction-art-label{position:absolute;right:3px;bottom:27px;color:#cbfaff;font-size:10px;font-weight:1000;letter-spacing:.2em;line-height:1.45;text-align:right}
+.auction-art-star{position:absolute;color:#e9ff83;text-shadow:0 0 16px rgba(233,255,131,.8);animation:auction-star-twinkle 2.4s ease-in-out infinite}
+.auction-art-star-one{top:45px;left:39px;font-size:25px}.auction-art-star-two{right:26px;bottom:58px;font-size:18px;animation-delay:.8s}
+@keyframes auction-status-pulse{50%{opacity:.55;box-shadow:0 0 0 8px rgba(255,110,175,.06),0 0 22px rgba(255,110,175,.9)}}
+@keyframes auction-orbit-spin{to{transform:translate(-50%,-50%) rotate(360deg)}}
+@keyframes auction-trophy-float{50%{transform:translateY(-9px) rotate(1deg)}}
+@keyframes auction-ball-flight{0%,100%{transform:translate(0,0) rotate(0)}50%{transform:translate(-23px,16px) rotate(140deg)}}
+@keyframes auction-star-twinkle{50%{opacity:.45;transform:scale(.78) rotate(18deg)}}
+@keyframes auction-panel-sweep{0%,70%,100%{left:-40%}35%{left:120%}}
+@media(max-width:760px){.auction-update{padding:6px 0 25px}.auction-update-card{grid-template-columns:1fr;gap:4px;padding:25px 22px;border-radius:13px}.auction-update-copy h2{font-size:clamp(38px,10vw,54px)}.auction-update-lede{font-size:16px}.auction-update-art{width:min(100%,280px);height:205px;margin-top:0}.auction-art-trophy{width:100px;height:100px}.auction-art-trophy svg{width:62px;height:62px}.auction-art-orbit-one{width:210px;height:150px}.auction-art-orbit-two{width:155px;height:200px}.auction-art-ball{top:12px;right:26px;width:29px;height:29px}.auction-update-deadline{font-size:13px}}
+@media(max-width:420px){.auction-update-card{padding:21px 17px}.auction-update-kicker{font-size:9px;letter-spacing:.12em}.auction-update-actions{align-items:flex-start;flex-direction:column;gap:13px}.auction-update-actions .button-lime{width:100%;justify-content:center}.auction-update-art{height:178px}}
+@media(prefers-reduced-motion:reduce){.auction-update-card:before,.auction-update-pulse,.auction-art-orbit,.auction-art-trophy,.auction-art-ball,.auction-art-star{animation:none!important}.auction-update-card:before{display:none}}
