@@ -1824,3 +1824,65 @@ main>section{scroll-margin-top:96px}
   .hero-actions>.sponsor-front-cta{grid-column:1/-1;grid-row:3;width:100%;min-height:42px}
 }
 @media(prefers-reduced-motion:reduce){.sponsor-front-cta{transition:none!important}.sponsor-front-cta:hover{transform:none}}
+
+/* High-contrast sponsorship call to action. */
+.sponsor-front-cta{position:relative;isolation:isolate;overflow:hidden;border:1px solid #ffe7a1;background:linear-gradient(110deg,#ffd166 0%,#ffb35c 48%,#ff72b2 100%);color:#221020;box-shadow:0 7px 22px rgba(255,157,104,.25),0 0 0 1px rgba(255,255,255,.12),inset 0 1px rgba(255,255,255,.52);text-shadow:none}
+.sponsor-front-cta:before{position:absolute;z-index:-1;inset:0;content:"";background:linear-gradient(110deg,transparent 20%,rgba(255,255,255,.45) 48%,transparent 72%);transform:translateX(-120%);transition:transform .55s ease}
+.sponsor-front-cta svg:first-child{color:#4a2140;filter:drop-shadow(0 1px 0 rgba(255,255,255,.35))}
+.sponsor-front-cta:hover,.sponsor-front-cta:focus-visible{border-color:#fff4c8;background:linear-gradient(110deg,#ffe28a 0%,#ffc27b 48%,#ff91c4 100%);color:#1f1020;box-shadow:0 10px 28px rgba(255,125,164,.34),0 0 0 3px rgba(255,209,102,.17),inset 0 1px rgba(255,255,255,.68)}
+.sponsor-front-cta:hover:before,.sponsor-front-cta:focus-visible:before{transform:translateX(120%)}
+@media(prefers-reduced-motion:reduce){.sponsor-front-cta:before{display:none}}
+
+/* Cohesive front-page visual polish. */
+:root{--ui-radius-sm:9px;--ui-radius-md:15px;--ui-radius-lg:20px;--ui-border:rgba(156,207,226,.24);--ui-shadow:0 18px 48px rgba(0,0,0,.24)}
+main>section:not(.hero){position:relative}
+main>section:not(.hero):not(:first-child){scroll-margin-top:96px}
+.eyebrow-line{width:34px;height:2px;border-radius:3px;background:linear-gradient(90deg,#ff5aa7,#d7ff59);box-shadow:0 0 12px rgba(255,90,167,.35)}
+.hero h1.league-title>span:first-child{background:linear-gradient(180deg,#ff9acb 0%,#ff5aa7 60%,#ef438f 100%);background-clip:text;-webkit-background-clip:text;color:transparent;text-shadow:0 8px 30px rgba(255,90,167,.12)}
+.hero h1.league-title>.league-title-second{background:linear-gradient(180deg,#fff3f9 0%,#ff83bd 85%);background-clip:text;-webkit-background-clip:text;color:transparent}
+.hero-tagline{color:#e5ff78;text-shadow:0 0 22px rgba(215,255,89,.14)}
+.front-status-strip{gap:12px}
+.front-status-item{min-height:54px;border-radius:var(--ui-radius-sm);border-color:var(--ui-border);background:linear-gradient(110deg,rgba(39,22,52,.92),rgba(17,25,38,.94));box-shadow:inset 0 1px rgba(255,255,255,.06),0 10px 24px rgba(0,0,0,.16)}
+.front-status-item:hover{border-color:rgba(215,255,89,.46)}
+.auction-update{padding-top:5px;padding-bottom:18px}
+.auction-update-card{border-radius:var(--ui-radius-lg);box-shadow:var(--ui-shadow),inset 0 1px rgba(255,255,255,.08)}
+.auction-update-copy h2{letter-spacing:-.025em}
+.auction-closed-badge{box-shadow:0 0 18px rgba(255,90,167,.14)}
+.match-info-bar{border-radius:var(--ui-radius-md);padding:13px 17px;box-shadow:var(--ui-shadow),inset 0 1px rgba(255,255,255,.08)}
+.match-info-details>strong{letter-spacing:-.025em}
+.teams-section{padding-top:36px}
+.teams-heading{align-items:end;gap:22px;margin:0 0 24px;padding-bottom:18px;border-bottom:1px solid rgba(255,255,255,.1)}
+.teams-heading h2{letter-spacing:-.035em}
+.teams-heading p{max-width:390px;color:#e2d4e7}
+.teams-grid{gap:16px}
+.team-card{border-radius:var(--ui-radius-md);border-color:color-mix(in srgb,var(--team-accent) 38%,rgba(255,255,255,.12));box-shadow:0 16px 38px rgba(0,0,0,.22),inset 0 1px rgba(255,255,255,.055)}
+.team-card-top{font-size:10px;letter-spacing:.12em}
+.team-identity .team-owner-name{border:1px solid rgba(215,255,89,.36);border-radius:999px;background:linear-gradient(100deg,rgba(215,255,89,.16),rgba(255,209,102,.1));color:#f0ffad;box-shadow:inset 0 1px rgba(255,255,255,.07)}
+.register-section{padding-top:58px}
+.register-heading{align-items:end;gap:24px;margin-bottom:24px;padding-bottom:18px;border-bottom:1px solid rgba(255,255,255,.1)}
+.register-heading p{max-width:460px;color:#e4d6e8}
+.register-grid{gap:16px}
+.register-card{border-radius:var(--ui-radius-md);box-shadow:0 14px 38px rgba(0,0,0,.22),inset 0 1px rgba(255,255,255,.06)}
+.register-card .card-number{color:#b8adca}
+.register-card .deadline-badge{border-radius:var(--ui-radius-sm)}
+.hero-actions>.button,.hero-actions>.hero-player-list-button,.hero-actions>.tshirt-buy-shortcut,.hero-actions>.sponsor-front-cta{min-height:48px;border-radius:8px}
+.nav-links>a{border-radius:6px}
+.footer{border-top:1px solid rgba(255,90,167,.25)}
+@media(max-width:900px){
+  .teams-section{padding-top:26px}
+  .register-section{padding-top:42px}
+  .teams-heading{align-items:flex-start}
+}
+@media(max-width:760px){
+  .front-status-strip{gap:8px}
+  .auction-update{padding-bottom:12px}
+  .auction-update-card{border-radius:var(--ui-radius-md)}
+  .match-info-bar{border-radius:12px;padding:10px}
+  .teams-section{padding-top:20px}
+  .teams-heading{margin-bottom:17px;padding-bottom:13px;gap:9px;border-bottom-color:rgba(255,255,255,.08)}
+  .team-card{border-radius:12px}
+  .register-section{padding-top:32px}
+  .register-heading{margin-bottom:17px;padding-bottom:13px;gap:9px}
+  .register-card{border-radius:12px}
+  .hero-actions>.button,.hero-actions>.hero-player-list-button,.hero-actions>.tshirt-buy-shortcut,.hero-actions>.sponsor-front-cta{min-height:44px;border-radius:7px}
+}
