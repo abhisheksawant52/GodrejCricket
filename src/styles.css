@@ -1476,3 +1476,40 @@ body{overflow-x:clip}
 @keyframes panel-arrive{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
 @keyframes filter-active-glow{0%,100%{box-shadow:0 0 10px rgba(215,255,89,.07)}50%{box-shadow:0 0 18px rgba(215,255,89,.2)}}
 @media(prefers-reduced-motion:reduce){.hero-actions>.button-lime,.auction-update-card,.match-ready-card,.team-filter-bar button.active{animation:none!important}}
+
+/* Declutter the landing page: concise copy, fewer repeated labels, clear hierarchy. */
+.organizer-banner{display:none!important}
+.auction-update{padding:0 0 10px}
+.auction-update-card{padding:15px 20px;border-radius:11px}
+.auction-update-kicker{font-size:9px;letter-spacing:.12em}
+.auction-update-copy h2{margin:5px 0 3px;font-size:clamp(29px,3.2vw,38px);line-height:1}
+.auction-update-lede{font-size:13px;line-height:1.35}
+.auction-update-statuses{display:none}
+.auction-highlight-panel{margin-top:8px;padding:7px 9px}
+.auction-highlight-title{margin-bottom:4px;font-size:9px}
+.auction-highlight{padding:4px 6px}
+.auction-update-actions{margin-top:8px}
+.auction-update-teams-link{font-size:12px}
+.auction-update-deadline{margin-top:6px;font-size:11px}
+.match-ready{padding-bottom:10px}
+.match-ready-card{padding:11px 16px;border-radius:10px}
+.match-ready-kicker{font-size:9px}
+.match-ready-copy h2{margin:4px 0;font-size:clamp(25px,2.7vw,32px)}
+.match-ready-date{margin-top:5px;font-size:19px}
+.match-ready-venue{margin-top:1px;font-size:10px}
+.match-ready-graphic{height:92px}
+@media(max-width:760px){
+  .auction-update-card{padding:13px}
+  .auction-update-copy h2{font-size:clamp(27px,7vw,34px)}
+  .auction-update-lede{font-size:13px}
+  .auction-update-deadline{font-size:11px}
+  .match-ready-card{padding:11px}
+  .match-ready-graphic{height:76px}
+}
+.registration-update-bar{display:flex;align-items:center;justify-content:space-between;gap:16px;margin:30px 0;padding:15px 18px;border:1px solid rgba(105,232,241,.22);border-radius:10px;background:linear-gradient(100deg,rgba(34,21,44,.86),rgba(15,20,31,.9))}
+.registration-update-bar>div{display:grid;gap:3px}
+.registration-update-bar>div>span{color:#ffafd0;font-size:9px;font-weight:1000;letter-spacing:.13em}
+.registration-update-bar strong{color:#fff;font-size:16px}
+.registration-update-bar small{color:#d6c8dc;font-size:12px}
+.registration-update-bar>a{display:flex;align-items:center;gap:7px;flex:none;padding:9px 12px;border-radius:7px;background:linear-gradient(105deg,#d7ff59,#ffe078);color:#1b1020;font-size:12px;font-weight:900}
+@media(max-width:620px){.registration-update-bar{align-items:flex-start;flex-direction:column;gap:10px;margin:20px 0;padding:12px}.registration-update-bar small{font-size:12px;line-height:1.45}.registration-update-bar>a{width:100%;justify-content:center}}
