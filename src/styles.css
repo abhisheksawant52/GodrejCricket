@@ -825,3 +825,52 @@ body,.site-shell{color:#fff5fb}
 .admin-grade-select{display:block;width:100%;min-width:112px;min-height:32px;margin:5px 0;padding:6px 8px;border:1px solid rgba(255,215,74,.48);border-radius:4px;background:#211123;color:#fff4ce;font-size:11px;font-weight:800}.admin-grade-select:focus-visible{outline:2px solid #ffe451;outline-offset:2px}.player-grade-badge{display:inline-flex;align-items:center;margin-left:6px;padding:4px 7px;border:1px solid rgba(255,211,64,.58);border-radius:4px;background:linear-gradient(110deg,rgba(120,78,5,.3),rgba(255,218,74,.13));color:#ffe987!important;font-size:9px!important;font-weight:1000;letter-spacing:.08em}.player-grade-tag{display:inline-flex;align-items:center;gap:7px;width:max-content;margin:4px 0 8px;padding:6px 10px;border:1px solid rgba(246,190,37,.52);border-radius:4px;background:linear-gradient(105deg,#fff2b8,#ffda5a);color:#34220a;font-size:9px;font-weight:1000;letter-spacing:.14em;box-shadow:0 4px 16px rgba(238,174,28,.2)}.player-grade-tag strong{font-size:14px;color:#56242d}
 .player-grade-tag{position:relative;isolation:isolate;gap:12px;margin:8px 0 12px;padding:7px 10px 7px 12px;overflow:hidden;border:1px solid rgba(255,220,92,.9);border-left:4px solid #ffe451;border-radius:5px;background:linear-gradient(105deg,#172541,#26365d 58%,#34274a);color:#ffe98c;font-family:'DM Sans',sans-serif;font-size:10px;font-weight:1000;letter-spacing:.15em;text-shadow:0 1px 4px rgba(0,0,0,.35);box-shadow:0 5px 22px rgba(0,0,0,.22),0 0 18px rgba(255,218,75,.15);animation:grade-badge-in .45s cubic-bezier(.2,.8,.2,1) both}.player-grade-tag:after{position:absolute;z-index:-1;top:-80%;bottom:-80%;left:-55%;width:35%;content:"";background:linear-gradient(90deg,transparent,rgba(255,255,255,.3),transparent);transform:skewX(-22deg);animation:grade-badge-shine 3.8s .5s ease-in-out infinite}.player-grade-tag span{font-size:9px;line-height:1.1;letter-spacing:.14em}.player-grade-tag strong{min-width:38px;height:38px;display:grid;place-items:center;padding:0 7px;border:1px solid rgba(255,243,173,.8);border-radius:4px;background:linear-gradient(145deg,#fff18b,#ffd43f);color:#3d2450;font-family:'Barlow Condensed',Impact,sans-serif;font-size:25px;font-weight:1000;line-height:1;text-shadow:0 1px rgba(255,255,255,.55);box-shadow:0 3px 12px rgba(255,201,36,.28)}.player-grade-badge{margin-left:7px;padding:4px 8px;border:1px solid rgba(255,225,103,.82);border-radius:4px;background:linear-gradient(105deg,#26345a,#493762);color:#ffe98c!important;font-family:'DM Sans',sans-serif;font-size:9px!important;font-weight:1000;letter-spacing:.07em;text-shadow:0 1px 3px rgba(0,0,0,.5)}.player-grade-badge:before{content:'GRADE ';color:#fff;font-size:8px;letter-spacing:.1em}.admin-grade-select{border-color:rgba(255,220,92,.72);background:linear-gradient(110deg,#20182c,#332544);color:#fff0ad;font-weight:900}@keyframes grade-badge-in{from{opacity:0;transform:translateY(7px) scale(.96)}to{opacity:1;transform:translateY(0) scale(1)}}@keyframes grade-badge-shine{0%,72%,100%{left:-55%}30%{left:125%}}@media(prefers-reduced-motion:reduce){.player-grade-tag,.player-grade-tag:after{animation:none!important}}
 .admin-grade-select option{background:#fff;color:#24172a;font-weight:800}.admin-grade-select option:checked{background:#e8dfff;color:#24172a}
+
+/* Team section readability and responsive card spacing */
+.teams-section{padding:48px 0 96px}
+.teams-heading{align-items:center;gap:34px;margin:28px 0 36px}
+.teams-heading h2{font-size:clamp(56px,7vw,90px);line-height:.9}
+.teams-heading p{max-width:430px;margin:0;color:#f0dce9;font-size:17px;line-height:1.65}
+.teams-grid{gap:22px}
+.team-card{min-width:0;padding:26px;border-radius:13px;border-color:color-mix(in srgb,var(--team-accent) 42%,transparent);background:linear-gradient(145deg,rgba(37,25,55,.98),rgba(18,12,32,.99));box-shadow:0 16px 42px rgba(0,0,0,.3),inset 0 1px rgba(255,255,255,.055)}
+.team-card-top{align-items:center;flex-wrap:wrap;color:#f5dfec;font-size:11px;line-height:1.4;letter-spacing:.1em}
+.team-status{padding:5px 9px;border:1px solid color-mix(in srgb,var(--team-accent) 48%,transparent);border-radius:99px;background:color-mix(in srgb,var(--team-accent) 10%,transparent);font-size:10px;letter-spacing:.08em}
+.team-identity{gap:20px;padding:27px 0 25px}
+.team-identity h3{font-size:clamp(27px,2.7vw,40px);line-height:1.05;overflow-wrap:anywhere}
+.team-identity .team-category{margin:3px 0 6px;padding:5px 9px;font-size:11px;letter-spacing:.09em}
+.team-identity p:not(.team-category){gap:8px;margin:4px 0;color:#ead9e7;font-size:14px;line-height:1.45}
+.team-identity p strong{color:#fff!important;font-weight:800}
+.team-identity .team-owner-name{color:#a9eff4!important}
+.team-identity .team-owner-name strong{color:#fff!important}
+.squad-heading{gap:12px;padding-top:17px;font-size:12px;letter-spacing:.1em}
+.squad-heading strong{font-size:10px}
+.squad-list{gap:12px 24px;margin-top:17px}
+.squad-list li{min-width:0;align-items:center;color:#fff1f8;font-size:14px;line-height:1.4}
+.squad-list li>span{min-width:0;overflow-wrap:anywhere}
+.squad-list .player-role-badge{padding:5px 9px;font-size:11px}
+.squad-empty{min-height:110px;gap:16px;padding:21px 0 4px}
+.squad-empty p{max-width:310px;color:#e8d6e4;font-size:14px;line-height:1.6}
+@media(max-width:760px){
+  .teams-section{padding:34px 0 68px}
+  .teams-heading{margin:20px 0 26px}
+  .teams-heading h2{font-size:clamp(46px,10vw,66px)}
+  .teams-heading p{margin-top:14px;font-size:15px;line-height:1.6}
+  .teams-grid{gap:15px}
+  .team-card{padding:20px;border-radius:11px}
+  .team-card-top{font-size:10px}
+  .team-identity{gap:15px;padding:22px 0 20px}
+  .team-identity h3{font-size:clamp(25px,6vw,34px)}
+  .team-identity p:not(.team-category){font-size:13px}
+  .squad-heading{font-size:11px}
+  .squad-list{gap:11px 16px}
+  .squad-list li{font-size:13px}
+}
+@media(max-width:480px){
+  .team-card{padding:17px}
+  .team-identity{align-items:flex-start;gap:12px}
+  .team-identity .team-logo.team-artwork{width:68px;height:78px}
+  .team-identity h3{font-size:clamp(23px,6.3vw,30px)}
+  .team-identity p:not(.team-category){font-size:12px}
+  .squad-list{grid-template-columns:1fr;gap:10px;margin-top:14px}
+  .squad-list li{font-size:13px}
+}
