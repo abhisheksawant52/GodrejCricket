@@ -948,3 +948,41 @@ body,.site-shell{color:#fff5fb}
 @keyframes match-ready-twinkle{50%{opacity:.45;transform:scale(.78) rotate(18deg)}}
 @media(max-width:760px){.match-ready{padding:0 0 25px}.match-ready-card{grid-template-columns:1fr;gap:0;padding:25px 22px;border-radius:13px}.match-ready-copy h2{font-size:clamp(38px,9vw,54px)}.match-ready-graphic{width:min(100%,250px);height:175px;margin-top:3px}.match-ready-ring-one{width:210px;height:125px}.match-ready-ring-two{width:150px;height:180px}.match-ready-ball{top:9px;right:26px;width:31px;height:31px}.match-ready-ball i{left:12px}.match-ready-wickets{bottom:20px;transform:translateX(-50%) scale(.82)}}
 @media(prefers-reduced-motion:reduce){.match-ready-live-dot,.match-ready-ring,.match-ready-ball,.match-ready-spark{animation:none!important}}
+
+/* Bring auction and team information higher by tightening the oversized opening block. */
+@media(min-width:901px){
+  .nav{height:112px!important}
+  .brand-logo{width:150px!important;height:104px!important}
+  .hero{min-height:0!important;padding:8px 0 22px!important;align-items:center}
+  .hero h1.league-title{font-size:clamp(42px,4.5vw,62px)!important;line-height:.92}
+  .hero-shirt-float{max-width:180px;padding:9px;gap:5px}
+  .hero-shirt-float img{height:96px}
+  .hero-trophy-stage{width:104px}
+  .hero-invite{min-height:0;margin-top:13px;padding:11px 14px}
+  .hero-invite strong{font-size:22px}
+  .hero-invite small{font-size:11px}
+  .hero-proof,.scroll-cue{display:none}
+  .auction-update{padding-top:5px}
+}
+@media(min-width:621px) and (max-width:900px){
+  .nav{height:112px!important;grid-template-rows:68px 44px!important}
+  .nav>.brand .brand-logo{width:86px!important;height:64px!important}
+  .hero{min-height:0!important;padding-top:16px!important;padding-bottom:22px!important}
+  .hero-art{display:none}
+  .hero-trophy-stage{position:absolute;top:0;right:8px;width:90px;margin:0}
+  .hero-copy{padding-right:94px}
+  .hero-proof,.scroll-cue{display:none}
+}
+@media(max-width:620px){
+  .nav{height:104px!important;grid-template-rows:62px 42px!important}
+  .nav>.brand .brand-logo{width:76px!important;height:58px!important}
+  .hero{min-height:0!important;padding:20px 0 18px!important}
+  .hero-art{display:none!important}
+  .hero-trophy-stage{position:absolute;top:0;right:2px;width:76px;margin:0}
+  .hero-copy{padding-right:0}
+  .hero-invite{margin-top:14px;padding:11px 13px;gap:5px}
+  .hero-invite strong{font-size:21px}
+  .hero-invite small{font-size:11px}
+  .hero-proof,.scroll-cue{display:none}
+  .auction-update{padding-top:4px}
+}

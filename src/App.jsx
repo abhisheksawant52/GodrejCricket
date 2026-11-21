@@ -816,6 +816,21 @@ function App() {
           </div>
         </div>
       </section>
+      <section className="teams-section wrap" id="teams">
+        <div className="section-tag">03 / MEET THE TEAMS</div>
+        <div className="teams-heading"><h2>THE SQUADS.<br /><em>THE PRIDE.</em></h2><p>Meet all ten formed teams, their owners, and the players representing them.</p></div>
+        <div className="teams-grid">{teams.map((team, index) => {
+          const squad = registeredPlayers.filter(player => player.team_name === team.name);
+          const captainName = squad.find(player => player.is_team_captain)?.name || team.captain;
+          return <article className="team-card team-card-clickable" key={team.name} style={{'--team-accent': team.color}} role="button" tabIndex={0} aria-label={`View ${team.name} team roster`} onClick={() => setSelectedTeam(team)} onKeyDown={event => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); setSelectedTeam(team); } }}>
+            <div className="team-card-top"><span>GNPL 2026 / TEAM {String(index + 1).padStart(2, '0')}</span><span className="team-status">{squad.length ? 'SQUAD CONFIRMED' : 'TO BE ANNOUNCED'}</span></div>
+            <div className="team-identity"><img className="team-logo team-artwork" src={team.logo} alt={`${team.name} logo`} /><div><h3>{team.name}</h3><p className="team-category">{team.category} team</p><p className="team-owner-name">Owner: <strong>{team.owner}</strong></p><p><Trophy size={14} /> Captain: <strong>{captainName}</strong></p></div></div>
+            <div className="squad-heading"><span><Users size={15} /> PLAYER SQUAD</span><strong>{squad.length ? `${squad.length} PLAYERS` : 'TO BE ANNOUNCED'}</strong></div>
+            {squad.length ? <ul className="squad-list">{squad.map((player, playerIndex) => <li key={`${player.name}-${playerIndex}`}><span>{player.name}</span>{player.role && <small className="player-role-badge">{player.role}</small>}</li>)}</ul> : <div className="squad-empty"><span className="squad-people"><i/><i/><i/><i/></span><p>Player names will appear here after team assignments are finalized.</p></div>}
+          </article>;
+        })}</div>
+      </section>
+
       <section className="match-ready wrap" aria-labelledby="match-ready-title">
         <div className="match-ready-card">
           <div className="match-ready-copy">
@@ -834,20 +849,6 @@ function App() {
             <span className="match-ready-spark match-ready-spark-two">✦</span>
           </div>
         </div>
-      </section>
-      <section className="teams-section wrap" id="teams">
-        <div className="section-tag">03 / MEET THE TEAMS</div>
-        <div className="teams-heading"><h2>THE SQUADS.<br /><em>THE PRIDE.</em></h2><p>Meet all ten formed teams, their owners, and the players representing them.</p></div>
-        <div className="teams-grid">{teams.map((team, index) => {
-          const squad = registeredPlayers.filter(player => player.team_name === team.name);
-          const captainName = squad.find(player => player.is_team_captain)?.name || team.captain;
-          return <article className="team-card team-card-clickable" key={team.name} style={{'--team-accent': team.color}} role="button" tabIndex={0} aria-label={`View ${team.name} team roster`} onClick={() => setSelectedTeam(team)} onKeyDown={event => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); setSelectedTeam(team); } }}>
-            <div className="team-card-top"><span>GNPL 2026 / TEAM {String(index + 1).padStart(2, '0')}</span><span className="team-status">{squad.length ? 'SQUAD CONFIRMED' : 'TO BE ANNOUNCED'}</span></div>
-            <div className="team-identity"><img className="team-logo team-artwork" src={team.logo} alt={`${team.name} logo`} /><div><h3>{team.name}</h3><p className="team-category">{team.category} team</p><p className="team-owner-name">Owner: <strong>{team.owner}</strong></p><p><Trophy size={14} /> Captain: <strong>{captainName}</strong></p></div></div>
-            <div className="squad-heading"><span><Users size={15} /> PLAYER SQUAD</span><strong>{squad.length ? `${squad.length} PLAYERS` : 'TO BE ANNOUNCED'}</strong></div>
-            {squad.length ? <ul className="squad-list">{squad.map((player, playerIndex) => <li key={`${player.name}-${playerIndex}`}><span>{player.name}</span>{player.role && <small className="player-role-badge">{player.role}</small>}</li>)}</ul> : <div className="squad-empty"><span className="squad-people"><i/><i/><i/><i/></span><p>Player names will appear here after team assignments are finalized.</p></div>}
-          </article>;
-        })}</div>
       </section>
 
       <section className="venue-overview wrap" id="venue"><div className="section-tag">GNPL 2026 / VENUE OVERVIEW</div><div className="venue-overview-card"><div><span className="venue-kicker"><MapPin size={15}/> MATCH VENUE</span><h2>Kandivali <em>Turf Zone</em></h2><p>00 Gopinath Munde Ground, Near Sapphire Heights, Lokhandwala Foundation School, Akurli Road, Lokhandwala Complex, Kandivali East, Mumbai - 400101</p><a href="https://www.google.com/maps/search/?api=1&query=Kandivali+Turf+Zone+Gopinath+Munde+Ground+Kandivali+East" target="_blank" rel="noreferrer">Open venue in Google Maps <ArrowUpRight size={15}/></a><div className="venue-pricing"><span><strong>Men</strong> Rs 600</span><span><strong>Women</strong> Rs 400</span><span><strong>Kids</strong> Rs 300</span></div><small>Player T-shirt and refreshments included.</small></div><div className="shirt-showcase official-jersey-showcase" id="venue-shirt"><img className="venue-jersey-mockup" src="/gnpl-audience-jersey.png" alt="Official GNPL 2026 jersey front and back design" /><div className="venue-jersey-details"><strong>OFFICIAL GNPL 2026 T-SHIRT</strong><span>Audience jersey · ₹300</span><button type="button" className="venue-jersey-buy" onClick={() => { const item = types.find(type => type.key === 'Audience'); setNotice(''); setReceipt(null); setFormReady(false); setRegistrationSuccess(false); setModal(item); }}>Buy now <ArrowUpRight size={15} /></button></div></div></div></section>
