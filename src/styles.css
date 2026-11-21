@@ -1810,3 +1810,7 @@ main>section{scroll-margin-top:96px}
 .card-3 .role-art .cheer-stars{color:#ff86bf}
 @keyframes sponsor-ring-pulse{0%,100%{transform:scale(.94);opacity:.55}50%{transform:scale(1.08);opacity:1}}
 @media(prefers-reduced-motion:reduce){.sponsor-rings{animation:none}}
+
+/* Four equally weighted action cards; return to two columns on tablet. */
+.register-grid{grid-template-columns:repeat(4,minmax(0,1fr));align-items:stretch}
+@media(min-width:761px) and (max-width:1100px){.register-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
