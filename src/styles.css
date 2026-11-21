@@ -1355,3 +1355,71 @@ body{overflow-x:clip}
 
 /* Remove the duplicate event details card from the compact hero. */
 .hero .hero-invite{display:none!important}
+
+/* Mobile alignment fixes for narrow phones and small landscape widths. */
+@media(max-width:620px){
+  .wrap{width:calc(100% - 32px)}
+  .nav{width:calc(100% - 24px);height:66px!important;min-height:66px;display:grid;grid-template-columns:minmax(0,1fr) 42px;grid-template-rows:1fr;align-items:center;gap:6px;margin:0 auto;padding:0 4px}
+  .nav>.brand{grid-column:1;grid-row:1;min-width:0;gap:6px;font-size:22px}
+  .nav>.brand .brand-logo{width:48px!important;height:46px!important;object-fit:contain}
+  .nav>.brand .brand-copy{min-width:0;white-space:nowrap}
+  .nav>.brand .brand-copy small{font-size:6px;letter-spacing:.08em}
+  .nav>.menu-toggle{grid-column:2;grid-row:1;width:40px;height:40px;display:grid;place-items:center}
+  .nav>.header-cricket{display:none}
+  .nav>.nav-links{grid-column:1/-1;grid-row:2;top:100%;left:-4px;right:-4px;width:auto;max-height:calc(100dvh - 78px);padding:12px;border:1px solid rgba(105,232,241,.26);border-radius:0 0 12px 12px;background:rgba(17,10,25,.98)}
+  .front-status-strip{grid-template-columns:1fr;gap:7px;margin-bottom:12px}
+  .front-status-item{display:grid;grid-template-columns:max-content minmax(0,1fr) 18px;align-items:center;min-height:48px;gap:8px;padding:8px 10px}
+  .front-status-item strong{font-size:12px;white-space:normal;line-height:1.25}
+  .front-status-item>svg{position:static;grid-column:3;grid-row:1;margin:0}
+  .front-status-tag{font-size:8px;white-space:nowrap}
+  .hero{width:calc(100% - 32px);padding:12px 0 17px!important}
+  .hero h1.league-title{max-width:100%;font-size:clamp(15px,5.15vw,30px)!important;letter-spacing:-.06em}
+  .hero-copy{min-width:0}
+  .hero-actions{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:stretch;gap:8px;margin-top:10px}
+  .hero-actions>.button-lime{grid-column:1;grid-row:1;justify-content:center;min-width:0;padding:0 8px;font-size:11px}
+  .hero-actions>.hero-player-list-button{grid-column:2;grid-row:1;justify-content:center;min-width:0;padding:0 7px;font-size:10px}
+  .hero-actions>.tshirt-buy-shortcut{grid-column:1/-1;grid-row:2;width:100%;max-width:none;min-width:0;justify-content:center;min-height:40px;padding:5px 8px}
+  .hero-actions>.tshirt-buy-shortcut strong{font-size:11px}
+  .hero-actions>.tshirt-buy-shortcut small{font-size:8px}
+  .hero-text{max-width:100%;overflow-wrap:anywhere}
+  .auction-update-card,.match-ready-card{width:100%;min-width:0}
+  .auction-update-actions{align-items:stretch;gap:8px}
+  .auction-update-actions .button-lime{justify-content:center}
+  .auction-highlight-panel{min-width:0}
+  .auction-highlight-player strong,.auction-highlight-player small{overflow-wrap:anywhere}
+  .team-identity{align-items:flex-start;gap:12px;padding:18px 0}
+  .team-identity>div{min-width:0;flex:1}
+  .team-identity .team-logo{flex:none}
+  .team-identity h3{font-size:clamp(23px,6vw,30px);line-height:1.08}
+  .team-identity .team-owner-name,.team-identity .team-captain-name{max-width:100%;margin:5px 3px 3px 0!important;padding:5px 7px;font-size:11px!important}
+  .team-filter-bar>div{width:100%;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
+  .team-filter-bar button{min-width:0;padding:0 5px;font-size:10px}
+  .team-filter-bar>small{width:100%;margin:0;text-align:right}
+  .squad-list{grid-template-columns:1fr;gap:9px}
+  .match-ready-card{overflow:hidden}
+  .match-countdown{width:100%;justify-content:space-between}
+  .match-countdown-label{max-width:110px;line-height:1.25}
+  .match-countdown-values{flex:1;justify-content:flex-end;gap:3px}
+  .match-countdown-values span{min-width:23px}
+  .match-countdown-values strong{font-size:16px}
+  .match-countdown-values small{font-size:6px}
+  .mobile-quick-actions{right:10px;left:10px;grid-template-columns:1fr 1fr;gap:7px;padding:7px}
+  .mobile-quick-actions a{min-width:0;min-height:40px;padding:0 6px;font-size:11px}
+}
+@media(max-width:380px){
+  .wrap{width:calc(100% - 24px)}
+  .nav{width:calc(100% - 16px)}
+  .hero{width:calc(100% - 24px)}
+  .hero h1.league-title{font-size:clamp(14px,4.8vw,18px)!important}
+  .hero-tagline{font-size:20px!important}
+  .front-status-item{grid-template-columns:1fr 18px;gap:4px 6px}
+  .front-status-tag{grid-column:1;grid-row:1}
+  .front-status-item strong{grid-column:1;grid-row:2}
+  .front-status-item>svg{grid-column:2;grid-row:1/3}
+  .team-card{padding:14px}
+  .team-identity .team-logo{width:58px;height:68px}
+  .match-countdown-label{max-width:84px;font-size:7px}
+  .match-countdown-values span{min-width:20px}
+  .match-countdown-values strong{font-size:14px}
+  .match-countdown-values small{font-size:5px}
+}
