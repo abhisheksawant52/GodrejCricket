@@ -1780,3 +1780,10 @@ main>section{scroll-margin-top:96px}
 .hero h1.league-title em{font-family:'Playfair Display',Georgia,serif!important;font-size:.43em!important;font-style:italic;letter-spacing:-.04em;line-height:1}
 @media(max-width:760px){.hero h1.league-title{font-size:clamp(46px,12vw,64px)!important;column-gap:.16em;line-height:.9}.hero h1.league-title em{font-size:.42em!important}}
 @media(max-width:360px){.hero h1.league-title{font-size:clamp(42px,11.5vw,48px)!important}}
+
+/* High-contrast editorial serif inspired by the supplied font reference. */
+.hero h1.league-title,.hero h1.league-title>span{font-family:'Bodoni Moda','Playfair Display',Georgia,serif!important;font-weight:700;letter-spacing:-.045em;text-transform:uppercase;font-kerning:normal}
+.hero h1.league-title{font-size:clamp(44px,5.2vw,66px)!important;line-height:.98;column-gap:.2em;row-gap:.02em}
+.hero h1.league-title em{font-family:'Bodoni Moda','Playfair Display',Georgia,serif!important;font-size:.53em!important;font-style:italic;font-weight:600;letter-spacing:-.03em;text-transform:uppercase}
+@media(max-width:760px){.hero h1.league-title{font-size:clamp(32px,8.7vw,42px)!important;line-height:1;column-gap:.16em}.hero h1.league-title em{font-size:.48em!important}}
+@media(max-width:360px){.hero h1.league-title{font-size:clamp(28px,8.2vw,31px)!important;letter-spacing:-.05em}}
