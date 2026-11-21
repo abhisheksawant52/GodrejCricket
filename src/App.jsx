@@ -763,6 +763,10 @@ function App() {
   return <div className="site-shell">
     <div className="topline"><span><Radio size={13} className="live-dot" /> COMMUNITY CRICKET. BIG MATCH ENERGY.</span><span className="topline-right">AN INITIATIVE BY GODREJ NEST CULTURAL TEAM</span></div>
     <header className="nav wrap"><a href="#home" className="brand"><img src="/nest-sanskriti-logo.png" alt="Nest Sanskriti Mandal" className="brand-logo" /><span className="brand-copy">GN<span className="brand-accent">PL</span><small>GODREJ NEST PREMIER LEAGUE</small></span></a><div className="header-cricket" aria-hidden="true"><svg viewBox="0 0 360 126" role="presentation"><ellipse className="header-orbit" cx="182" cy="73" rx="154" ry="45"/><ellipse className="header-pitch" cx="187" cy="94" rx="102" ry="19"/><path className="header-pitch-line" d="M118 92h138"/><g className="header-bowler"><circle cx="57" cy="38" r="9"/><path d="M55 49 48 72l17 4 7-24m-12 2L43 39m15 12 12-14m-7 25L48 91m19-15 9 16"/></g><g className="header-batter"><circle cx="184" cy="30" r="10"/><path d="m180 41-11 26 18 8 11-25m-20 2-18 12m29-11 12 12m-22 7-12 24m20-22 15 21"/><g className="header-bat"><path d="M0 0 33-39"/><path d="m25-48 14 10-6 8-14-10z"/></g></g><g className="header-wickets"><path d="M279 75V43m8 32V40m8 35V43m-17 0h20"/></g><g className="header-ball"><circle cx="104" cy="59" r="5"/><path d="M101 56q5 2 6 6"/></g><text className="header-six" x="247" y="31">SIX!</text></svg></div><button className="menu-toggle" onClick={() => setMenuOpen(!menuOpen)} aria-label="Toggle menu" aria-expanded={menuOpen}>{menuOpen ? <X /> : <Menu />}</button><nav className={menuOpen ? 'nav-links open' : 'nav-links'}><a href="#league" onClick={() => setMenuOpen(false)}>The league</a><a href="#teams" onClick={() => setMenuOpen(false)}>Team structure</a><a href="#auction-update" onClick={() => setMenuOpen(false)}>Auction closed</a><a href="#register" onClick={() => setMenuOpen(false)}>Register</a><a href="#schedule" onClick={() => setMenuOpen(false)}>Match day</a><a href="#announcements" onClick={() => setMenuOpen(false)}>Updates</a><button className="nav-admin" onClick={openAdmin}>Admin <ArrowUpRight size={15} /></button></nav></header>
+    <section className="front-status-strip wrap" aria-label="Auction and team status">
+      <a href="#auction-update" className="front-status-item"><span className="front-status-tag">AUCTION CLOSED</span><strong>Auction complete</strong><ArrowRight size={17} /></a>
+      <a href="#teams" className="front-status-item"><span className="front-status-tag">TEAM DETAILS</span><strong>10 teams formed · meet the squads</strong><ArrowRight size={17} /></a>
+    </section>
 
     <main>
       <section className="hero wrap" id="home">
@@ -836,13 +840,14 @@ function App() {
           <div className="match-ready-copy">
             <span className="match-ready-kicker"><span className="match-ready-live-dot" /> THE COUNTDOWN IS ON</span>
             <h2 id="match-ready-title">GET READY FOR <em>MATCH DAY.</em></h2>
-            <p>Ten teams. One trophy. The GNPL takes the field on</p>
+            <p>10 teams. 3 championship trophies. The GNPL takes the field on</p>
             <div className="match-ready-date"><Clock3 size={24} /><span>13 December <strong>2026</strong></span></div>
             <span className="match-ready-venue">Kandivali Turf Zone</span>
           </div>
           <div className="match-ready-graphic" aria-hidden="true">
             <span className="match-ready-ring match-ready-ring-one" />
             <span className="match-ready-ring match-ready-ring-two" />
+            <div className="match-ready-trophies"><Trophy className="match-ready-trophy match-ready-trophy-one" /><Trophy className="match-ready-trophy match-ready-trophy-two" /><Trophy className="match-ready-trophy match-ready-trophy-three" /></div>
             <span className="match-ready-ball"><i /></span>
             <div className="match-ready-wickets"><i /><i /><i /><b /></div>
             <span className="match-ready-spark match-ready-spark-one">✦</span>

@@ -986,3 +986,81 @@ body,.site-shell{color:#fff5fb}
   .hero-proof,.scroll-cue{display:none}
   .auction-update{padding-top:4px}
 }
+.match-ready-trophies{position:absolute;z-index:3;top:29px;left:50%;display:flex;align-items:flex-end;gap:10px;transform:translateX(-50%);color:#ffe27a;filter:drop-shadow(0 5px 12px rgba(255,193,69,.3))}
+.match-ready-trophy{width:34px;height:42px;stroke-width:1.8;animation:match-ready-trophy-lift 2.4s ease-in-out infinite}
+.match-ready-trophy-two{width:48px;height:57px;color:#fff0a0;animation-delay:.22s}
+.match-ready-trophy-three{animation-delay:.44s}
+@keyframes match-ready-trophy-lift{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-9px) rotate(3deg)}}
+@media(max-width:760px){.match-ready-trophies{top:21px;gap:7px}.match-ready-trophy{width:28px;height:34px}.match-ready-trophy-two{width:39px;height:46px}}
+@media(prefers-reduced-motion:reduce){.match-ready-trophy{animation:none!important}}
+
+/* Compact homepage introduction with direct auction and team shortcuts. */
+.front-status-strip{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:0 auto 8px}
+.front-status-item{min-width:0;display:flex;align-items:center;gap:12px;padding:11px 15px;border:1px solid rgba(83,222,232,.3);border-radius:9px;background:linear-gradient(100deg,rgba(31,18,43,.94),rgba(19,28,39,.9));color:#fff;text-decoration:none;transition:transform .2s ease,border-color .2s ease,background .2s ease}
+.front-status-item:hover{transform:translateY(-2px);border-color:#70eaf1;background:linear-gradient(100deg,rgba(51,24,54,.98),rgba(19,40,48,.96))}
+.front-status-item strong{overflow:hidden;color:#f8edf6;font-size:14px;text-overflow:ellipsis;white-space:nowrap}
+.front-status-item>svg{flex:none;margin-left:auto;color:#d7ff59}
+.front-status-tag{flex:none;padding:5px 8px;border:1px solid rgba(255,114,178,.5);border-radius:99px;background:rgba(255,90,167,.1);color:#ffb5d5;font-size:9px;font-weight:1000;letter-spacing:.1em}
+.front-status-item:nth-child(2) .front-status-tag{border-color:rgba(215,255,89,.4);background:rgba(215,255,89,.08);color:#e5ff87}
+.hero-invite{display:grid;grid-template-columns:1fr 1fr;gap:7px 10px;width:min(100%,510px);min-height:0;margin-top:14px;padding:11px 13px}
+.hero-invite-tag,.hero-invite>strong,.hero-event-meta{grid-column:1/-1}
+.hero-invite>strong{font-size:22px}
+.hero-event-meta{display:flex;gap:8px;margin:0}
+.hero-event-meta>span{flex:1;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:6px 8px}
+.hero-event-meta>span strong{font-size:12px}
+.hero-invite>small,.hero-invite .venue-perks{display:none}
+@media(max-width:760px){
+  .front-status-strip{gap:7px;margin-bottom:4px}
+  .front-status-item{align-items:flex-start;flex-direction:column;gap:6px;padding:10px}
+  .front-status-item>svg{position:absolute;right:10px;bottom:10px}
+  .front-status-item{position:relative;min-height:67px;padding-right:27px}
+  .front-status-item strong{font-size:11px;white-space:normal;line-height:1.25}
+  .front-status-tag{font-size:8px;padding:4px 6px}
+  .hero-invite{grid-template-columns:1fr;gap:6px;padding:10px 11px}
+  .hero-invite-tag,.hero-invite>strong,.hero-event-meta{grid-column:1}
+  .hero-invite>strong{font-size:20px}
+  .hero-event-meta{flex-direction:row}
+  .hero-event-meta>span{align-items:flex-start;flex-direction:column;gap:3px}
+}
+@media(prefers-reduced-motion:reduce){.front-status-item{transition:none}}
+
+/* Lightweight motion polish for the first screen and team cards. */
+.front-status-item{position:relative;overflow:hidden;isolation:isolate;animation:front-status-arrive .65s cubic-bezier(.2,.7,.25,1) both}
+.front-status-item:nth-child(2){animation-delay:.14s}
+.front-status-item:before{position:absolute;z-index:0;top:-40%;bottom:-40%;left:-55%;width:32%;content:"";background:linear-gradient(90deg,transparent,rgba(255,255,255,.12),transparent);transform:skewX(-20deg);animation:front-status-shimmer 6s ease-in-out infinite}
+.front-status-item>*{position:relative;z-index:1}
+.front-status-item:nth-child(2):before{animation-delay:1.2s}
+.hero h1.league-title{animation:hero-title-arrive .75s cubic-bezier(.2,.7,.25,1) both}
+.hero .eyebrow,.hero .hero-tagline,.hero .hero-text,.hero .hero-actions,.hero .hero-invite{animation:hero-content-arrive .6s ease-out both}
+.hero .hero-tagline{animation-delay:.08s}.hero .hero-text{animation-delay:.14s}.hero .hero-actions{animation-delay:.2s}.hero .hero-invite{animation-delay:.26s}
+.team-card-clickable{transition:transform .24s ease,border-color .24s ease,box-shadow .24s ease}
+.team-card-clickable:hover,.team-card-clickable:focus-visible{transform:translateY(-5px);border-color:var(--team-accent);box-shadow:0 20px 48px rgba(0,0,0,.38),0 0 24px color-mix(in srgb,var(--team-accent) 18%,transparent)}
+@keyframes front-status-arrive{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+@keyframes front-status-shimmer{0%,65%{left:-55%}100%{left:130%}}
+@keyframes hero-title-arrive{from{opacity:.35;transform:translateY(12px) scale(.99);filter:blur(3px)}to{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}}
+@keyframes hero-content-arrive{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@media(prefers-reduced-motion:reduce){.front-status-item,.front-status-item:before,.hero h1.league-title,.hero .eyebrow,.hero .hero-tagline,.hero .hero-text,.hero .hero-actions,.hero .hero-invite{animation:none!important}.team-card-clickable{transition:none!important}.team-card-clickable:hover,.team-card-clickable:focus-visible{transform:none}}
+
+/* Improve text contrast and make team ownership easy to spot. */
+.teams-heading p{color:#f5e9f1;font-size:18px;line-height:1.6}
+.team-card-top{font-size:12px;letter-spacing:.08em}
+.team-identity h3{letter-spacing:-.015em;text-wrap:balance}
+.team-identity p:not(.team-category){font-size:15px;line-height:1.55}
+.team-identity .team-owner-name{display:inline-flex!important;flex-wrap:wrap;width:fit-content;max-width:100%;align-items:center;gap:7px!important;margin:8px 0!important;padding:7px 11px;border:1px solid color-mix(in srgb,var(--team-accent) 58%,transparent);border-left:3px solid var(--team-accent);border-radius:8px;background:linear-gradient(100deg,color-mix(in srgb,var(--team-accent) 17%,rgba(12,10,24,.98)),rgba(13,13,26,.92));box-shadow:0 5px 16px color-mix(in srgb,var(--team-accent) 12%,transparent);color:#f2e9f1!important;font-size:13px!important;font-weight:800;letter-spacing:.015em}
+.team-identity .team-owner-name strong{color:#efff9a!important;font-size:14px;font-weight:1000;letter-spacing:.015em;text-shadow:0 0 14px color-mix(in srgb,var(--team-accent) 30%,transparent)}
+.squad-heading{font-size:13px;letter-spacing:.08em}
+.squad-heading strong{font-size:11px}
+.squad-list li{font-size:15px;line-height:1.5}
+.player-role-badge{font-size:11px}
+.front-status-item strong{font-size:15px;letter-spacing:.01em}
+.front-status-tag{font-size:10px;letter-spacing:.08em}
+.hero-text{font-size:16px;line-height:1.65;color:#f2e7ef}
+.hero-invite>small{font-size:12px;line-height:1.55}
+@media(max-width:760px){
+  .teams-heading p{font-size:15px;line-height:1.55}
+  .team-identity p:not(.team-category){font-size:14px}
+  .team-identity .team-owner-name{padding:6px 9px;font-size:12px!important}
+  .team-identity .team-owner-name strong{font-size:13px}
+  .squad-list li{font-size:14px}
+  .hero-text{font-size:14px;line-height:1.55}
+}
