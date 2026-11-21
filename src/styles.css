@@ -1705,3 +1705,29 @@ body{width:100%}
   .nav-links>a,.nav-links>a:after,.team-card-clickable,.team-card-clickable .team-logo,.hero-jersey-product,.hero-jersey-stage img,.match-info-trophies .match-ready-trophy-unit,.auction-update-statuses span,.front-status-item{transition:none!important;animation:none!important}
   .nav-links>a:hover,.nav-links>a:focus-visible,.team-card-clickable:hover,.team-card-clickable:focus-visible,.team-card-clickable:hover .team-logo,.team-card-clickable:focus-visible .team-logo,.hero-jersey-product:hover,.hero-jersey-stage img{transform:none!important}
 }
+
+/* Premium finish: clearer focus, lighter section rhythm, and motion-safe reveals. */
+.skip-link{position:fixed;top:8px;left:8px;z-index:2000;transform:translateY(-160%);padding:11px 15px;border:2px solid #aaf8ff;border-radius:8px;background:#120b1b;color:#fff;font-size:14px;font-weight:800;box-shadow:0 8px 24px rgba(0,0,0,.35);transition:transform .18s ease}
+.skip-link:focus{transform:translateY(0)}
+main>section{scroll-margin-top:96px}
+.teams-grid{align-items:stretch}
+.team-card{border-radius:16px;backdrop-filter:blur(8px)}
+.register-card{border-radius:16px;transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease}
+.register-card:hover,.register-card:focus-within{transform:translateY(-4px);border-color:rgba(105,232,241,.48);box-shadow:0 20px 44px rgba(0,0,0,.31),0 0 24px rgba(105,232,241,.08)}
+.auction-update-card,.match-info-bar,.teams-heading,.teams-grid .team-card,.register-card,.community-scene{will-change:transform,opacity}
+.scroll-reveal{opacity:0;transform:translateY(18px);transition:opacity .62s ease,transform .62s cubic-bezier(.2,.7,.2,1)}
+.scroll-reveal.is-visible{opacity:1;transform:translateY(0)}
+.scroll-reveal.is-visible:hover{transform:translateY(-4px)}
+.teams-grid .team-card:nth-child(3n+2){transition-delay:.07s}
+.teams-grid .team-card:nth-child(3n){transition-delay:.14s}
+.register-grid .register-card:nth-child(2){transition-delay:.07s}
+.register-grid .register-card:nth-child(3){transition-delay:.14s}
+@media(max-width:760px){
+  .team-card,.register-card{backdrop-filter:none}
+  .scroll-reveal{transform:translateY(10px);transition-duration:.42s}
+  .teams-grid .team-card,.register-grid .register-card{transition-delay:0s}
+}
+@media(prefers-reduced-motion:reduce){
+  .skip-link,.register-card,.scroll-reveal,.teams-grid .team-card,.register-grid .register-card{transition:none!important;animation:none!important;transform:none!important}
+  .scroll-reveal{opacity:1!important}
+}
