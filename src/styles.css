@@ -1580,3 +1580,48 @@ body{background-color:#0d0814;background-image:radial-gradient(ellipse at 7% 18%
   .match-info-bar .match-countdown-values strong{font-size:16px}
   .match-info-bar .match-countdown-values small{font-size:5px}
 }
+
+/* Clear, sticky in-dashboard navigation and touch-friendly admin filters. */
+.admin-dialog:has(.dashboard-head) .dashboard-head{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:10px 16px}
+.admin-dialog:has(.dashboard-head) .admin-section-nav{grid-column:1/-1;display:flex;align-items:center;gap:7px;min-width:0;overflow-x:auto;padding:9px 0 2px;border-top:1px solid rgba(255,255,255,.1);scrollbar-width:thin;scrollbar-color:rgba(105,232,241,.55) transparent;-webkit-overflow-scrolling:touch}
+.admin-section-nav a{flex:none;display:inline-flex;align-items:center;justify-content:center;min-height:34px;padding:0 12px;border:1px solid rgba(105,232,241,.25);border-radius:999px;background:rgba(105,232,241,.055);color:#e5faff;font-size:11px;font-weight:800;white-space:nowrap;transition:background .2s,border-color .2s,color .2s}
+.admin-section-nav a:hover,.admin-section-nav a:focus-visible{border-color:#d7ff59;background:rgba(215,255,89,.12);color:#f1ffb0;outline:none}
+.admin-dialog:has(.dashboard-head) #admin-overview,.admin-dialog:has(.dashboard-head) #admin-payments,.admin-dialog:has(.dashboard-head) #admin-team-rosters,.admin-dialog:has(.dashboard-head) #admin-jerseys,.admin-dialog:has(.dashboard-head) #admin-registrations{scroll-margin-top:180px}
+.admin-dialog:has(.dashboard-head) .filters{display:flex;flex-wrap:nowrap!important;gap:6px;max-width:100%;overflow-x:auto;padding:3px 1px 8px;scrollbar-width:thin;scrollbar-color:rgba(105,232,241,.55) transparent;-webkit-overflow-scrolling:touch}
+.admin-dialog:has(.dashboard-head) .filters button{flex:0 0 auto;min-height:38px;padding:8px 12px;border-radius:999px;white-space:nowrap}
+@media(max-width:760px){
+  .admin-dialog:has(.dashboard-head) .dashboard-head{grid-template-columns:minmax(0,1fr);gap:8px;padding-bottom:8px}
+  .admin-dialog:has(.dashboard-head) .dashboard-head h2{font-size:34px;line-height:1}
+  .admin-dialog:has(.dashboard-head) .admin-export-actions{display:flex;flex-wrap:nowrap;gap:7px;width:100%;padding:0 0 3px;overflow-x:auto;scrollbar-width:thin;scrollbar-color:rgba(105,232,241,.5) transparent;-webkit-overflow-scrolling:touch}
+  .admin-dialog:has(.dashboard-head) .admin-export-actions .export-button{flex:0 0 auto;min-height:38px;padding:8px 10px;font-size:11px}
+  .admin-dialog:has(.dashboard-head) .admin-section-nav{gap:6px;padding:7px 0 1px}
+  .admin-section-nav a{min-height:32px;padding:0 10px;font-size:10px}
+  .admin-dialog:has(.dashboard-head) .dash-stats{grid-template-columns:1fr;gap:7px}
+  .admin-dialog:has(.dashboard-head) .dash-toolbar{grid-template-columns:minmax(0,1fr);gap:8px}
+  .admin-dialog:has(.dashboard-head) .filters{width:calc(100vw - 28px);max-width:calc(100vw - 28px);margin:0 -2px}
+  .admin-dialog:has(.dashboard-head) .filters button{min-height:40px;padding:8px 12px;font-size:12px}
+  .admin-dialog:has(.dashboard-head) .bulk-team-toolbar{display:grid;grid-template-columns:1fr;gap:8px}
+  .admin-dialog:has(.dashboard-head) .bulk-team-toolbar select,.admin-dialog:has(.dashboard-head) .bulk-team-toolbar button{width:100%;min-width:0;min-height:42px}
+  .admin-dialog:has(.dashboard-head) .team-captain-assignments>div{grid-template-columns:1fr}
+  .admin-dialog:has(.dashboard-head) .table-wrap{max-width:calc(100vw - 28px)}
+}
+
+/* Phone header and viewport overflow fixes. */
+html,body,#root{max-width:100%;min-width:0;overflow-x:clip}
+body{width:100%}
+.site-shell,.wrap,.nav,.topline{box-sizing:border-box;max-width:100%}
+.hero,.hero-copy,.hero-actions{min-width:0;max-width:100%}
+@media(max-width:620px){
+  .topline{height:auto!important;min-height:38px;padding:5px 10px!important;display:grid!important;grid-template-columns:minmax(0,1fr);justify-items:center;align-content:center;gap:2px;text-align:center;font-size:8px!important;line-height:1.15;overflow:hidden}
+  .topline>span,.topline-right{min-width:0;max-width:100%;white-space:nowrap;font-size:8px!important;line-height:1.15;letter-spacing:.08em;text-align:center}
+  .topline-right{font-size:7px!important;letter-spacing:.06em}
+  .nav{width:100%;max-width:100%;margin:0;min-width:0}
+  .wrap{width:calc(100% - 24px)!important;margin-left:auto!important;margin-right:auto!important}
+  .hero h1.league-title{max-width:100%;font-size:clamp(16px,5.2vw,22px)!important;letter-spacing:-.06em}
+  .hero h1.league-title>span,.hero h1.league-title em{white-space:nowrap}
+  .hero-actions{flex-wrap:wrap}
+}
+@media(min-width:761px){
+  /* The category trophies remain in the match bar; keep the hero jersey unobstructed. */
+  .hero-trophy-stage{display:none!important}
+}
