@@ -1625,3 +1625,36 @@ body{width:100%}
   /* The category trophies remain in the match bar; keep the hero jersey unobstructed. */
   .hero-trophy-stage{display:none!important}
 }
+
+/* Accessibility and phone-width refinements. */
+:where(a,button,input,select,textarea,summary,[tabindex]):focus-visible{outline:3px solid #aaf8ff!important;outline-offset:3px!important;box-shadow:0 0 0 2px rgba(12,7,18,.92),0 0 0 6px rgba(105,232,241,.22)!important}
+.admin-section-nav a.active,.admin-section-nav a[aria-current="location"]{border-color:#d7ff59;background:linear-gradient(110deg,rgba(215,255,89,.2),rgba(105,232,241,.12));color:#f1ffb0;box-shadow:inset 0 -2px #d7ff59,0 0 18px rgba(215,255,89,.1)}
+.admin-dialog:has(.dashboard-head) #admin-overview,.admin-dialog:has(.dashboard-head) #admin-payments,.admin-dialog:has(.dashboard-head) #admin-team-rosters,.admin-dialog:has(.dashboard-head) #admin-jerseys,.admin-dialog:has(.dashboard-head) #admin-registrations{scroll-margin-top:205px}
+@media(max-width:760px){
+  .admin-dialog:has(.dashboard-head) #admin-overview,.admin-dialog:has(.dashboard-head) #admin-payments,.admin-dialog:has(.dashboard-head) #admin-team-rosters,.admin-dialog:has(.dashboard-head) #admin-jerseys,.admin-dialog:has(.dashboard-head) #admin-registrations{scroll-margin-top:245px}
+  .admin-dialog:has(.dashboard-head) .admin-section-nav{position:relative;z-index:2;overscroll-behavior-x:contain;scroll-snap-type:x proximity}
+  .admin-dialog:has(.dashboard-head) .admin-section-nav a{scroll-snap-align:start}
+  .team-grid,.teams-grid,.register-grid{grid-template-columns:minmax(0,1fr)!important}
+  .team-card,.register-card{min-width:0;max-width:100%}
+  .register-card{padding:clamp(14px,4vw,20px)}
+  .team-identity h3,.register-card h3{overflow-wrap:anywhere}
+  .admin-dialog:has(.dashboard-head) .dashboard-head h2{font-size:clamp(28px,8vw,34px)}
+  .admin-dialog:has(.dashboard-head) .admin-export-actions,.admin-dialog:has(.dashboard-head) .filters{overscroll-behavior-x:contain;scrollbar-width:thin}
+}
+@media(max-width:390px){
+  .topline{padding-inline:6px!important}
+  .topline>span{font-size:7px!important;letter-spacing:.04em}
+  .topline-right{font-size:6px!important;letter-spacing:.03em}
+  .wrap{width:calc(100% - 20px)!important}
+  .team-card{padding:12px!important}
+  .team-identity{gap:9px}
+  .team-identity .team-logo{width:54px;height:62px}
+  .team-identity .team-owner-name,.team-identity .team-captain-name{font-size:10px!important}
+  .register-card{padding:13px}
+  .admin-dialog:has(.dashboard-head){padding-inline:9px}
+  .admin-dialog:has(.dashboard-head) .dashboard-head{margin-inline:-9px;padding-inline:9px 48px}
+  .admin-dialog:has(.dashboard-head) .admin-section-nav a{padding-inline:8px;font-size:9px}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-snap-type:none!important}
+}
