@@ -1105,3 +1105,39 @@ body,.site-shell{color:#fff5fb}
 .front-status-strip:before{transform:none}
 @keyframes front-cricket-ball{0%{left:-13px;top:8px;transform:rotate(0);opacity:0}8%{opacity:1}48%{left:50%;top:1px;transform:rotate(280deg);opacity:1}92%{left:calc(100% - 13px);top:4px;transform:rotate(620deg);opacity:.9}100%{left:calc(100% - 13px);top:8px;transform:rotate(720deg);opacity:0}}
 @keyframes front-cricket-trail{0%,7%{left:-28px;opacity:0}14%{opacity:.8}48%{left:50%;opacity:.55}92%,100%{left:calc(100% - 28px);opacity:0}}
+
+/* Match start countdown and auction highlights backed by stored sale prices. */
+.match-countdown{display:flex;align-items:center;flex-wrap:wrap;gap:10px 16px;width:fit-content;max-width:100%;margin-top:17px;padding:10px 14px;border:1px solid rgba(215,255,89,.34);border-radius:10px;background:linear-gradient(105deg,rgba(215,255,89,.09),rgba(83,222,232,.07));box-shadow:inset 0 1px rgba(255,255,255,.06)}
+.match-countdown-label{color:#e5ff87;font-size:10px;font-weight:1000;letter-spacing:.13em}
+.match-countdown-values{display:flex;align-items:center;gap:8px}
+.match-countdown-values span{display:grid;justify-items:center;gap:1px;min-width:37px}
+.match-countdown-values strong{color:#fff;font:900 24px/.95 'Barlow Condensed',Impact,sans-serif;font-variant-numeric:tabular-nums}
+.match-countdown-values small{color:#c8e8e9;font-size:8px;font-weight:900;letter-spacing:.1em}
+.match-countdown-values i{color:#ff83bd;font-size:18px;font-style:normal;font-weight:900;transform:translateY(-5px)}
+.match-ready-date{margin-top:14px}
+.auction-highlight-panel{max-width:620px;margin-top:17px;padding:12px 14px;border:1px solid rgba(255,226,122,.28);border-radius:10px;background:linear-gradient(110deg,rgba(255,226,122,.075),rgba(255,114,178,.055))}
+.auction-highlight-title{display:flex;align-items:center;gap:7px;margin-bottom:8px;color:#ffe993;font-size:10px;font-weight:1000;letter-spacing:.13em}
+.auction-highlight-title svg{color:#ffe27a}
+.auction-highlight-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.auction-highlight{min-width:0;display:grid;grid-template-columns:22px minmax(0,1fr);align-items:center;gap:3px 7px;padding:8px;border:1px solid rgba(255,255,255,.1);border-radius:7px;background:rgba(5,13,24,.42)}
+.auction-highlight-rank{grid-row:span 2;color:#ffe27a;font-size:10px;font-weight:1000}
+.auction-highlight-player{min-width:0;display:grid;gap:2px}
+.auction-highlight-player strong{overflow:hidden;color:#fff5fb;font-size:11px;text-overflow:ellipsis;white-space:nowrap}
+.auction-highlight-player small{overflow:hidden;color:#d8c9df;font-size:9px;text-overflow:ellipsis;white-space:nowrap}
+.auction-highlight>b{grid-column:2;color:#d7ff59;font-size:12px;font-weight:1000}
+@media(max-width:760px){
+  .match-countdown{gap:7px 11px;margin-top:13px;padding:8px 10px}
+  .match-countdown-label{font-size:9px}
+  .match-countdown-values{gap:5px}
+  .match-countdown-values strong{font-size:22px}
+  .auction-highlight-list{grid-template-columns:1fr}
+  .auction-highlight{grid-template-columns:24px minmax(0,1fr) auto}
+  .auction-highlight-rank{grid-row:1}
+  .auction-highlight>b{grid-column:3;grid-row:1/3}
+  .auction-highlight-player strong{font-size:12px}
+  .auction-highlight-player small{font-size:10px}
+}
+/* Keep the league name together as a compact single line. */
+.hero h1.league-title{white-space:nowrap;font-size:clamp(16px,5.2vw,54px)!important;line-height:1!important;letter-spacing:-.055em}
+.hero h1.league-title>span{display:inline;white-space:nowrap}
+.hero h1.league-title em{display:inline;font-size:.62em!important;white-space:nowrap;margin:0}
