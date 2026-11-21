@@ -1183,3 +1183,34 @@ body{color:#fff7fc;background:radial-gradient(ellipse at 8% 12%,rgba(255,74,160,
   .hero-actions{gap:8px;margin-top:9px}
   .hero-invite{margin-top:14px;padding:11px 12px;gap:6px}
 }
+
+/* Final motion polish: ambient lighting, title shimmer, and interactive card details. */
+.hero:before{background:radial-gradient(ellipse at var(--hero-glow-x,76%) 55%,rgba(255,90,167,.17),transparent 39%),radial-gradient(ellipse at 20% 14%,rgba(105,232,241,.07),transparent 34%);animation:hero-ambient-glow 10s ease-in-out infinite alternate}
+.teams-heading h2 em{background:linear-gradient(100deg,#ff72b2 10%,#ffc0db 45%,#ff72b2 80%);background-size:220% 100%;background-clip:text;-webkit-background-clip:text;color:transparent;animation:heading-color-flow 7s ease-in-out infinite}
+.team-card-clickable{isolation:isolate}
+.team-card-clickable:before{position:absolute;z-index:0;top:-35%;bottom:-35%;left:-70%;width:34%;content:"";background:linear-gradient(90deg,transparent,color-mix(in srgb,var(--team-accent) 18%,rgba(255,255,255,.12)),transparent);transform:skewX(-18deg);pointer-events:none}
+.team-card-clickable:hover:before,.team-card-clickable:focus-visible:before{animation:team-card-light-sweep .85s ease-out}
+.team-card-clickable .team-logo{transition:transform .35s cubic-bezier(.2,.75,.25,1),filter .35s ease}
+.team-card-clickable:hover .team-logo,.team-card-clickable:focus-visible .team-logo{transform:translateY(-3px) rotate(-2deg) scale(1.045);filter:drop-shadow(0 8px 14px color-mix(in srgb,var(--team-accent) 38%,transparent))}
+.auction-highlight{transition:transform .22s ease,border-color .22s ease,background .22s ease}
+.auction-highlight:hover{transform:translateY(-3px);border-color:rgba(255,226,122,.45);background:rgba(255,226,122,.08)}
+.match-countdown-values strong{animation:countdown-glint 3.2s ease-in-out infinite}
+.match-countdown-values span:nth-of-type(2) strong{animation-delay:.3s}.match-countdown-values span:nth-of-type(3) strong{animation-delay:.6s}
+@keyframes hero-ambient-glow{0%{--hero-glow-x:68%;filter:saturate(.9)}100%{--hero-glow-x:86%;filter:saturate(1.18)}}
+@keyframes heading-color-flow{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+@keyframes team-card-light-sweep{from{left:-70%}to{left:140%}}
+@keyframes countdown-glint{0%,100%{text-shadow:0 0 0 rgba(215,255,89,0)}50%{text-shadow:0 0 15px rgba(215,255,89,.38)}}
+@media(prefers-reduced-motion:reduce){.hero:before,.teams-heading h2 em,.team-card-clickable:before,.team-card-clickable .team-logo,.auction-highlight,.match-countdown-values strong{animation:none!important;transition:none!important}.team-card-clickable:hover .team-logo,.team-card-clickable:focus-visible .team-logo,.auction-highlight:hover{transform:none}}
+
+/* Category-specific GNPL championship trophy animation. */
+.match-ready-trophies{top:25px;align-items:flex-end;gap:13px}
+.match-ready-trophy-unit{display:grid;justify-items:center;gap:3px;min-width:47px}
+.match-ready-trophy-unit small{color:#fff6d3;font-size:8px;font-weight:1000;letter-spacing:.13em;text-shadow:0 2px 8px rgba(0,0,0,.8)}
+.match-ready-trophy-men{color:#ffd166}
+.match-ready-trophy-women{color:#ff83bd}
+.match-ready-trophy-kids{color:#69e8f1}
+.match-ready-trophy-men .match-ready-trophy{animation-delay:0s}
+.match-ready-trophy-women .match-ready-trophy{animation-delay:.3s}
+.match-ready-trophy-kids .match-ready-trophy{animation-delay:.6s}
+.match-ready-trophy-unit .match-ready-trophy{filter:drop-shadow(0 0 10px currentColor)}
+@media(max-width:760px){.match-ready-trophies{top:19px;gap:8px}.match-ready-trophy-unit{min-width:39px}.match-ready-trophy-unit small{font-size:7px}}

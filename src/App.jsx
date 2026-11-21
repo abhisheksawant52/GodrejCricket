@@ -870,7 +870,7 @@ function App() {
           <div className="match-ready-graphic" aria-hidden="true">
             <span className="match-ready-ring match-ready-ring-one" />
             <span className="match-ready-ring match-ready-ring-two" />
-            <div className="match-ready-trophies"><Trophy className="match-ready-trophy match-ready-trophy-one" /><Trophy className="match-ready-trophy match-ready-trophy-two" /><Trophy className="match-ready-trophy match-ready-trophy-three" /></div>
+            <div className="match-ready-trophies"><span className="match-ready-trophy-unit match-ready-trophy-men"><Trophy className="match-ready-trophy match-ready-trophy-one" /><small>MEN</small></span><span className="match-ready-trophy-unit match-ready-trophy-women"><Trophy className="match-ready-trophy match-ready-trophy-two" /><small>WOMEN</small></span><span className="match-ready-trophy-unit match-ready-trophy-kids"><Trophy className="match-ready-trophy match-ready-trophy-three" /><small>KIDS</small></span></div>
             <span className="match-ready-ball"><i /></span>
             <div className="match-ready-wickets"><i /><i /><i /><b /></div>
             <span className="match-ready-spark match-ready-spark-one">✦</span>
