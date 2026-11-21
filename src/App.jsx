@@ -843,27 +843,21 @@ function App() {
           </div>
         </div>
       </section>
-      <section className="match-ready wrap" aria-labelledby="match-ready-title">
-        <div className="match-ready-card">
-          <div className="match-ready-copy">
-            <span className="match-ready-kicker"><span className="match-ready-live-dot" /> THE COUNTDOWN IS ON</span>
-            <h2 id="match-ready-title">GET READY FOR <em>MATCH DAY.</em></h2>
-            <MatchCountdown />
-            <div className="match-ready-date"><Clock3 size={24} /><span>13 December <strong>2026</strong></span></div>
-            <span className="match-ready-venue">9:00 AM IST · Kandivali Turf Zone</span>
+      <section className="match-ready wrap" aria-label="GNPL match day information">
+        <div className="match-info-bar">
+          <div className="match-info-details">
+            <span className="match-ready-kicker"><span className="match-ready-live-dot" /> GNPL MATCH DAY</span>
+            <strong>13 December 2026</strong>
+            <small>9:00 AM IST · Kandivali Turf Zone</small>
           </div>
-          <div className="match-ready-graphic" aria-hidden="true">
-            <span className="match-ready-ring match-ready-ring-one" />
-            <span className="match-ready-ring match-ready-ring-two" />
-            <div className="match-ready-trophies"><span className="match-ready-trophy-unit match-ready-trophy-men"><Trophy className="match-ready-trophy match-ready-trophy-one" /><small>MEN</small></span><span className="match-ready-trophy-unit match-ready-trophy-women"><Trophy className="match-ready-trophy match-ready-trophy-two" /><small>WOMEN</small></span><span className="match-ready-trophy-unit match-ready-trophy-kids"><Trophy className="match-ready-trophy match-ready-trophy-three" /><small>KIDS</small></span></div>
-            <span className="match-ready-ball"><i /></span>
-            <div className="match-ready-wickets"><i /><i /><i /><b /></div>
-            <span className="match-ready-spark match-ready-spark-one">✦</span>
-            <span className="match-ready-spark match-ready-spark-two">✦</span>
+          <MatchCountdown />
+          <div className="match-info-trophies" aria-label="Men’s, women’s, and kids’ championships">
+            <span className="match-ready-trophy-unit match-ready-trophy-men"><Trophy className="match-ready-trophy match-ready-trophy-one" /><small>MEN</small></span>
+            <span className="match-ready-trophy-unit match-ready-trophy-women"><Trophy className="match-ready-trophy match-ready-trophy-two" /><small>WOMEN</small></span>
+            <span className="match-ready-trophy-unit match-ready-trophy-kids"><Trophy className="match-ready-trophy match-ready-trophy-three" /><small>KIDS</small></span>
           </div>
         </div>
       </section>
-
       <section className="teams-section wrap" id="teams">
         <div className="section-tag">03 / MEET THE TEAMS</div>
         <div className="teams-heading"><h2>THE SQUADS.<br /><em>THE PRIDE.</em></h2><p>Meet all ten formed teams, their owners, and the players representing them.</p></div>

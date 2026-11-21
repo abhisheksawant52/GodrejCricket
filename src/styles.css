@@ -1542,3 +1542,41 @@ body{background-color:#0d0814;background-image:radial-gradient(ellipse at 7% 18%
 @keyframes highlight-sweep{to{transform:translateX(115%)}}
 @keyframes team-logo-pop{0%,100%{transform:translateY(-3px) rotate(-2deg) scale(1.045)}45%{transform:translateY(-8px) rotate(2deg) scale(1.09)}}
 @media(prefers-reduced-motion:reduce){.auction-update-card,.match-ready-card:after,.auction-highlight:after{animation:none!important}.team-card-clickable:hover .team-logo,.team-card-clickable:focus-visible .team-logo{animation:none!important}}
+
+/* One-row match-day information bar. */
+.match-ready{padding:0 0 10px}
+.match-info-bar{position:relative;isolation:isolate;display:grid;grid-template-columns:minmax(185px,1fr) minmax(320px,1.35fr) auto;align-items:center;gap:14px;padding:10px 15px;overflow:hidden;border:1px solid rgba(255,113,157,.38);border-radius:10px;background:radial-gradient(ellipse at 90% 50%,rgba(105,232,241,.1),transparent 35%),linear-gradient(105deg,rgba(37,20,47,.96),rgba(14,24,35,.96));box-shadow:0 10px 28px rgba(0,0,0,.2),inset 0 1px rgba(255,255,255,.06)}
+.match-info-details{position:relative;z-index:1;display:grid;gap:3px;min-width:0}
+.match-info-details>.match-ready-kicker{font-size:8px;letter-spacing:.13em}
+.match-info-details>strong{color:#f4ff9b;font-size:19px;line-height:1.1}
+.match-info-details>small{color:#e0d4e5;font-size:11px;line-height:1.25}
+.match-info-details>small i{padding:0 3px;color:#ff90bf;font-style:normal}
+.match-info-bar .match-countdown{position:relative;z-index:1;width:100%;max-width:none;flex-wrap:nowrap;justify-content:space-between;gap:7px;margin:0;padding:6px 9px;border-radius:8px}
+.match-info-bar .match-countdown-label{max-width:100px;font-size:8px;line-height:1.25}
+.match-info-bar .match-countdown-values{flex:1;justify-content:flex-end;gap:4px}
+.match-info-bar .match-countdown-values span{min-width:25px}
+.match-info-bar .match-countdown-values strong{font-size:18px}
+.match-info-bar .match-countdown-values small{font-size:6px}
+.match-info-trophies{position:relative;z-index:1;display:flex;align-items:flex-end;gap:7px;padding-left:5px}
+.match-info-trophies .match-ready-trophy-unit{min-width:31px;gap:1px}
+.match-info-trophies .match-ready-trophy{width:22px;height:26px}
+.match-info-trophies .match-ready-trophy-two{width:29px;height:34px}
+.match-info-trophies .match-ready-trophy-unit small{font-size:6px}
+@media(max-width:900px){.match-info-bar{grid-template-columns:minmax(0,1fr) minmax(285px,1.2fr);gap:9px 12px}.match-info-details{grid-column:1;grid-row:1}.match-info-trophies{grid-column:2;grid-row:1;justify-self:end}.match-info-bar .match-countdown{grid-column:1/-1;grid-row:2}}
+@media(max-width:620px){
+  .match-info-bar{grid-template-columns:minmax(0,1fr) auto;gap:8px;padding:9px 10px}
+  .match-info-details>strong{font-size:17px}
+  .match-info-details>small{font-size:10px}
+  .match-info-details>.match-ready-kicker{font-size:7px}
+  .match-info-trophies{gap:3px;padding-left:0}
+  .match-info-trophies .match-ready-trophy-unit{min-width:27px}
+  .match-info-trophies .match-ready-trophy{width:19px;height:23px}
+  .match-info-trophies .match-ready-trophy-two{width:25px;height:30px}
+  .match-info-trophies .match-ready-trophy-unit small{font-size:5px;letter-spacing:.06em}
+  .match-info-bar .match-countdown{grid-column:1/-1;grid-row:2;gap:6px;padding:5px 7px}
+  .match-info-bar .match-countdown-label{max-width:92px;font-size:7px}
+  .match-info-bar .match-countdown-values{gap:3px}
+  .match-info-bar .match-countdown-values span{min-width:22px}
+  .match-info-bar .match-countdown-values strong{font-size:16px}
+  .match-info-bar .match-countdown-values small{font-size:5px}
+}
