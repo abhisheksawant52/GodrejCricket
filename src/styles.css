@@ -1814,3 +1814,13 @@ main>section{scroll-margin-top:96px}
 /* Four equally weighted action cards; return to two columns on tablet. */
 .register-grid{grid-template-columns:repeat(4,minmax(0,1fr));align-items:stretch}
 @media(min-width:761px) and (max-width:1100px){.register-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* Put sponsorship alongside the front-page player call to action. */
+.sponsor-front-cta{min-height:46px;display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:0 15px;border:1px solid rgba(105,232,241,.48);border-radius:5px;background:linear-gradient(110deg,rgba(105,232,241,.13),rgba(157,123,255,.14));color:#dcfbff;font-size:12px;font-weight:900;letter-spacing:.015em;cursor:pointer;transition:transform .2s ease,border-color .2s ease,background .2s ease,box-shadow .2s ease}
+.sponsor-front-cta svg:first-child{color:#d7ff59}
+.sponsor-front-cta:hover{transform:translateY(-2px);border-color:#aaf8ff;background:linear-gradient(110deg,rgba(105,232,241,.22),rgba(157,123,255,.2));box-shadow:0 8px 24px rgba(105,232,241,.12)}
+.sponsor-front-cta:focus-visible{outline:3px solid #d7ff59;outline-offset:3px}
+@media(max-width:620px){
+  .hero-actions>.sponsor-front-cta{grid-column:1/-1;grid-row:3;width:100%;min-height:42px}
+}
+@media(prefers-reduced-motion:reduce){.sponsor-front-cta{transition:none!important}.sponsor-front-cta:hover{transform:none}}
