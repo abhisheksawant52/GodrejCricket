@@ -1214,3 +1214,75 @@ body{color:#fff7fc;background:radial-gradient(ellipse at 8% 12%,rgba(255,74,160,
 .match-ready-trophy-kids .match-ready-trophy{animation-delay:.6s}
 .match-ready-trophy-unit .match-ready-trophy{filter:drop-shadow(0 0 10px currentColor)}
 @media(max-width:760px){.match-ready-trophies{top:19px;gap:8px}.match-ready-trophy-unit{min-width:39px}.match-ready-trophy-unit small{font-size:7px}}
+
+/* UI feature set: sticky section nav, category filters, compact match strip, mobile quick actions. */
+html{scroll-padding-top:90px}
+body{overflow-x:clip}
+.site-shell{overflow:visible}
+.nav{position:sticky;top:0;z-index:60;height:78px!important;padding:0 12px;border-bottom:1px solid rgba(105,232,241,.2);background:rgba(15,9,23,.93);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
+.nav .brand-logo{width:76px!important;height:66px!important}
+.nav-links{gap:clamp(12px,2vw,26px)}
+.nav-links a[href="#auction-update"],.nav-links a[href="#teams"],.nav-links a[href="#schedule"],.nav-links a[href="#register"]{scroll-margin-top:88px}
+#auction-update,#teams,#register,#schedule{scroll-margin-top:92px}
+.team-filter-bar{display:flex;align-items:center;gap:12px;margin:-12px 0 22px;padding:10px 13px;border:1px solid rgba(105,232,241,.18);border-radius:10px;background:linear-gradient(100deg,rgba(30,18,40,.84),rgba(17,19,31,.84))}
+.team-filter-bar>span{color:#cdbbd3;font-size:10px;font-weight:1000;letter-spacing:.12em}
+.team-filter-bar>div{display:flex;flex-wrap:wrap;gap:7px}
+.team-filter-bar button{min-height:34px;padding:0 13px;border:1px solid rgba(255,255,255,.16);border-radius:99px;background:rgba(255,255,255,.04);color:#e4d8e8;font-size:12px;font-weight:800;cursor:pointer;transition:background .2s,border-color .2s,color .2s,transform .2s}
+.team-filter-bar button:hover{transform:translateY(-1px);border-color:rgba(105,232,241,.5)}
+.team-filter-bar button.active{border-color:#d7ff59;background:rgba(215,255,89,.15);color:#eeffab;box-shadow:0 0 16px rgba(215,255,89,.1)}
+.team-filter-bar>small{margin-left:auto;color:#b8a8c1;font-size:11px;font-weight:700}
+.team-identity .team-owner-name,.team-identity .team-captain-name{display:inline-flex!important;align-items:center;flex-wrap:wrap;gap:6px!important;width:fit-content;max-width:100%;margin:6px 5px 3px 0!important;padding:6px 9px;border:1px solid color-mix(in srgb,var(--team-accent) 45%,transparent);border-radius:7px;background:color-mix(in srgb,var(--team-accent) 10%,rgba(13,12,26,.95));font-size:12px!important}
+.team-identity .team-owner-name small,.team-identity .team-captain-name small{color:#d0c1d7;font-size:8px;font-weight:1000;letter-spacing:.1em}
+.team-identity .team-owner-name strong{color:#efff9a!important}
+.team-identity .team-captain-name svg{width:13px;height:13px;color:var(--team-accent)}
+.match-ready{padding:0 0 18px}
+.match-ready-card{grid-template-columns:minmax(0,1fr) 190px;min-height:0;gap:18px;padding:18px 24px;border-radius:13px}
+.match-ready-copy h2{margin:8px 0 5px;font-size:clamp(30px,3.6vw,42px)}
+.match-ready-copy p{font-size:14px;line-height:1.4}
+.match-countdown{gap:8px 12px;margin-top:10px;padding:7px 10px}
+.match-countdown-values strong{font-size:21px}
+.match-ready-date{margin-top:9px;font-size:clamp(19px,2.4vw,25px)}
+.match-ready-venue{margin:3px 0 0 31px;font-size:12px}
+.match-ready-graphic{width:190px;height:132px}
+.match-ready-trophies{top:6px;gap:8px}
+.match-ready-trophy{width:26px;height:31px}
+.match-ready-trophy-two{width:36px;height:42px}
+.match-ready-trophy-unit{min-width:36px;gap:1px}
+.match-ready-trophy-unit small{font-size:7px}
+.match-ready-wickets{bottom:7px;transform:translateX(-50%) scale(.68)}
+.match-ready-ring-one{width:160px;height:88px}
+.match-ready-ring-two{width:130px;height:112px}
+.mobile-quick-actions{display:none}
+@media(max-width:900px){
+  .nav{height:74px!important;padding:0 8px}
+  .nav .brand-logo{width:64px!important;height:58px!important}
+  .nav-links{gap:14px}
+  .match-ready-card{grid-template-columns:minmax(0,1fr) 165px;padding:16px 18px}
+  .match-ready-graphic{width:165px}
+}
+@media(max-width:760px){
+  .nav{height:68px!important;padding:0 2px}
+  .nav>.brand .brand-logo{width:56px!important;height:51px!important}
+  .nav .brand{gap:7px;font-size:25px}
+  .nav .brand small{font-size:6px}
+  .nav .nav-links{top:100%;max-height:calc(100dvh - 80px);overflow:auto}
+  .team-filter-bar{align-items:flex-start;flex-wrap:wrap;gap:8px;margin:-5px 0 16px;padding:10px}
+  .team-filter-bar>span{width:100%}
+  .team-filter-bar>small{margin-left:auto;align-self:center}
+  .team-filter-bar button{min-height:32px;padding:0 11px;font-size:11px}
+  .match-ready-card{grid-template-columns:1fr;gap:0;padding:16px;border-radius:11px}
+  .match-ready-copy h2{font-size:clamp(27px,7vw,36px)}
+  .match-ready-copy p{font-size:13px}
+  .match-ready-graphic{width:min(100%,180px);height:112px;margin:4px auto 0}
+  .match-ready-trophies{top:0;gap:8px}
+  .match-ready-trophy{width:24px;height:29px}
+  .match-ready-trophy-two{width:33px;height:38px}
+  .match-ready-ring-one{width:150px;height:72px}
+  .match-ready-ring-two{width:112px;height:96px}
+  .match-ready-wickets{bottom:0;transform:translateX(-50%) scale(.58)}
+  .mobile-quick-actions{position:fixed;z-index:55;right:12px;bottom:max(10px,env(safe-area-inset-bottom));left:12px;display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:8px;border:1px solid rgba(105,232,241,.32);border-radius:13px;background:rgba(17,10,25,.94);box-shadow:0 10px 35px rgba(0,0,0,.42),0 0 24px rgba(105,232,241,.1);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
+  .mobile-quick-actions a{display:flex;align-items:center;justify-content:center;gap:7px;min-height:42px;border-radius:8px;background:linear-gradient(105deg,#d7ff59,#ffe078);color:#1b1020;font-size:12px;font-weight:1000}
+  .mobile-quick-actions a+a{border:1px solid rgba(105,232,241,.46);background:rgba(105,232,241,.1);color:#d8fbff}
+  .site-shell{padding-bottom:72px}
+}
+@media(prefers-reduced-motion:reduce){.team-filter-bar button{transition:none}}
