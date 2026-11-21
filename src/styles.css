@@ -1886,3 +1886,9 @@ main>section:not(.hero):not(:first-child){scroll-margin-top:96px}
   .register-card{border-radius:12px}
   .hero-actions>.button,.hero-actions>.hero-player-list-button,.hero-actions>.tshirt-buy-shortcut,.hero-actions>.sponsor-front-cta{min-height:44px;border-radius:7px}
 }
+
+/* Keep laptop registration dialogs above the sticky site navigation. */
+@media(min-width:761px){
+  .overlay:not(.admin-overlay){z-index:120!important}
+  .register-dialog{max-height:min(88dvh,900px);overscroll-behavior:contain;scrollbar-gutter:stable}
+}
