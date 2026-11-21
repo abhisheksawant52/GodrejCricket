@@ -1064,3 +1064,44 @@ body,.site-shell{color:#fff5fb}
   .squad-list li{font-size:14px}
   .hero-text{font-size:14px;line-height:1.55}
 }
+
+/* De-emphasize the introductory pitch and keep its controls compact. */
+.hero-copy{padding:5px 0}
+.hero .eyebrow{font-size:10px;letter-spacing:.13em}
+.hero h1.league-title{margin:15px 0 10px;font-size:clamp(40px,4.5vw,62px)!important;line-height:.92}
+.hero-tagline{margin:8px 0 3px!important;font-size:clamp(21px,2.3vw,27px)!important;line-height:1.05}
+.hero-text{max-width:440px;margin-bottom:11px;font-size:13px!important;line-height:1.45!important}
+.hero-actions{gap:6px 8px;margin-top:10px}
+.hero-actions .button-lime{min-width:0;min-height:40px;padding:0 13px;font-size:12px}
+.tshirt-buy-shortcut{min-height:40px;padding:5px 9px;gap:7px}
+.tshirt-shortcut-icon{width:27px;height:27px}
+.tshirt-buy-shortcut strong{font-size:10px}
+.tshirt-buy-shortcut small{font-size:8px}
+.text-link{gap:5px;font-size:11px}
+.hero-player-list-button{min-height:40px;padding:0 12px;font-size:11px}
+.share-league-button{min-height:34px;padding:7px 10px;font-size:10px}
+@media(max-width:760px){
+  .hero-copy{padding:0}
+  .hero h1.league-title{margin:12px 0 9px;font-size:clamp(34px,8vw,46px)!important}
+  .hero-tagline{margin-top:7px!important;font-size:22px!important}
+  .hero-text{font-size:13px!important;line-height:1.45!important;margin-bottom:9px}
+  .hero-actions{gap:7px;margin-top:8px}
+  .hero-actions .button-lime,.hero-player-list-button,.tshirt-buy-shortcut{min-height:38px}
+  .tshirt-buy-shortcut{padding:4px 8px}
+}
+
+/* Extra cricket-themed movement on the compact homepage status elements. */
+.front-status-strip{position:relative;isolation:isolate}
+.front-status-strip:after{position:absolute;z-index:3;top:-7px;left:0;width:13px;height:13px;content:"";border:1px solid #ffc4ce;border-radius:50%;background:radial-gradient(circle at 30% 28%,#fff0d8,#f14b68 72%);box-shadow:0 0 10px rgba(255,90,112,.8);pointer-events:none;animation:front-cricket-ball 7s cubic-bezier(.4,0,.3,1) infinite}
+.front-status-strip:before{position:absolute;z-index:2;top:-2px;left:0;width:28px;height:3px;content:"";border-radius:50%;background:linear-gradient(90deg,transparent,rgba(255,146,163,.75));filter:blur(2px);pointer-events:none;animation:front-cricket-trail 7s cubic-bezier(.4,0,.3,1) infinite}
+.auction-closed-badge{animation:auction-badge-glow 2.8s ease-in-out infinite}
+.team-identity .team-owner-name{animation:owner-highlight 3.8s ease-in-out infinite}
+@keyframes front-cricket-ball{0%{transform:translateX(-10px) translateY(8px) rotate(0);opacity:0}8%{opacity:1}48%{transform:translateX(calc(50vw - 36px)) translateY(1px) rotate(280deg);opacity:1}92%{transform:translateX(calc(100vw - 54px)) translateY(4px) rotate(620deg);opacity:.9}100%{transform:translateX(calc(100vw - 38px)) translateY(8px) rotate(720deg);opacity:0}}
+@keyframes front-cricket-trail{0%,7%{opacity:0;transform:translateX(-12px)}14%{opacity:.8}48%{transform:translateX(calc(50vw - 54px));opacity:.55}92%,100%{transform:translateX(calc(100vw - 62px));opacity:0}}
+@keyframes auction-badge-glow{0%,100%{box-shadow:0 0 12px rgba(255,90,167,.1)}50%{box-shadow:0 0 21px rgba(255,90,167,.38)}}
+@keyframes owner-highlight{0%,100%{box-shadow:0 5px 16px color-mix(in srgb,var(--team-accent) 10%,transparent)}50%{box-shadow:0 5px 21px color-mix(in srgb,var(--team-accent) 24%,transparent)}}
+@media(prefers-reduced-motion:reduce){.front-status-strip:before,.front-status-strip:after,.auction-closed-badge,.team-identity .team-owner-name{animation:none!important}}
+.front-status-strip:after{transform:none}
+.front-status-strip:before{transform:none}
+@keyframes front-cricket-ball{0%{left:-13px;top:8px;transform:rotate(0);opacity:0}8%{opacity:1}48%{left:50%;top:1px;transform:rotate(280deg);opacity:1}92%{left:calc(100% - 13px);top:4px;transform:rotate(620deg);opacity:.9}100%{left:calc(100% - 13px);top:8px;transform:rotate(720deg);opacity:0}}
+@keyframes front-cricket-trail{0%,7%{left:-28px;opacity:0}14%{opacity:.8}48%{left:50%;opacity:.55}92%,100%{left:calc(100% - 28px);opacity:0}}
