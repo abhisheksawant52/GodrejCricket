@@ -86,6 +86,25 @@ const csv = (rows) => {
   return [cols.join(','), ...rows.map(r => cols.map(c => cell(c === 'details' ? JSON.stringify(r[c] || {}) : c === 'wing' ? r.details?.wing : c === 'flat_no' ? r.details?.flat_no : c === 'tshirt_size' ? r.details?.['t-shirt_size'] : c === 'tshirt_name' ? r.details?.['t-shirt_name'] : c === 'tshirt_number' ? r.details?.['t-shirt_number'] : c === 'team_name' ? r.details?.team_name : c === 'category' ? r.details?.player_category : c === 'jersey_issued' ? Boolean(r.details?.jersey_issued) : c === 'jersey_issued_at' ? r.details?.jersey_issued_at : r[c])).join(','))].join('\r\n');
 };
 
+function MatchCountdown() {
+  const [now, setNow] = useState(Date.now());
+  useEffect(() => {
+    const timer = setInterval(() => setNow(Date.now()), 1000);
+    return () => clearInterval(timer);
+  }, []);
+  const remaining = Math.max(0, new Date('2026-12-13T09:00:00+05:30').getTime() - now);
+  const units = [
+    { label: 'DAYS', value: Math.floor(remaining / 86400000) },
+    { label: 'HOURS', value: String(Math.floor((remaining % 86400000) / 3600000)).padStart(2, '0') },
+    { label: 'MIN', value: String(Math.floor((remaining % 3600000) / 60000)).padStart(2, '0') },
+    { label: 'SEC', value: String(Math.floor((remaining % 60000) / 1000)).padStart(2, '0') },
+  ];
+  return <div className="match-countdown" role="timer" aria-label="Countdown to match start, 13 December 2026 at 9 AM India time">
+    <span className="match-countdown-label">COUNTDOWN TO FIRST BALL</span>
+    <div className="match-countdown-values">{units.map((unit, index) => <React.Fragment key={unit.label}>{index > 0 && <i>:</i>}<span><strong>{unit.value}</strong><small>{unit.label}</small></span></React.Fragment>)}</div>
+  </div>;
+}
+
 function App() {
   const displayPlayerKey = new URLSearchParams(window.location.search).get('playerDisplay');
   const [displayPlayer] = useState(() => {
@@ -280,13 +299,6 @@ function App() {
     .filter(player => player.auction_sold && player.team_name && Number(player.sold_price) > 0)
     .sort((a, b) => Number(b.sold_price) - Number(a.sold_price))
     .slice(0, 3);
-  const matchStartTime = new Date('2026-12-13T09:00:00+05:30').getTime();
-  const matchCountdownMs = Math.max(0, matchStartTime - clockNow);
-  const matchCountdown = {
-    days: Math.floor(matchCountdownMs / 86400000),
-    hours: Math.floor((matchCountdownMs % 86400000) / 3600000),
-    minutes: Math.floor((matchCountdownMs % 3600000) / 60000),
-  };
   const unassignedCount = playerRows.filter(r => !r.details?.team_name).length;
   const jerseyRows = rows.filter(r => ['Player', 'Owner', 'Audience'].includes(r.type));
   const jerseyIssuedCount = jerseyRows.filter(r => r.details?.jersey_issued).length;
@@ -839,6 +851,28 @@ function App() {
           </div>
         </div>
       </section>
+      <section className="match-ready wrap" aria-labelledby="match-ready-title">
+        <div className="match-ready-card">
+          <div className="match-ready-copy">
+            <span className="match-ready-kicker"><span className="match-ready-live-dot" /> THE COUNTDOWN IS ON</span>
+            <h2 id="match-ready-title">GET READY FOR <em>MATCH DAY.</em></h2>
+            <p>10 teams. 3 championship trophies. The GNPL takes the field on</p>
+            <MatchCountdown />
+            <div className="match-ready-date"><Clock3 size={24} /><span>13 December <strong>2026</strong></span></div>
+            <span className="match-ready-venue">First ball at 9:00 AM IST · Kandivali Turf Zone</span>
+          </div>
+          <div className="match-ready-graphic" aria-hidden="true">
+            <span className="match-ready-ring match-ready-ring-one" />
+            <span className="match-ready-ring match-ready-ring-two" />
+            <div className="match-ready-trophies"><span className="match-ready-trophy-unit match-ready-trophy-men"><Trophy className="match-ready-trophy match-ready-trophy-one" /><small>MEN</small></span><span className="match-ready-trophy-unit match-ready-trophy-women"><Trophy className="match-ready-trophy match-ready-trophy-two" /><small>WOMEN</small></span><span className="match-ready-trophy-unit match-ready-trophy-kids"><Trophy className="match-ready-trophy match-ready-trophy-three" /><small>KIDS</small></span></div>
+            <span className="match-ready-ball"><i /></span>
+            <div className="match-ready-wickets"><i /><i /><i /><b /></div>
+            <span className="match-ready-spark match-ready-spark-one">✦</span>
+            <span className="match-ready-spark match-ready-spark-two">✦</span>
+          </div>
+        </div>
+      </section>
+
       <section className="teams-section wrap" id="teams">
         <div className="section-tag">03 / MEET THE TEAMS</div>
         <div className="teams-heading"><h2>THE SQUADS.<br /><em>THE PRIDE.</em></h2><p>Meet all ten formed teams, their owners, and the players representing them.</p></div>
@@ -854,30 +888,7 @@ function App() {
         })}</div>
       </section>
 
-      <section className="match-ready wrap" aria-labelledby="match-ready-title">
-        <div className="match-ready-card">
-          <div className="match-ready-copy">
-            <span className="match-ready-kicker"><span className="match-ready-live-dot" /> THE COUNTDOWN IS ON</span>
-            <h2 id="match-ready-title">GET READY FOR <em>MATCH DAY.</em></h2>
-            <p>10 teams. 3 championship trophies. The GNPL takes the field on</p>
-            <div className="match-countdown" aria-label={`Match starts in ${matchCountdown.days} days, ${matchCountdown.hours} hours, and ${matchCountdown.minutes} minutes`}>
-              <span className="match-countdown-label">COUNTDOWN TO FIRST BALL</span>
-              <div className="match-countdown-values"><span><strong>{matchCountdown.days}</strong><small>DAYS</small></span><i>:</i><span><strong>{String(matchCountdown.hours).padStart(2, '0')}</strong><small>HOURS</small></span><i>:</i><span><strong>{String(matchCountdown.minutes).padStart(2, '0')}</strong><small>MIN</small></span></div>
-            </div>
-            <div className="match-ready-date"><Clock3 size={24} /><span>13 December <strong>2026</strong></span></div>
-            <span className="match-ready-venue">First ball at 9:00 AM IST · Kandivali Turf Zone</span>
-          </div>
-          <div className="match-ready-graphic" aria-hidden="true">
-            <span className="match-ready-ring match-ready-ring-one" />
-            <span className="match-ready-ring match-ready-ring-two" />
-            <div className="match-ready-trophies"><span className="match-ready-trophy-unit match-ready-trophy-men"><Trophy className="match-ready-trophy match-ready-trophy-one" /><small>MEN</small></span><span className="match-ready-trophy-unit match-ready-trophy-women"><Trophy className="match-ready-trophy match-ready-trophy-two" /><small>WOMEN</small></span><span className="match-ready-trophy-unit match-ready-trophy-kids"><Trophy className="match-ready-trophy match-ready-trophy-three" /><small>KIDS</small></span></div>
-            <span className="match-ready-ball"><i /></span>
-            <div className="match-ready-wickets"><i /><i /><i /><b /></div>
-            <span className="match-ready-spark match-ready-spark-one">✦</span>
-            <span className="match-ready-spark match-ready-spark-two">✦</span>
-          </div>
-        </div>
-      </section>
+
 
       <section className="venue-overview wrap" id="venue"><div className="section-tag">GNPL 2026 / VENUE OVERVIEW</div><div className="venue-overview-card"><div><span className="venue-kicker"><MapPin size={15}/> MATCH VENUE</span><h2>Kandivali <em>Turf Zone</em></h2><p>00 Gopinath Munde Ground, Near Sapphire Heights, Lokhandwala Foundation School, Akurli Road, Lokhandwala Complex, Kandivali East, Mumbai - 400101</p><a href="https://www.google.com/maps/search/?api=1&query=Kandivali+Turf+Zone+Gopinath+Munde+Ground+Kandivali+East" target="_blank" rel="noreferrer">Open venue in Google Maps <ArrowUpRight size={15}/></a><div className="venue-pricing"><span><strong>Men</strong> Rs 600</span><span><strong>Women</strong> Rs 400</span><span><strong>Kids</strong> Rs 300</span></div><small>Player T-shirt and refreshments included.</small></div><div className="shirt-showcase official-jersey-showcase" id="venue-shirt"><img className="venue-jersey-mockup" src="/gnpl-audience-jersey.png" alt="Official GNPL 2026 jersey front and back design" /><div className="venue-jersey-details"><strong>OFFICIAL GNPL 2026 T-SHIRT</strong><span>Audience jersey · ₹300</span><button type="button" className="venue-jersey-buy" onClick={() => { const item = types.find(type => type.key === 'Audience'); setNotice(''); setReceipt(null); setFormReady(false); setRegistrationSuccess(false); setModal(item); }}>Buy now <ArrowUpRight size={15} /></button></div></div></div></section>
 
