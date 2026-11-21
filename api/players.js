@@ -51,6 +51,8 @@ export default async function handler(req, res) {
       role: player.details?.playing_role || null,
       grade: player.details?.player_grade || null,
       team_name: player.details?.team_name || null,
+      auction_sold: typeof player.details?.auction_sold === 'boolean' ? player.details.auction_sold : null,
+      sold_price: Number(player.details?.sold_price) || null,
       is_team_captain: Boolean(player.details?.is_team_captain),
       age: Number(player.details?.age) || null,
       playerCategory: player.details?.player_category || null,
