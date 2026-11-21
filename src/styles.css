@@ -1141,3 +1141,45 @@ body,.site-shell{color:#fff5fb}
 .hero h1.league-title{white-space:nowrap;font-size:clamp(16px,5.2vw,54px)!important;line-height:1!important;letter-spacing:-.055em}
 .hero h1.league-title>span{display:inline;white-space:nowrap}
 .hero h1.league-title em{display:inline;font-size:.62em!important;white-space:nowrap;margin:0}
+
+/* Cohesive GNPL palette: plum foundations, pink energy, lime calls to action, aqua details. */
+:root{--ink:#fff7fc;--muted:#d5c7d9;--lime:#d7ff59;--green:#21152c;--line:rgba(173,151,210,.2);--gnpl-plum:#120b1b;--gnpl-panel:#1c1227;--gnpl-pink:#ff5aa7;--gnpl-aqua:#69e8f1;--gnpl-gold:#ffd166}
+body{color:#fff7fc;background:radial-gradient(ellipse at 8% 12%,rgba(255,74,160,.12),transparent 34%),radial-gradient(ellipse at 92% 35%,rgba(83,222,232,.09),transparent 37%),linear-gradient(145deg,#0c0712 0%,#120a1b 52%,#090c16 100%)}
+.topline{background:linear-gradient(100deg,#d7ff59 0%,#edff76 58%,#ffe178 100%);color:#1a1020}
+.button-lime{background:linear-gradient(105deg,#d7ff59,#ffe078);color:#1b1020;box-shadow:0 8px 25px rgba(215,255,89,.2),0 5px 20px rgba(255,90,167,.12)}
+.button-lime:hover{background:linear-gradient(105deg,#e4ff82,#ffe9a0);box-shadow:0 11px 30px rgba(215,255,89,.3),0 7px 24px rgba(255,90,167,.18)}
+.nav-admin{border-color:rgba(105,232,241,.46);background:rgba(105,232,241,.045);color:#c6fbff}
+.nav-admin:hover{border-color:var(--gnpl-aqua);background:rgba(105,232,241,.11);color:#fff}
+.front-status-item{border-color:rgba(105,232,241,.34);background:linear-gradient(110deg,rgba(36,20,47,.96),rgba(17,24,39,.96));box-shadow:inset 0 1px rgba(255,255,255,.06),0 8px 24px rgba(0,0,0,.14)}
+.front-status-item:first-child .front-status-tag{border-color:rgba(255,90,167,.62);background:rgba(255,90,167,.14);color:#ffc0dc}
+.front-status-item:nth-child(2) .front-status-tag{border-color:rgba(215,255,89,.5);background:rgba(215,255,89,.1);color:#eaff9a}
+.auction-update-card{border-color:rgba(105,232,241,.4);background:radial-gradient(ellipse at 88% 50%,rgba(105,232,241,.13),transparent 36%),radial-gradient(ellipse at 12% 0,rgba(255,90,167,.2),transparent 42%),linear-gradient(125deg,#281532 0%,#170d25 55%,#10232d 100%)}
+.match-ready-card{border-color:rgba(255,90,167,.46);background:radial-gradient(ellipse at 82% 48%,rgba(255,90,167,.17),transparent 36%),radial-gradient(ellipse at 10% 12%,rgba(255,209,102,.07),transparent 33%),linear-gradient(115deg,#29132e,#130d23 60%,#10232d)}
+.team-card{background:linear-gradient(145deg,rgba(38,25,55,.99),rgba(15,12,30,.99));box-shadow:0 18px 42px rgba(0,0,0,.3),inset 0 1px rgba(255,255,255,.075)}
+.announcement-card,.venue-overview-card,.gallery-empty{border-color:rgba(105,232,241,.25);background:linear-gradient(145deg,rgba(33,20,44,.95),rgba(15,14,29,.98));box-shadow:0 14px 36px rgba(0,0,0,.22),inset 0 1px rgba(255,255,255,.05)}
+.footer{background:linear-gradient(180deg,#160a19,#0b0912);border-color:rgba(255,90,167,.22)}
+::selection{background:rgba(255,90,167,.75);color:#fff}
+
+/* Add breathing room to the hero while keeping the content compact. */
+.front-status-strip{gap:16px;margin-bottom:20px}
+.front-status-item{gap:14px;padding:13px 18px}
+.hero{padding-top:16px!important;padding-bottom:28px!important}
+.hero-copy{max-width:640px}
+.hero-tagline{margin:12px 0 5px!important}
+.hero-text{margin-bottom:15px;font-size:14px!important;line-height:1.55!important}
+.hero-actions{gap:10px 12px;margin-top:12px}
+.hero-invite{margin-top:18px;padding:14px 16px;gap:9px 12px}
+.hero-trophy-stage{top:2px;right:20px;width:72px}
+@media(max-width:900px){
+  .front-status-strip{gap:10px;margin-bottom:16px}
+  .hero-trophy-stage{width:68px;top:0;right:10px}
+}
+@media(max-width:760px){
+  .front-status-strip{gap:8px;margin-bottom:14px}
+  .front-status-item{gap:7px;padding:10px}
+  .hero{padding-top:12px!important;padding-bottom:20px!important}
+  .hero-tagline{margin:9px 0 4px!important}
+  .hero-text{margin-bottom:11px;font-size:13px!important;line-height:1.5!important}
+  .hero-actions{gap:8px;margin-top:9px}
+  .hero-invite{margin-top:14px;padding:11px 12px;gap:6px}
+}
