@@ -1352,3 +1352,6 @@ body{overflow-x:clip}
   .match-ready-ring-one{width:118px;height:58px}
   .match-ready-ring-two{width:88px;height:76px}
 }
+
+/* Remove the duplicate event details card from the compact hero. */
+.hero .hero-invite{display:none!important}
