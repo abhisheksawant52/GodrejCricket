@@ -64,10 +64,26 @@ export default async function handler(req, res) {
     const flatNo = clean(body.flat_no, 60);
     const paymentReference = clean(body.payment_reference, 120);
     const paymentTime = clean(body.payment_time, 40);
-    if (!['Player', 'Owner', 'Audience'].includes(type) || !name || !phone) return json(res, 400, { error: 'Please complete the required fields.' });
-    if (!wing || !flatNo) return json(res, 400, { error: 'Please enter your wing and flat number.' });
-    if (!/^([01]\d|2[0-3]):[0-5]\d$/.test(paymentTime)) return json(res, 400, { error: 'Choose a valid payment time using the time picker.' });
+    if (!['Player', 'Owner', 'Audience', 'Sponsor'].includes(type) || !name || !phone) return json(res, 400, { error: 'Please complete the required fields.' });
+    if (type !== 'Sponsor' && (!wing || !flatNo)) return json(res, 400, { error: 'Please enter your wing and flat number.' });
     const details = body.details && typeof body.details === 'object' && !Array.isArray(body.details) ? body.details : {};
+    if (type !== 'Sponsor' && !/^([01]\d|2[0-3]):[0-5]\d$/.test(paymentTime)) return json(res, 400, { error: 'Choose a valid payment time using the time picker.' });
+    if (type === 'Sponsor') {
+      const area = clean(details.sponsorship_area, 40);
+      const kind = clean(details.sponsorship_type, 10);
+      const amountText = clean(details.contribution_amount, 12);
+      const amount = Number(amountText);
+      const contributionDetails = clean(details.contribution_details, 300);
+      if (!['Snacks & refreshments', 'Cricket equipment', 'First aid & safety', 'Ground & match setup', 'Player support', 'Other'].includes(area)) return json(res, 400, { error: 'Choose a valid sponsorship area.' });
+      if (!['Cash', 'In-kind'].includes(kind)) return json(res, 400, { error: 'Choose cash or in-kind sponsorship.' });
+      if (kind === 'Cash' && (!/^\d+(\.\d{1,2})?$/.test(amountText) || !Number.isFinite(amount) || amount <= 0)) return json(res, 400, { error: 'Enter a valid contribution amount greater than zero.' });
+      if (kind === 'Cash' && !/^([01]\d|2[0-3]):[0-5]\d$/.test(paymentTime)) return json(res, 400, { error: 'Enter the payment time for your cash sponsorship.' });
+      if (kind === 'In-kind' && !contributionDetails) return json(res, 400, { error: 'Describe the items or support you would like to contribute.' });
+      details.sponsorship_area = area;
+      details.sponsorship_type = kind;
+      details.contribution_amount = kind === 'Cash' ? amountText : '';
+      details.contribution_details = contributionDetails;
+    }
     if (type === 'Audience' && !['XS', 'S', 'M', 'L', 'XL', 'XXL', 'XXXL'].includes(clean(details['t-shirt_size'], 10))) return json(res, 400, { error: 'Choose a valid audience T-shirt size.' });
     if (type === 'Audience' && (!clean(details['t-shirt_name'], 30) || !/^\d{1,3}$/.test(clean(details['t-shirt_number'], 3)))) return json(res, 400, { error: 'Enter the T-shirt name and a number from 0 to 999.' });
     if (type === 'Player') {

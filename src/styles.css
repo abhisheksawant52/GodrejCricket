@@ -1801,3 +1801,12 @@ main>section{scroll-margin-top:96px}
 .hero h1.league-title em{font-family:'Playfair Display',Georgia,serif!important;font-size:.46em!important;font-weight:600;font-style:italic;letter-spacing:-.035em}
 @media(max-width:760px){.hero h1.league-title{font-size:clamp(43px,11.3vw,58px)!important;line-height:.94;column-gap:.16em}}
 @media(max-width:360px){.hero h1.league-title{font-size:clamp(38px,10.5vw,43px)!important;letter-spacing:-.045em}}
+
+/* Sponsorship card styling. */
+.register-card.card-3{border-color:rgba(105,232,241,.4);background:radial-gradient(ellipse at 82% 8%,rgba(105,232,241,.13),transparent 38%),linear-gradient(145deg,rgba(31,27,57,.98),rgba(16,14,34,.99))}
+.register-card.card-3 .register-tagline{color:#aaf8ff}
+.sponsor-rings{position:absolute;width:62px;height:62px;border:1px solid rgba(105,232,241,.55);border-radius:50%;box-shadow:0 0 28px rgba(105,232,241,.13);animation:sponsor-ring-pulse 3.6s ease-in-out infinite}
+.card-3 .role-art>svg{position:relative;z-index:1;color:#d7ff59;filter:drop-shadow(0 0 10px rgba(215,255,89,.28))}
+.card-3 .role-art .cheer-stars{color:#ff86bf}
+@keyframes sponsor-ring-pulse{0%,100%{transform:scale(.94);opacity:.55}50%{transform:scale(1.08);opacity:1}}
+@media(prefers-reduced-motion:reduce){.sponsor-rings{animation:none}}
