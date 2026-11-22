@@ -1887,6 +1887,7 @@ main>section:not(.hero):not(:first-child){scroll-margin-top:96px}
   .register-card{border-radius:12px}
   .hero-actions>.button,.hero-actions>.hero-player-list-button,.hero-actions>.tshirt-buy-shortcut,.hero-actions>.sponsor-front-cta{min-height:44px;border-radius:7px}
 }
+@media(min-width:761px){.register-section .register-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
 
 /* Give live registration totals a quick scoreboard-style pop when they update. */
 .live-board-grid strong{transform-origin:left center;animation:scoreboard-pop .42s cubic-bezier(.2,.8,.25,1) both}
