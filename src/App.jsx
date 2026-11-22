@@ -802,28 +802,16 @@ function App() {
     const escapeHtml = value => String(value ?? '').replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;').replaceAll("'", '&#39;');
     const teamSections = teams.map((team, index) => {
       const squad = rows.filter(row => row.type === 'Player' && row.details?.team_name === team.name);
-      const captain = squad.find(row => row.details?.is_team_captain);
-      const detailLabel = key => key.replaceAll('_', ' ').replaceAll('-', ' ').replace(/\b\w/g, char => char.toUpperCase());
-      const playerCards = squad.length ? squad.map(player => {
+      const cell = value => `<td>${escapeHtml(value || '-')}</td>`;
+      const body = squad.length ? squad.map(player => {
         const d = player.details || {};
-        const values = [
-          ['Registration ID', player.id], ['Full name', player.name], ['Mobile number', player.phone],
-          ['Wing', d.wing || player.wing], ['Flat number', d.flat_no || player.flat_no], ['Apartment', player.apartment],
-          ['Payment status', player.payment_status], ['Payment reference', player.payment_reference],
-          ['Payment time', player.payment_time || d.payment_time],
-          ...Object.entries(d).filter(([key, value]) => key !== 'photo' && value !== '' && value !== null && value !== undefined)
-            .map(([key, value]) => [detailLabel(key), typeof value === 'boolean' ? (value ? 'Yes' : 'No') : value]),
-          ['Registered', player.created_at ? new Date(player.created_at).toLocaleString('en-IN') : ''],
-        ];
-        const seen = new Set();
-        const detailRows = values.filter(([label, value]) => value !== '' && value !== null && value !== undefined && !seen.has(label) && seen.add(label))
-          .map(([label, value]) => `<tr><th>${escapeHtml(label)}</th><td>${escapeHtml(value)}</td></tr>`).join('');
-        const photo = d.photo ? `<img class="player-photo" src="${escapeHtml(d.photo)}" alt="${escapeHtml(player.name)} player photo">` : '';
-        return `<article class="player-card"><h2>${escapeHtml(player.name)}${d.is_team_captain ? ' · Captain' : ''}</h2>${photo}<table><tbody>${detailRows}</tbody></table></article>`;
-      }).join('') : '<p class="empty">No players assigned to this team.</p>';
-      return `<section class="team-sheet"><header><div class="eyebrow">GNPL 2026 / TEAM ${String(index + 1).padStart(2, '0')} · ${escapeHtml(team.category)} TEAM</div><h1>${escapeHtml(team.name)}</h1><p>Owner: <strong>${escapeHtml(team.owner)}</strong> <span>-</span> Captain: <strong>${escapeHtml(captain?.name || 'To be announced')}</strong> <span>-</span> ${squad.length} players</p></header><div class="player-grid">${playerCards}</div></section>`;
+        const apartment = player.apartment || [d.wing || player.wing, d.flat_no || player.flat_no].filter(Boolean).join(' / ');
+        return `<tr>${cell(player.name)}${cell(player.phone)}${cell(apartment)}${cell(team.name)}${cell(d.playing_role)}${cell(d['t-shirt_name'])}${cell(d['t-shirt_size'])}${cell(d['t-shirt_number'])}${cell(d.player_category)}</tr>`;
+      }).join('') : '<tr><td colspan="9" class="empty">No players assigned to this team.</td></tr>';
+      const columns = ['Full name', 'Mobile number', 'Apartment', 'Team Name', 'Playing Role', 'T Shirt Name', 'T Shirt Size', 'T Shirt Number', 'Player Category'];
+      return `<section class="team-sheet"><header><div class="eyebrow">GNPL 2026 / TEAM ${String(index + 1).padStart(2, '0')} · ${escapeHtml(team.category)} TEAM</div><h1>${escapeHtml(team.name)}</h1><p>${squad.length} players</p></header><table><thead><tr>${columns.map(column => `<th>${escapeHtml(column)}</th>`).join('')}</tr></thead><tbody>${body}</tbody></table></section>`;
     }).join('');
-    printWindow.document.write(`<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>GNPL 2026 Team Sheets</title><style>body{margin:0;padding:24px;color:#19151d;font:11px Arial,sans-serif}.team-sheet{max-width:1600px;margin:0 auto 30px;padding:20px 0 28px;break-after:page}.team-sheet:last-child{break-after:auto}header{border-bottom:3px solid #15111d;margin-bottom:20px;padding-bottom:12px}.eyebrow{font-size:10px;font-weight:800;letter-spacing:.14em;color:#70435e}h1{margin:8px 0;font-size:34px}header p{margin:0;color:#453c47}table{width:100%;border-collapse:collapse}.player-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.player-card{position:relative;break-inside:avoid;page-break-inside:avoid;border:1px solid #d8d3dc;padding:9px}.player-card h2{margin:0 0 7px;font-size:15px}.player-card table{table-layout:fixed}.player-card th,.player-card td{padding:3px 5px;border:1px solid #e3dfe6;text-align:left;overflow-wrap:anywhere;vertical-align:top}.player-card th{width:34%;background:#f0edf3;font-size:8px;text-transform:uppercase;letter-spacing:.02em}.player-card td{font-size:9px}.player-photo{float:right;width:54px;height:54px;object-fit:cover;margin:-30px 0 5px 8px;border:1px solid #d8d3dc}.empty{text-align:center;color:#746b77}@media print{.player-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.player-card{padding:6px}.player-card h2{font-size:12px}.player-card th,.player-card td{padding:2px 3px;font-size:7px}.player-photo{width:42px;height:42px}}@media print{@page{size:landscape;margin:8mm}body{padding:0}.team-sheet{max-width:none;margin:0;padding:4mm 2mm;min-height:180mm}table{table-layout:fixed}.team-sheet:last-child{break-after:auto}}@media(max-width:650px){body{padding:12px}.team-sheet{overflow:auto}table{min-width:650px}}</style></head><body>${teamSections}<script>window.addEventListener('load',()=>setTimeout(()=>window.print(),250));</script></body></html>`);
+    printWindow.document.write(`<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>GNPL 2026 Team Sheets</title><style>body{margin:0;padding:24px;color:#19151d;font:12px Arial,sans-serif}.team-sheet{max-width:1400px;margin:0 auto 30px;padding:20px 0 28px;break-after:page}.team-sheet:last-child{break-after:auto}header{border-bottom:3px solid #15111d;margin-bottom:20px;padding-bottom:12px}.eyebrow{font-size:10px;font-weight:800;letter-spacing:.14em;color:#70435e}h1{margin:8px 0;font-size:34px}header p{margin:0;color:#453c47}table{width:100%;border-collapse:collapse;table-layout:fixed}th,td{padding:9px 7px;border:1px solid #d8d3dc;text-align:left;overflow-wrap:anywhere}th{background:#f0edf3;font-size:10px;text-transform:uppercase;letter-spacing:.04em}td{font-size:11px}.empty{text-align:center;color:#746b77}@media print{@page{size:landscape;margin:10mm}body{padding:0}.team-sheet{max-width:none;margin:0;padding:4mm 2mm;min-height:180mm}.team-sheet:last-child{break-after:auto}}@media(max-width:760px){.team-sheet{overflow:auto}table{min-width:760px}}</style></head><body>${teamSections}<script>window.addEventListener('load',()=>setTimeout(()=>window.print(),250));</script></body></html>`);
     printWindow.document.close(); printWindow.focus();
   };
 
