@@ -2071,3 +2071,6 @@ main>section:not(.hero):not(:first-child){scroll-margin-top:96px}
 .sponsor-showcase-support { flex:none; max-width:45%; padding:8px 10px; border:1px solid rgba(255,209,102,.3); border-radius:999px; background:rgba(255,209,102,.09); color:#ffe3a0; font-size:10px; font-weight:800; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 @media(max-width:760px) { .sponsor-showcase-heading h2 { white-space:normal; } }
 @media(max-width:620px) { .sponsor-showcase-grid { grid-template-columns:1fr; } .sponsor-showcase-card { gap:10px; padding:10px; } .sponsor-showcase-logo { width:42px; height:42px; } .sponsor-showcase-main strong { font-size:13px; } .sponsor-showcase-support { max-width:42%; padding:7px 8px; font-size:9px; } }
+.sponsor-sync-button { flex:none; min-height:36px; border-color:rgba(255,209,102,.55); color:#ffe3a0; }
+.sponsor-sync-button:disabled { opacity:.65; cursor:wait; }
+.sponsor-sync-message { flex:1 1 100%; padding:8px 10px; border:1px solid rgba(255,209,102,.28); border-radius:6px; background:rgba(255,209,102,.06); color:#ffe3a0; font-size:11px; line-height:1.45; }

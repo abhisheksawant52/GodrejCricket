@@ -27,15 +27,15 @@ export default async function handler(req, res) {
           public_showcase_permission: 'yes'
         };
         const { data: matches, error: readError } = await supabase.from('registrations').select('id, apartment, details').eq('type', 'Sponsor').ilike('name', sponsor.name);
-        if (readError) return json(res, 500, { error: 'Could not check existing sponsor records.' });
+        if (readError) return json(res, 500, { error: `Could not check existing sponsor records: ${readError.message}` });
         const record = (matches || []).find(row => row.apartment === sponsor.area || (row.details?.wing === sponsor.wing && String(row.details?.flat_no) === sponsor.flatNo));
         if (record) {
           const { error } = await supabase.from('registrations').update({ apartment: sponsor.area, details: { ...(record.details || {}), ...details } }).eq('id', record.id);
-          if (error) return json(res, 500, { error: 'Could not update sponsor record.' });
+          if (error) return json(res, 500, { error: `Could not update sponsor record: ${error.message}` });
           updated++;
         } else {
           const { error } = await supabase.from('registrations').insert({ type: 'Sponsor', name: sponsor.name, phone: '', email: '', apartment: sponsor.area, details, payment_status: 'Pending', payment_reference: '' });
-          if (error) return json(res, 500, { error: 'Could not create sponsor record. Apply the Sponsor registration database migration first.' });
+          if (error) return json(res, 500, { error: `Could not create sponsor record: ${error.message}. Apply the Sponsor registration database migration if the Sponsor record type is not enabled.` });
           created++;
         }
       }
