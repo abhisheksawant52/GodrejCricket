@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { ArrowRight, ArrowUpRight, Check, CircleDot, Clock3, Download, Printer, Menu, Radio, ShieldCheck, Trash2, Trophy, Users, X, Upload, MapPin, Shirt, Cookie, GlassWater, Camera, Share2 } from 'lucide-react';
 import PlayerProfile from './PlayerProfile.jsx';
+import { LeagueFeatures } from './LeagueFeatures.jsx';
 import { createPortal } from 'react-dom';
 
 const types = [
@@ -9,7 +10,7 @@ const types = [
   { key: 'Audience', icon: '\uD83D\uDC55', title: 'GNPL fan T-shirt', tagline: 'Back the team. Wear the colours.', desc: 'Order the GNPL 2026 audience jersey. Orders close 22 November. Choose your size and personalize the back.', fee: '₹300 each', deadline: '2026-11-23T00:00:00+05:30', cta: 'Buy now', fields: ['T-shirt Size', 'T-Shirt Name', 'T-Shirt Number'] },
   { key: 'Sponsor', icon: '\uD83E\uDD1D', title: 'Support match day', tagline: 'Help make the league memorable.', desc: 'Sponsor refreshments, cricket essentials, player support, or another match-day need. Cash and in-kind contributions are welcome.', fee: 'Cash or in-kind sponsorship', deadline: '2026-12-14T00:00:00+05:30', cta: 'Become a sponsor', fields: ['Sponsorship area', 'Sponsorship type', 'Contribution amount', 'Contribution details'] },
 ]
-const teams = [
+export const teams = [
   ['Prudentech Power Panthers', 'PPP', '#a855f7', 'Men', '01_PrudenTech_Power_Panthers_Men.png', 'Ketan Chawada'],
   ['Prudentech Power Leopards', 'PPL', '#f59e0b', 'Women', '02_PrudenTech_Power_Leopards_Women.png', 'Ketan Chawada'],
   ['Preetam Paltan', 'PP', '#ef4444', 'Men', '03_Preetam_Paltan_Men.png', 'Preetam Surana'],
@@ -965,6 +966,7 @@ function App() {
 
 
       <section className="matchday wrap" id="schedule"><div className="matchday-left"><div className="section-tag">04 / SAVE THE FEELING</div><h2>THE CROWD.<br /><em>THE CRACK.</em><br />THE CHEER.</h2><p>One boundary can bring the whole neighbourhood to its feet. Get ready for a season worth showing up for.</p><a href="#teams" className="button button-lime">Meet the teams <ArrowRight size={17} /></a></div></section>
+      <LeagueFeatures admin={admin && online} adminPass={adminPass} rows={rows} teams={teams} players={registeredPlayers} />
     </main>
 
     <footer className="footer"><div className="wrap footer-main"><a href="#home" className="brand"><span className="brand-mark"><Trophy size={21} /></span><span>GN<span className="brand-accent">PL</span><small>GODREJ NEST PREMIER LEAGUE</small></span></a><p>Arranged by<br /><strong>Godrej Nest Cultural Team</strong></p><a className="footer-top" href="#home">BACK TO TOP ↑</a></div><div className="wrap footer-bottom"><span>© 2026 GNPL · GODREJ NEST PREMIER LEAGUE</span><button onClick={openAdmin}>Registration dashboard</button><span className="footer-credit"><small>WEBSITE CRAFTED BY</small><strong>Abhishek Hemant Sawant <em>(Mindhacker)</em></strong></span><span>PLAY WITH PRIDE <span className="lime">✳</span></span></div></footer>

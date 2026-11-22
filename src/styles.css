@@ -1922,8 +1922,66 @@ main>section:not(.hero):not(:first-child){scroll-margin-top:96px}
 @keyframes scoreboard-pop{0%{opacity:.55;transform:translateY(5px) scale(.88)}65%{opacity:1;transform:translateY(-2px) scale(1.08)}100%{transform:translateY(0) scale(1)}}
 @media(prefers-reduced-motion:reduce){.live-board-grid strong{animation:none!important}}
 
+/* Section-level filters and exports for admin workflows. */
+.admin-section-heading{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}.admin-section-heading h3{margin:0}.admin-section-heading h3 small{margin-left:7px;color:#aaf8ff;font-size:10px;font-weight:700;white-space:nowrap}
+.section-export-button{min-height:34px;padding:7px 10px;font-size:10px;white-space:nowrap}
+.payment-filter-bar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:0 0 10px}.payment-filter-bar select,.jersey-export-filters select{min-height:34px;padding:6px 9px;border:1px solid rgba(83,222,232,.32);border-radius:4px;background:#24112c;color:#fff;font-size:11px}.payment-filter-bar small{color:#cdb9ce;font-size:10px}
+.roster-summary .team-roster-export-row{display:flex;align-items:center;justify-content:space-between;gap:8px;max-height:none;margin:8px 0 12px;overflow:visible}.team-roster-export-row>span{color:#d8c7d5;font-size:10px}
+.jersey-export-filters{display:flex;align-items:end;gap:9px;flex-wrap:wrap;margin:0 0 10px}.jersey-export-filters label{display:grid;gap:4px;color:#d9c6d8;font-size:9px;font-weight:800}.jersey-export-filters small{margin-left:auto;padding-bottom:8px;color:#aaf8ff;font-size:10px;font-weight:800}
+@media(max-width:760px){.admin-section-heading{align-items:flex-start;flex-wrap:wrap}.payment-filter-bar select{flex:1;min-width:130px}.payment-filter-bar small{width:100%}.roster-summary .team-roster-export-row{align-items:flex-start;flex-direction:column}.jersey-export-filters{align-items:stretch}.jersey-export-filters label{flex:1;min-width:120px}.jersey-export-filters small{width:100%;margin:0;padding:0}}
+
 /* Keep laptop registration dialogs above the sticky site navigation. */
 @media(min-width:761px){
   .overlay:not(.admin-overlay){z-index:120!important}
   .register-dialog{max-height:min(88dvh,900px);overscroll-behavior:contain;scrollbar-gutter:stable}
 }
+.league-updates { padding-top: 76px; padding-bottom: 54px; }
+.league-admin-overlay { position:fixed; inset:0; z-index:10001; display:grid; place-items:center; padding:20px; background:#09050dcc; overflow:auto; }
+.league-admin-overlay .admin-league-content { position:relative; width:min(1100px,100%); max-height:calc(100vh - 40px); overflow:auto; }
+.league-admin-close { position:absolute; top:14px; right:16px; border:0; background:none; color:#fff; font-size:28px; cursor:pointer; }
+.league-admin-reopen { position:fixed; z-index:10002; right:24px; bottom:24px; padding:12px 16px; border:1px solid #bdf451; border-radius:8px; background:#bdf451; color:#1a2013; font-weight:700; box-shadow:0 6px 26px #0008; cursor:pointer; }
+.league-updates-heading { display:flex; align-items:end; justify-content:space-between; margin-bottom:22px; }
+.league-updates-heading h2,.team-share-gallery h2 { margin:12px 0 0; font-size:clamp(2rem,4vw,3.6rem); line-height:.98; }
+.league-updates-grid { display:grid; grid-template-columns:1.2fr .8fr; gap:18px; }
+.league-feature-panel { min-width:0; padding:24px; border:1px solid #74325f; border-radius:16px; background:linear-gradient(145deg,#29102d,#180b20); }
+.league-feature-panel h3 { display:flex; align-items:center; gap:10px; margin:0 0 20px; color:#fceaf3; font-size:1.15rem; }
+.league-empty { color:#cfb9ca; }
+.league-fixture-list,.league-announcements { display:grid; gap:10px; }
+.league-fixture,.league-announcements article { display:flex; justify-content:space-between; gap:18px; padding:15px; border:1px solid #563051; border-radius:10px; background:#ffffff08; }
+.league-fixture div,.league-announcements article { min-width:0; }
+.league-fixture small,.league-announcements small { display:block; color:#b9a5bd; font-size:.76rem; }
+.league-fixture strong,.league-announcements strong { display:block; margin-top:7px; color:#fff4f8; }
+.league-fixture strong span { color:#c7a8c5; font-weight:400; }
+.league-fixture p,.league-announcements p { margin:6px 0 0; color:#d4c3d2; }
+.league-fixture>b { color:#bdf451; font-size:.75rem; text-transform:uppercase; white-space:nowrap; }
+.league-fixture>b.fixture-complete { color:#8fe9ee; }
+.league-feature-panel h4 { margin:24px 0 12px; }
+.admin-league-content { margin:28px 0; padding:22px; border:1px solid #4b3451; border-radius:14px; background:#130b19; }
+.admin-league-content header h3,.registration-insights h3 { margin:8px 0 14px; }
+.admin-content-actions { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:14px; }
+.admin-content-actions button,.team-share-card-button { display:inline-flex; align-items:center; justify-content:center; gap:7px; padding:10px 13px; border:1px solid #805073; border-radius:8px; background:#2b1730; color:#f9eaf4; cursor:pointer; }
+.admin-content-row { display:flex; align-items:center; flex-wrap:wrap; gap:8px; margin:8px 0; padding:10px; border:1px solid #3e2b44; border-radius:9px; }
+.admin-content-row input:not([type=checkbox]),.admin-content-row select,.admin-content-row textarea { min-width:130px; flex:1; padding:9px; border:1px solid #624362; border-radius:6px; background:#180d20; color:#fff; }
+.admin-content-row textarea { min-height:42px; }
+.admin-content-row.announcement-edit textarea { min-width:240px; }
+.admin-content-row label { display:flex; align-items:center; gap:5px; color:#ead9e8; font-size:.8rem; }
+.remove-content { border:0; color:#ff9da9; background:none; cursor:pointer; }
+.league-save-message { color:#bdf451; }
+.registration-insights { margin-top:24px; padding:18px; border-top:1px solid #49334c; }
+.insight-category-grid { display:flex; flex-wrap:wrap; gap:10px; }
+.insight-category-grid div { display:grid; min-width:105px; gap:5px; padding:12px; border:1px solid #533954; border-radius:8px; }
+.insight-category-grid small { color:#c3aeca; }
+.insight-category-grid strong { color:#bdf451; font-size:1.35rem; }
+.insight-trend { display:flex; align-items:end; gap:8px; height:140px; margin:22px 0; padding:10px 4px 0; border-bottom:1px solid #755c78; }
+.insight-trend div { display:flex; flex:1; flex-direction:column; align-items:center; justify-content:end; height:100%; gap:6px; }
+.insight-trend span { width:min(34px,70%); min-height:5px; border-radius:6px 6px 0 0; background:linear-gradient(#bdf451,#62d8d5); }
+.insight-trend small { color:#cbbad0; font-size:.68rem; }
+.team-share-gallery { padding:44px 0 70px; }
+.team-share-gallery-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; margin-top:22px; }
+.team-share-gallery-grid article { display:flex; align-items:center; gap:12px; padding:12px; border:1px solid color-mix(in srgb,var(--team-accent),transparent 40%); border-radius:10px; background:#1d1124; }
+.team-share-gallery-grid img { width:44px; height:44px; object-fit:contain; }
+.team-share-gallery-grid article>div { display:grid; flex:1; gap:4px; color:#fff2f8; }
+.team-share-gallery-grid small { color:#c7b2c7; }
+.team-share-card-button { padding:8px 10px; font-size:.8rem; white-space:nowrap; }
+.team-share-card-button small { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0,0,0,0); }
+@media(max-width:760px) { .league-updates-grid,.team-share-gallery-grid { grid-template-columns:1fr; } .league-updates { padding-top:48px; } .league-feature-panel { padding:17px; } .team-share-gallery-grid article { flex-wrap:wrap; } .team-share-card-button { margin-left:auto; } }

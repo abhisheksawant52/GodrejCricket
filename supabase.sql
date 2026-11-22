@@ -16,3 +16,12 @@ alter table public.registrations add constraint registrations_type_check check (
 alter table public.registrations enable row level security;
 -- Keep this table private. The Vercel API accesses it using the service role key.
 
+create table if not exists public.site_content (
+  id text primary key check (id = 'public'),
+  schedule jsonb not null default '[]'::jsonb,
+  announcements jsonb not null default '[]'::jsonb,
+  updated_at timestamptz not null default now()
+);
+alter table public.site_content enable row level security;
+-- The Vercel API accesses site content using the service role key.
+
