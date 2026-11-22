@@ -3,11 +3,21 @@ import { createPortal } from 'react-dom';
 import { CalendarDays, Megaphone, Plus, Save, Share2, Trash2, Download } from 'lucide-react';
 
 const emptyContent = { schedule: [], announcements: [] };
+const namedCommunitySponsors = [
+  { name: 'Sanjay Bajaj', logo: '', area: 'C-1705', type: 'Community sponsor', support: 'Snack sponsor' },
+  { name: 'Anand Dubey', logo: '', area: 'B-2201', type: 'Community sponsor', support: 'Ball box sponsor' },
+];
 const makeId = () => globalThis.crypto?.randomUUID?.() || `${Date.now()}-${Math.random().toString(36).slice(2)}`;
 
 export function LeagueFeatures({ admin = false, adminPass = '', rows = [], teams = [], players = [] }) {
   const [content, setContent] = useState(emptyContent);
   const [editorOpen, setEditorOpen] = useState(false);
+  const [sponsors, setSponsors] = useState([]);
+  const [sponsorsLoading, setSponsorsLoading] = useState(true);
+  const listedSponsors = useMemo(() => {
+    const named = new Set(namedCommunitySponsors.map(sponsor => sponsor.name.toLowerCase()));
+    return [...namedCommunitySponsors, ...sponsors.filter(sponsor => !named.has(sponsor.name.toLowerCase()))];
+  }, [sponsors]);
   const [busy, setBusy] = useState(false);
   const [message, setMessage] = useState('');
   const load = async () => {
@@ -19,6 +29,9 @@ export function LeagueFeatures({ admin = false, adminPass = '', rows = [], teams
     } catch { /* Keep the page usable when the content API is offline. */ }
   };
   useEffect(() => { load(); }, []);
+  useEffect(() => {
+    fetch('/api/sponsors').then(response => response.ok ? response.json() : { sponsors: [] }).then(data => setSponsors(Array.isArray(data.sponsors) ? data.sponsors : [])).catch(() => setSponsors([])).finally(() => setSponsorsLoading(false));
+  }, []);
   const save = async next => {
     setBusy(true); setMessage('');
     try {
@@ -64,6 +77,7 @@ export function LeagueFeatures({ admin = false, adminPass = '', rows = [], teams
       </div>
     </section>
     <section className="team-share-gallery wrap" aria-label="Shareable team cards"><div className="section-tag">GNPL 2026 / SHARE THE TEAMS</div><h2>Take your team <em>everywhere.</em></h2><div className="team-share-gallery-grid">{teams.map(team => <article key={team.name} style={{ '--team-accent': team.color }}><img src={team.logo} alt="" /><div><strong>{team.name}</strong><small>{players.filter(player => player.team_name === team.name).length} players · {team.owner}</small></div><TeamShareCard team={team} players={players.filter(player => player.team_name === team.name)} /></article>)}</div></section>
+    <section className="sponsor-showcase wrap" aria-labelledby="sponsor-showcase-title"><div className="section-tag">GNPL 2026 / WITH THANKS TO OUR SUPPORTERS</div><div className="sponsor-showcase-heading"><div><h2 id="sponsor-showcase-title">Match day is made possible <em>together.</em></h2><p>Meet the people and organizations supporting the league.</p></div><a href="#register" className="sponsor-showcase-cta">Support match day <Share2 size={15} /></a></div>{sponsorsLoading && listedSponsors.length === 0 ? <p className="sponsor-showcase-empty">Loading sponsor profiles…</p> : listedSponsors.length ? <div className="sponsor-showcase-grid">{listedSponsors.map((sponsor, index) => <article className="sponsor-showcase-card" key={`${sponsor.name}-${index}`}><div className="sponsor-showcase-logo">{sponsor.logo && <img src={sponsor.logo} alt={`${sponsor.name} logo`} loading="lazy" onError={event => { event.currentTarget.style.display = 'none'; }} />}<span aria-hidden="true">{sponsor.name.slice(0, 1).toUpperCase()}</span></div><div><small>{sponsor.type} · {sponsor.area}</small><h3>{sponsor.name}</h3><p>{sponsor.support}</p></div></article>)}</div> : <p className="sponsor-showcase-empty">Sponsor profiles will appear here when sponsors choose to be featured.</p>}</section>
     {admin && createPortal(editorOpen ? <div className="league-admin-overlay"><section className="admin-league-content"><button className="league-admin-close" type="button" onClick={() => setEditorOpen(false)} aria-label="Close league content editor">×</button><header><div className="section-tag">ADMIN / LEAGUE CONTENT</div><h3>Fixtures & announcements</h3></header>
       <div className="admin-content-actions"><button type="button" onClick={addFixture}><Plus size={14} /> Add fixture</button><button type="button" onClick={addAnnouncement}><Plus size={14} /> Add announcement</button><button type="button" disabled={busy} onClick={() => save(content)}><Save size={14} /> {busy ? 'Saving…' : 'Save updates'}</button></div>
       {content.schedule.map(f => <div className="admin-content-row" key={f.id}><input type="date" aria-label="Fixture date" value={f.date} onChange={e => editFixture(f.id, 'date', e.target.value)} /><input aria-label="Fixture time" placeholder="Time (e.g. 9:00 AM)" value={f.time} onChange={e => editFixture(f.id, 'time', e.target.value)} /><input aria-label="Home team" placeholder="Home team" value={f.home} onChange={e => editFixture(f.id, 'home', e.target.value)} /><input aria-label="Away team" placeholder="Away team" value={f.away} onChange={e => editFixture(f.id, 'away', e.target.value)} /><input aria-label="Venue" placeholder="Venue" value={f.venue} onChange={e => editFixture(f.id, 'venue', e.target.value)} /><select aria-label="Fixture status" value={f.status} onChange={e => editFixture(f.id, 'status', e.target.value)}><option>Upcoming</option><option>Completed</option></select>{f.status === 'Completed' && <><input aria-label="Home score" placeholder="Home score" value={f.homeScore} onChange={e => editFixture(f.id, 'homeScore', e.target.value)} /><input aria-label="Away score" placeholder="Away score" value={f.awayScore} onChange={e => editFixture(f.id, 'awayScore', e.target.value)} /><select aria-label="Winner" value={f.winner} onChange={e => editFixture(f.id, 'winner', e.target.value)}><option value="">Choose winner</option><option value={f.home}>{f.home || 'Home team'}</option><option value={f.away}>{f.away || 'Away team'}</option><option value="Tie">Tie / no result</option></select></>}<button type="button" className="remove-content" aria-label="Remove fixture" onClick={() => setContent(c => ({ ...c, schedule: c.schedule.filter(x => x.id !== f.id) }))}><Trash2 size={15} /></button></div>)}
