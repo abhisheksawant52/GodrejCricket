@@ -1887,6 +1887,11 @@ main>section:not(.hero):not(:first-child){scroll-margin-top:96px}
   .hero-actions>.button,.hero-actions>.hero-player-list-button,.hero-actions>.tshirt-buy-shortcut,.hero-actions>.sponsor-front-cta{min-height:44px;border-radius:7px}
 }
 
+/* Give live registration totals a quick scoreboard-style pop when they update. */
+.live-board-grid strong{transform-origin:left center;animation:scoreboard-pop .42s cubic-bezier(.2,.8,.25,1) both}
+@keyframes scoreboard-pop{0%{opacity:.55;transform:translateY(5px) scale(.88)}65%{opacity:1;transform:translateY(-2px) scale(1.08)}100%{transform:translateY(0) scale(1)}}
+@media(prefers-reduced-motion:reduce){.live-board-grid strong{animation:none!important}}
+
 /* Keep laptop registration dialogs above the sticky site navigation. */
 @media(min-width:761px){
   .overlay:not(.admin-overlay){z-index:120!important}
