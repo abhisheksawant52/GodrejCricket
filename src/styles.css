@@ -2025,3 +2025,4 @@ main>section:not(.hero):not(:first-child){scroll-margin-top:96px}
   .admin-dialog:has(.dashboard-head) #admin-jerseys,
   .admin-dialog:has(.dashboard-head) #admin-registrations { scroll-margin-top:220px; }
 }
+.registration-ready-note { margin:12px 0 16px; padding:11px 13px; border:1px solid rgba(105,232,241,.32); border-left:3px solid #69e8f1; border-radius:5px; background:rgba(105,232,241,.07); color:#e5fbff; font-size:12px; line-height:1.55; }
