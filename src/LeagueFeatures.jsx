@@ -14,7 +14,18 @@ export function SponsorShowcase() {
   }, []);
   const named = new Set(communitySponsors.map(sponsor => sponsor.name.toLowerCase()));
   const listedSponsors = [...communitySponsors, ...sponsors.filter(sponsor => !named.has(sponsor.name.toLowerCase()))];
-  return <section className="sponsor-showcase wrap" aria-labelledby="sponsor-showcase-title"><div className="section-tag">GNPL 2026 / WITH THANKS TO OUR SUPPORTERS</div><div className="sponsor-showcase-heading"><div><h2 id="sponsor-showcase-title">Match day is made possible <em>together.</em></h2><p>Meet the people and organizations supporting the league.</p></div><a href="#register" className="sponsor-showcase-cta">Support match day <Share2 size={15} /></a></div>{loading && listedSponsors.length === 0 ? <p className="sponsor-showcase-empty">Loading sponsor profiles…</p> : listedSponsors.length ? <div className="sponsor-showcase-grid">{listedSponsors.map((sponsor, index) => <article className="sponsor-showcase-card" key={`${sponsor.name}-${index}`}><div className="sponsor-showcase-logo">{sponsor.logo && <img src={sponsor.logo} alt={`${sponsor.name} logo`} loading="lazy" onError={event => { event.currentTarget.style.display = 'none'; }} />}<span aria-hidden="true">{sponsor.name.slice(0, 1).toUpperCase()}</span></div><div><small>{sponsor.type} · {sponsor.area}</small><h3>{sponsor.name}</h3><p>{sponsor.support}</p></div></article>)}</div> : <p className="sponsor-showcase-empty">Sponsor profiles will appear here when sponsors choose to be featured.</p>}</section>;
+  return <section className="sponsor-showcase wrap" aria-labelledby="sponsor-showcase-title">
+    <div className="section-tag">GNPL 2026 / WITH THANKS TO OUR SUPPORTERS</div>
+    <div className="sponsor-showcase-heading">
+      <div><h2 id="sponsor-showcase-title">Our match-day <em>sponsors.</em></h2><p>Thanks for backing the league.</p></div>
+      <a href="#register" className="sponsor-showcase-cta">Support match day <Share2 size={15} /></a>
+    </div>
+    {loading && listedSponsors.length === 0 ? <p className="sponsor-showcase-empty">Loading sponsor profiles?</p> : listedSponsors.length ? <div className="sponsor-showcase-grid">{listedSponsors.map((sponsor, index) => <article className="sponsor-showcase-card" key={`${sponsor.name}-${index}`}>
+      <div className="sponsor-showcase-logo">{sponsor.logo && <img src={sponsor.logo} alt={`${sponsor.name} logo`} loading="lazy" onError={event => { event.currentTarget.style.display = 'none'; }} />}<span aria-hidden="true">{sponsor.name.slice(0, 1).toUpperCase()}</span></div>
+      <div className="sponsor-showcase-main"><strong>{sponsor.name}</strong><small>{sponsor.area}</small></div>
+      <span className="sponsor-showcase-support">{sponsor.support}</span>
+    </article>)}</div> : <p className="sponsor-showcase-empty">Sponsor profiles will appear here when sponsors choose to be featured.</p>}
+  </section>;
 }
 
 export function LeagueFeatures({ admin = false, adminPass = '', rows = [], teams = [], players = [] }) {
