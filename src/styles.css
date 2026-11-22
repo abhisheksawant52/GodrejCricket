@@ -1889,6 +1889,27 @@ main>section:not(.hero):not(:first-child){scroll-margin-top:96px}
 }
 @media(min-width:761px){.register-section .register-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
 
+/* Carry each club's accent into its roster dialog and add clear action feedback. */
+.team-roster-dialog{border-color:color-mix(in srgb,var(--team-accent) 52%,rgba(255,255,255,.18));box-shadow:0 28px 90px rgba(0,0,0,.6),0 0 30px color-mix(in srgb,var(--team-accent) 18%,transparent);animation:team-roster-enter .34s cubic-bezier(.2,.8,.25,1) both}
+.team-roster-modal-heading{border-bottom:2px solid color-mix(in srgb,var(--team-accent) 65%,transparent)}
+.team-roster-modal-heading h2,.team-roster-count,.team-roster-count svg{color:var(--team-accent)}
+.team-roster-members li{border-color:color-mix(in srgb,var(--team-accent) 34%,transparent);background:color-mix(in srgb,var(--team-accent) 8%,rgba(20,8,28,.82));transition:transform .2s ease,border-color .2s ease,background .2s ease}
+.team-roster-members li:hover{transform:translateX(3px);border-color:color-mix(in srgb,var(--team-accent) 70%,transparent);background:color-mix(in srgb,var(--team-accent) 13%,rgba(20,8,28,.82))}
+.team-roster-member-name img,.team-roster-avatar{border-color:color-mix(in srgb,var(--team-accent) 58%,transparent);color:var(--team-accent)}
+.team-roster-members li{animation:roster-player-in .32s cubic-bezier(.2,.75,.25,1) both}
+.team-roster-members li:nth-child(2){animation-delay:.035s}.team-roster-members li:nth-child(3){animation-delay:.07s}.team-roster-members li:nth-child(4){animation-delay:.105s}.team-roster-members li:nth-child(5){animation-delay:.14s}
+@keyframes team-roster-enter{from{opacity:0;transform:translateY(10px) scale(.985)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes roster-player-in{from{opacity:0;transform:translateX(-7px)}to{opacity:1;transform:translateX(0)}}
+.success-state{animation:registration-success-in .4s cubic-bezier(.2,.8,.25,1) both}
+.success-state .success-icon{animation:success-icon-pop .55s cubic-bezier(.2,.8,.25,1) both}
+@keyframes registration-success-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@keyframes success-icon-pop{0%{opacity:0;transform:scale(.5) rotate(-18deg)}65%{opacity:1;transform:scale(1.14) rotate(5deg)}100%{transform:scale(1) rotate(0)}}
+.pay-status[aria-busy="true"]{opacity:.78;cursor:wait}
+.pay-status[aria-busy="true"] span{width:10px;height:10px;border:2px solid currentColor;border-right-color:transparent;background:transparent;animation:submit-spin .6s linear infinite}
+.pay-status.payment-updated{animation:payment-success-flash .75s ease-out}
+@keyframes payment-success-flash{0%{filter:brightness(1)}35%{filter:brightness(1.8);transform:scale(1.08)}100%{filter:brightness(1);transform:scale(1)}}
+@media(prefers-reduced-motion:reduce){.team-roster-dialog,.team-roster-members li,.success-state,.success-state .success-icon,.pay-status[aria-busy="true"] span,.pay-status.payment-updated{animation:none!important;transition:none!important}.team-roster-members li:hover{transform:none}}
+
 /* Give live registration totals a quick scoreboard-style pop when they update. */
 .live-board-grid strong{transform-origin:left center;animation:scoreboard-pop .42s cubic-bezier(.2,.8,.25,1) both}
 @keyframes scoreboard-pop{0%{opacity:.55;transform:translateY(5px) scale(.88)}65%{opacity:1;transform:translateY(-2px) scale(1.08)}100%{transform:translateY(0) scale(1)}}
