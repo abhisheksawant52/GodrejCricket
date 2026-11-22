@@ -1,12 +1,9 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { CalendarDays, Megaphone, Plus, Save, Share2, Trash2, Download } from 'lucide-react';
+import communitySponsors from './communitySponsors.js';
 
 const emptyContent = { schedule: [], announcements: [] };
-const namedCommunitySponsors = [
-  { name: 'Sanjay Bajaj', logo: '', area: 'C-1705', type: 'Community sponsor', support: 'Snack sponsor' },
-  { name: 'Anand Dubey', logo: '', area: 'B-2201', type: 'Community sponsor', support: 'Ball box sponsor' },
-];
 const makeId = () => globalThis.crypto?.randomUUID?.() || `${Date.now()}-${Math.random().toString(36).slice(2)}`;
 
 export function LeagueFeatures({ admin = false, adminPass = '', rows = [], teams = [], players = [] }) {
@@ -15,8 +12,8 @@ export function LeagueFeatures({ admin = false, adminPass = '', rows = [], teams
   const [sponsors, setSponsors] = useState([]);
   const [sponsorsLoading, setSponsorsLoading] = useState(true);
   const listedSponsors = useMemo(() => {
-    const named = new Set(namedCommunitySponsors.map(sponsor => sponsor.name.toLowerCase()));
-    return [...namedCommunitySponsors, ...sponsors.filter(sponsor => !named.has(sponsor.name.toLowerCase()))];
+    const named = new Set(communitySponsors.map(sponsor => sponsor.name.toLowerCase()));
+    return [...communitySponsors, ...sponsors.filter(sponsor => !named.has(sponsor.name.toLowerCase()))];
   }, [sponsors]);
   const [busy, setBusy] = useState(false);
   const [message, setMessage] = useState('');
