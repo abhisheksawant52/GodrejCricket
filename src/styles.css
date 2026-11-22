@@ -1985,3 +1985,43 @@ main>section:not(.hero):not(:first-child){scroll-margin-top:96px}
 .team-share-card-button { padding:8px 10px; font-size:.8rem; white-space:nowrap; }
 .team-share-card-button small { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0,0,0,0); }
 @media(max-width:760px) { .league-updates-grid,.team-share-gallery-grid { grid-template-columns:1fr; } .league-updates { padding-top:48px; } .league-feature-panel { padding:17px; } .team-share-gallery-grid article { flex-wrap:wrap; } .team-share-card-button { margin-left:auto; } }
+
+/* Admin dashboard laptop scrolling and filter layout. */
+.admin-dialog:has(.dashboard-head) { overflow-x:hidden; overflow-y:auto; scroll-padding-top:160px; scrollbar-gutter:stable; }
+.admin-dialog:has(.dashboard-head) .admin-overview { grid-template-columns:minmax(0,1.05fr) minmax(280px,.95fr); gap:12px; width:100%; min-width:0; }
+.admin-dialog:has(.dashboard-head) .payment-summary,
+.admin-dialog:has(.dashboard-head) .roster-summary,
+.admin-dialog:has(.dashboard-head) .jersey-size-summary,
+.admin-dialog:has(.dashboard-head) .jersey-distribution { min-width:0; max-width:100%; }
+.admin-dialog:has(.dashboard-head) .jersey-export-filters,
+.admin-dialog:has(.dashboard-head) .payment-filter-bar { box-sizing:border-box; display:flex; align-items:flex-end; flex-wrap:wrap; gap:10px 12px; width:100%; min-width:0; margin:10px 0 12px; padding:10px 12px; border:1px solid rgba(83,222,232,.2); border-radius:6px; background:rgba(255,255,255,.025); }
+.admin-dialog:has(.dashboard-head) .jersey-export-filters label { display:grid; flex:0 1 155px; gap:5px; min-width:125px; color:#d9c6d8; font-size:10px; font-weight:700; }
+.admin-dialog:has(.dashboard-head) .jersey-export-filters select,
+.admin-dialog:has(.dashboard-head) .payment-filter-bar select { box-sizing:border-box; width:100%; min-width:0; min-height:38px; padding:7px 30px 7px 10px; border:1px solid rgba(83,222,232,.36); border-radius:5px; background-color:#24112c; color:#fff; }
+.admin-dialog:has(.dashboard-head) .jersey-export-filters small { flex:1 1 170px; min-width:0; margin-left:auto; padding:0 0 7px; color:#aaf8ff; font-size:10px; font-weight:700; text-align:right; }
+.admin-dialog:has(.dashboard-head) .payment-filter-bar select { flex:0 1 170px; }
+.admin-dialog:has(.dashboard-head) .payment-filter-bar small { flex:1 1 100%; width:auto; min-width:0; margin:0; padding:0; line-height:1.4; }
+.admin-dialog:has(.dashboard-head) .admin-section-nav { scroll-behavior:smooth; overscroll-behavior-x:contain; }
+.admin-dialog:has(.dashboard-head) #admin-overview,
+.admin-dialog:has(.dashboard-head) #admin-payments,
+.admin-dialog:has(.dashboard-head) #admin-team-rosters,
+.admin-dialog:has(.dashboard-head) #admin-jerseys,
+.admin-dialog:has(.dashboard-head) #admin-registrations { scroll-margin-top:160px; }
+@media (min-width:761px) and (max-width:1200px) {
+  .admin-dialog:has(.dashboard-head) { padding-right:clamp(18px,2.4vw,30px); padding-left:clamp(18px,2.4vw,30px); }
+  .admin-dialog:has(.dashboard-head) .dashboard-head { margin-right:calc(clamp(18px,2.4vw,30px)*-1); margin-left:calc(clamp(18px,2.4vw,30px)*-1); padding-right:clamp(18px,2.4vw,30px); padding-left:clamp(18px,2.4vw,30px); }
+  .admin-dialog:has(.dashboard-head) .admin-overview { grid-template-columns:minmax(0,1fr); }
+  .admin-dialog:has(.dashboard-head) .roster-summary>div { grid-template-columns:repeat(2,minmax(0,1fr)); max-height:220px; }
+}
+@media (max-width:760px) {
+  .admin-dialog:has(.dashboard-head) { scroll-padding-top:220px; }
+  .admin-dialog:has(.dashboard-head) .jersey-export-filters label { flex:1 1 135px; }
+  .admin-dialog:has(.dashboard-head) .jersey-export-filters small { flex:1 1 100%; text-align:left; }
+  .admin-dialog:has(.dashboard-head) .payment-filter-bar select { flex:1 1 135px; }
+  .admin-dialog:has(.dashboard-head) .admin-overview { grid-template-columns:minmax(0,1fr); }
+  .admin-dialog:has(.dashboard-head) #admin-overview,
+  .admin-dialog:has(.dashboard-head) #admin-payments,
+  .admin-dialog:has(.dashboard-head) #admin-team-rosters,
+  .admin-dialog:has(.dashboard-head) #admin-jerseys,
+  .admin-dialog:has(.dashboard-head) #admin-registrations { scroll-margin-top:220px; }
+}
