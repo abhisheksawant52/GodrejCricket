@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { ArrowRight, ArrowUpRight, Check, CircleDot, Clock3, Download, Printer, Menu, Radio, ShieldCheck, Trash2, Trophy, Users, X, Upload, MapPin, Shirt, Cookie, GlassWater, Camera, Share2 } from 'lucide-react';
 import PlayerProfile from './PlayerProfile.jsx';
-import { LeagueFeatures } from './LeagueFeatures.jsx';
+import { LeagueFeatures, SponsorShowcase } from './LeagueFeatures.jsx';
 import { createPortal } from 'react-dom';
 
 const types = [
@@ -921,6 +921,7 @@ function App() {
           </div>
         </div>
       </section>
+      <SponsorShowcase />
       
       <section className="auction-update wrap" id="auction-update" aria-labelledby="auction-update-title">
         <div className="auction-update-card">
