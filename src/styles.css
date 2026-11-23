@@ -1987,6 +1987,7 @@ main>section:not(.hero):not(:first-child){scroll-margin-top:96px}
 @media(max-width:760px) { .league-updates-grid,.team-share-gallery-grid { grid-template-columns:1fr; } .league-updates { padding-top:48px; } .league-feature-panel { padding:17px; } .team-share-gallery-grid article { flex-wrap:wrap; } .team-share-card-button { margin-left:auto; } }
 
 /* Admin dashboard laptop scrolling and filter layout. */
+.admin-overlay:has(.dashboard-head) { overflow:hidden; padding:0; }
 .admin-dialog:has(.dashboard-head) { overflow-x:hidden; overflow-y:auto; scroll-padding-top:160px; scrollbar-gutter:stable; }
 .admin-dialog:has(.dashboard-head) .admin-overview { grid-template-columns:minmax(0,1.05fr) minmax(280px,.95fr); gap:12px; width:100%; min-width:0; }
 .admin-dialog:has(.dashboard-head) .payment-summary,

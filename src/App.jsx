@@ -759,7 +759,11 @@ function App() {
     if (!editTarget) return;
     setEditBusy(true);
     const form = new FormData(event.currentTarget);
-    const details = Object.fromEntries(Object.keys(editTarget.details || {}).map(key => [key, String(form.get(`detail:${key}`) ?? '')]));
+    const detailKeys = new Set(Object.keys(editTarget.details || {}));
+    if (editTarget.type === 'Player') {
+      ['age', 'player_category', 'playing_role', 'experience', 'player_number', 'player_address', 'batting', 'bowling', 'matches', 'runs', 'wickets', 'team_name', 't-shirt_size', 't-shirt_name', 't-shirt_number'].forEach(key => detailKeys.add(key));
+    }
+    const details = Object.fromEntries([...detailKeys].map(key => [key, String(form.get(`detail:${key}`) ?? editTarget.details?.[key] ?? '')]));
     if (editPhoto) details.photo = editPhoto;
     const edit_registration = {
       name: String(form.get('name') || '').trim(),
