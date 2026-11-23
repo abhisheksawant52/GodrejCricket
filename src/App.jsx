@@ -17,8 +17,8 @@ export const teams = [
   ['Prisha Smash Queens', 'PSQ', '#38bdf8', 'Women', '04_Prisha_Smash_Queens_Women.jpeg', 'Preetam Surana'],
   ['Bigtrip Royal Lions', 'BRL', '#fbbf24', 'Men', '05_BIGTRIP_Royal_Lions_Men.png', 'Ashish Sharma'],
   ['Ashish Knight Riders', 'AKR', '#9333ea', 'Kids', '06_Ashish_Knight_Riders_Kids.png', 'Ashish Sharma'],
-  ['Titan Thunder', 'TT', '#facc15', 'Kids', '07_Titan_Thunder_Kids.png', 'Devendra Singh'],
-  ['Black Thunder', 'BT', '#c084fc', 'Men', '08_Black_Thunder_Men.png', 'Devendra Singh'],
+  ['Titan Thunder', 'TT', '#facc15', 'Kids', '07_Titan_Thunder_Men.png', 'Devendra Singh'],
+  ['Black Thunder', 'BT', '#c084fc', 'Men', '08_Black_Thunder_Kids.png', 'Devendra Singh'],
   ['Nest Warriors', 'NW', '#0ea5e9', 'Men', '09_Nest_Warriors_Men.jpeg', 'Cultural group'],
   ['Nest Sanskriti', 'NS', '#ec4899', 'Men', '10_Nest_Sanskriti_Men.png', 'Cultural group'],
 ].map(([name, short, color, category, logo, owner]) => ({ name, short, color, category, logo: `/team-logos/${logo}`, owner, captain: 'To be announced', players: [] }));
