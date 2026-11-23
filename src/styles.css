@@ -1989,6 +1989,7 @@ main>section:not(.hero):not(:first-child){scroll-margin-top:96px}
 /* Admin dashboard laptop scrolling and filter layout. */
 .admin-overlay:has(.dashboard-head) { display:block; overflow-x:hidden; overflow-y:auto; padding:0; scrollbar-gutter:stable; }
 .admin-dialog:has(.dashboard-head) { width:100%; min-height:100dvh; height:auto; max-height:none; margin:0; overflow:visible; scroll-padding-top:160px; }
+.overlay.admin-sub-overlay { z-index:1200!important; }
 .admin-dialog:has(.dashboard-head) .admin-overview { grid-template-columns:minmax(0,1.05fr) minmax(280px,.95fr); gap:12px; width:100%; min-width:0; }
 .admin-dialog:has(.dashboard-head) .payment-summary,
 .admin-dialog:has(.dashboard-head) .roster-summary,
