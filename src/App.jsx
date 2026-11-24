@@ -11,8 +11,8 @@ const types = [
   { key: 'Sponsor', icon: '\uD83E\uDD1D', title: 'Support match day', tagline: 'Help make the league memorable.', desc: 'Sponsor refreshments, cricket essentials, player support, or another match-day need. Cash and in-kind contributions are welcome.', fee: 'Cash or in-kind sponsorship', deadline: '2026-12-14T00:00:00+05:30', cta: 'Become a sponsor', fields: ['Sponsorship area', 'Sponsorship type', 'Contribution amount', 'Contribution details', 'Organization name', 'Logo URL', 'Public showcase permission'] },
 ]
 export const teams = [
-  ['Prudentech Power Panthers', 'PPP', '#a855f7', 'Men', '01_PrudenTech_Power_Panthers_Men.png', 'Ketan Chawdaa'],
-  ['Prudentech Power Leopards', 'PPL', '#f59e0b', 'Women', '02_PrudenTech_Power_Leopards_Women.png', 'Ketan Chawdaa'],
+  ['Prudentech Power Panthers', 'PPP', '#a855f7', 'Men', '01_PrudenTech_Power_Panthers_Men.png', 'Dr Ketan Chawdaa'],
+  ['Prudentech Power Leopards', 'PPL', '#f59e0b', 'Women', '02_PrudenTech_Power_Leopards_Women.png', 'Dr Ketan Chawdaa'],
   ['Preetam Paltan', 'PP', '#ef4444', 'Men', '03_Preetam_Paltan_Men.png', 'Preetam Surana'],
   ['Prisha Smash Queens', 'PSQ', '#38bdf8', 'Women', '04_Prisha_Smash_Queens_Women.jpeg', 'Preetam Surana'],
   ['Bigtrip Royal Lions', 'BRL', '#fbbf24', 'Men', '05_BIGTRIP_Royal_Lions_Men.png', 'Ashish Sharma'],
@@ -903,7 +903,7 @@ function App() {
     if (!printWindow) { setNotice('Allow pop-ups to print team sheets.'); return; }
     const escapeHtml = value => String(value ?? '').replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;').replaceAll("'", '&#39;');
     const teamKey = value => String(value || '').trim().replace(/\s+/g, ' ').toLocaleLowerCase();
-    const ownerKey = value => teamKey(value).replace(/(.)\1+/g, '$1').replace(/\bchaw(?:a)?da+\b/g, 'chawda');
+    const ownerKey = value => teamKey(value).replace(/^dr\s+/, '').replace(/(.)\1+/g, '$1').replace(/\bchaw(?:a)?da+\b/g, 'chawda');
     const teamSections = teams.map((team, index) => {
       const assignedMembers = rows.filter(row => ['Player', 'Audience'].includes(row.type) && teamKey(row.details?.team_name || row.team_name) === teamKey(team.name));
       const assignedOwners = rows.filter(row => row.type === 'Owner' && teamKey(row.details?.team_name || row.team_name) === teamKey(team.name));
