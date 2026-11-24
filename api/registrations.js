@@ -82,6 +82,12 @@ export default async function handler(req, res) {
       details.contribution_amount = kind === 'Cash' ? amountText : '';
       details.contribution_details = contributionDetails;
     }
+    if (type === 'Audience') {
+      details.team_name = clean(details.team_name, 80);
+      details['t-shirt_size'] = clean(details['t-shirt_size'], 10);
+      details['t-shirt_name'] = clean(details['t-shirt_name'], 30);
+      details['t-shirt_number'] = clean(details['t-shirt_number'], 3);
+    }
     if (type === 'Audience' && !['Prudentech Power Panthers', 'Prudentech Power Leopards', 'Preetam Paltan', 'Prisha Smash Queens', 'Bigtrip Royal Lions', 'Ashish Knight Riders', 'Titan Thunder', 'Black Thunder', 'Nest Warriors', 'Nest Sanskriti'].includes(clean(details.team_name, 80))) return json(res, 400, { error: 'Choose a valid team for your T-shirt order.' });
     if (type === 'Audience' && !['XS', 'S', 'M', 'L', 'XL', 'XXL', 'XXXL'].includes(clean(details['t-shirt_size'], 10))) return json(res, 400, { error: 'Choose a valid audience T-shirt size.' });
     if (type === 'Audience' && (!clean(details['t-shirt_name'], 30) || !/^\d{1,3}$/.test(clean(details['t-shirt_number'], 3)))) return json(res, 400, { error: 'Enter the T-shirt name and a number from 0 to 999.' });
