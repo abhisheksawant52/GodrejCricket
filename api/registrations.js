@@ -65,7 +65,7 @@ export default async function handler(req, res) {
     if (!['Player', 'Owner', 'Audience', 'Sponsor'].includes(type) || !name || !phone) return json(res, 400, { error: 'Please complete the required fields.' });
     if (type !== 'Sponsor' && (!wing || !flatNo)) return json(res, 400, { error: 'Please enter your wing and flat number.' });
     const details = body.details && typeof body.details === 'object' && !Array.isArray(body.details) ? body.details : {};
-    if (type !== 'Sponsor' && !/^([01]\d|2[0-3]):[0-5]\d$/.test(paymentTime)) return json(res, 400, { error: 'Choose a valid payment time using the time picker.' });
+    if (type !== 'Sponsor' && !(isAdmin && type === 'Audience') && !/^([01]\d|2[0-3]):[0-5]\d$/.test(paymentTime)) return json(res, 400, { error: 'Choose a valid payment time using the time picker.' });
     if (type === 'Sponsor') {
       const area = clean(details.sponsorship_area, 40);
       const kind = clean(details.sponsorship_type, 10);

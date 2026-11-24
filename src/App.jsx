@@ -823,9 +823,8 @@ function App() {
       const t_shirt_size = window.prompt('T-shirt size: XS, S, M, L, XL, XXL, XXXL');
       const t_shirt_name = window.prompt('Name printed on shirt');
       const t_shirt_number = window.prompt('Number printed on shirt (0-999)');
-      const payment_time = window.prompt('Payment time (24-hour format HH:MM; leave blank if pending)') || '';
       if (!team_name || !['XS','S','M','L','XL','XXL','XXXL'].includes(t_shirt_size) || !t_shirt_name || !/^\d{1,3}$/.test(t_shirt_number || '')) return;
-      Object.assign(details, { team_name, 't-shirt_size': t_shirt_size, 't-shirt_name': t_shirt_name, 't-shirt_number': t_shirt_number, payment_time: payment_time || '00:00' });
+      Object.assign(details, { team_name, 't-shirt_size': t_shirt_size, 't-shirt_name': t_shirt_name, 't-shirt_number': t_shirt_number });
     }
     if (type === 'Sponsor') {
       const sponsorship_area = window.prompt('Sponsorship area: Snacks & refreshments, Cricket equipment, First aid & safety, Ground & match setup, Player support, or Other');
@@ -845,7 +844,7 @@ function App() {
       }
     }
     try {
-      const response = await fetch('/api/registrations', { method: 'POST', headers: { 'Content-Type': 'application/json', 'x-admin-password': adminPass }, body: JSON.stringify({ type, name, phone, wing, flat_no, details }) });
+      const response = await fetch('/api/registrations', { method: 'POST', headers: { 'Content-Type': 'application/json', 'x-admin-password': adminPass }, body: JSON.stringify({ type, name, phone, wing, flat_no, payment_time: details.payment_time || '', details }) });
       const data = await response.json();
       if (!response.ok) throw new Error(data.error || 'Could not add registration.');
       setNotice(`${type} added successfully.`); await loadRows(); void refreshRegistrationCounts();
