@@ -41,10 +41,8 @@ export default async function handler(req, res) {
     const body = req.body || {};
     const type = clean(body.type, 20);
     const isAdmin = Boolean(process.env.ADMIN_PASSWORD && req.headers['x-admin-password'] === process.env.ADMIN_PASSWORD);
-    const audienceOrdersClosed = Date.now() >= Date.parse('2026-11-23T00:00:00+05:30');
     if (!isAdmin && type === 'Owner') return json(res, 403, { error: 'Team owner registration is closed. Player registration is also closed.' });
     if (!isAdmin && type === 'Player') return json(res, 403, { error: 'Player registration is closed.' });
-    if (!isAdmin && type === 'Audience' && audienceOrdersClosed) return json(res, 403, { error: 'Audience T-shirt orders are closed.' });
     if (isAdmin && ['Player', 'Owner'].includes(type)) {
       const name = clean(body.name), phone = clean(body.phone, 24);
       const wing = clean(body.wing, 60), flatNo = clean(body.flat_no, 60);
@@ -83,6 +81,7 @@ export default async function handler(req, res) {
       details.contribution_amount = kind === 'Cash' ? amountText : '';
       details.contribution_details = contributionDetails;
     }
+    if (type === 'Audience' && !['Prudentech Power Panthers', 'Prudentech Power Leopards', 'Preetam Paltan', 'Prisha Smash Queens', 'Bigtrip Royal Lions', 'Ashish Knight Riders', 'Titan Thunder', 'Black Thunder', 'Nest Warriors', 'Nest Sanskriti'].includes(clean(details.team_name, 80))) return json(res, 400, { error: 'Choose a valid team for your T-shirt order.' });
     if (type === 'Audience' && !['XS', 'S', 'M', 'L', 'XL', 'XXL', 'XXXL'].includes(clean(details['t-shirt_size'], 10))) return json(res, 400, { error: 'Choose a valid audience T-shirt size.' });
     if (type === 'Audience' && (!clean(details['t-shirt_name'], 30) || !/^\d{1,3}$/.test(clean(details['t-shirt_number'], 3)))) return json(res, 400, { error: 'Enter the T-shirt name and a number from 0 to 999.' });
     if (type === 'Player') {
