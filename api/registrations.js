@@ -43,7 +43,7 @@ export default async function handler(req, res) {
     const isAdmin = Boolean(process.env.ADMIN_PASSWORD && req.headers['x-admin-password'] === process.env.ADMIN_PASSWORD);
     if (!isAdmin && type === 'Owner') return json(res, 403, { error: 'Team owner registration is closed. Player registration is also closed.' });
     if (!isAdmin && type === 'Player') return json(res, 403, { error: 'Player registration is closed.' });
-    if (!isAdmin && type === 'Audience' && Date.now() >= Date.parse('2026-11-24T09:40:23Z')) return json(res, 403, { error: 'The two-hour T-shirt order window has closed.' });
+    if (!isAdmin && type === 'Audience' && Date.now() >= Date.parse('2026-11-24T13:55:21Z')) return json(res, 403, { error: 'The two-hour T-shirt order window has closed.' });
     if (isAdmin && ['Player', 'Owner'].includes(type)) {
       const name = clean(body.name), phone = clean(body.phone, 24);
       const wing = clean(body.wing, 60), flatNo = clean(body.flat_no, 60);
