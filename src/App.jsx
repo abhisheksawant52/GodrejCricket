@@ -907,8 +907,18 @@ function App() {
     const teamSections = teams.map((team, index) => {
       const assignedMembers = rows.filter(row => ['Player', 'Audience'].includes(row.type) && teamKey(row.details?.team_name || row.team_name) === teamKey(team.name));
       const assignedOwners = rows.filter(row => row.type === 'Owner' && teamKey(row.details?.team_name || row.team_name) === teamKey(team.name));
-      const defaultOwner = rows.find(row => row.type === 'Owner' && ownerKey(row.name) === ownerKey(team.owner));
-      const ownerMembers = assignedOwners.length ? assignedOwners : [{ ...(defaultOwner || {}), type: 'Owner', name: team.owner, phone: defaultOwner?.phone, details: defaultOwner?.details || {} }];
+      const ownerMatchesTeam = row => row.type === 'Owner' && ownerKey(row.name) === ownerKey(team.owner);
+      const defaultOwner = rows.find(row => ownerMatchesTeam(row) && String(row.phone || '').trim()) || rows.find(ownerMatchesTeam);
+      const ownerMembers = assignedOwners.length
+        ? assignedOwners.map(owner => {
+          const sameOwner = ownerKey(owner.name) === ownerKey(team.owner);
+          return {
+            ...owner,
+            phone: String(owner.phone || '').trim() || (sameOwner ? defaultOwner?.phone : ''),
+            details: sameOwner ? { ...(defaultOwner?.details || {}), ...(owner.details || {}) } : owner.details || {}
+          };
+        })
+        : [{ ...(defaultOwner || {}), type: 'Owner', name: team.owner, phone: defaultOwner?.phone, details: defaultOwner?.details || {} }];
       const members = [...ownerMembers, ...assignedMembers]
         .sort((a, b) => a.type === b.type ? a.name.localeCompare(b.name) : a.type === 'Owner' ? -1 : b.type === 'Owner' ? 1 : a.type === 'Player' ? -1 : 1);
       const playerCount = members.filter(member => member.type === 'Player').length;
