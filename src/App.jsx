@@ -11,8 +11,8 @@ const types = [
   { key: 'Sponsor', icon: '\uD83E\uDD1D', title: 'Support match day', tagline: 'Help make the league memorable.', desc: 'Sponsor refreshments, cricket essentials, player support, or another match-day need. Cash and in-kind contributions are welcome.', fee: 'Cash or in-kind sponsorship', deadline: '2026-12-14T00:00:00+05:30', cta: 'Become a sponsor', fields: ['Sponsorship area', 'Sponsorship type', 'Contribution amount', 'Contribution details', 'Organization name', 'Logo URL', 'Public showcase permission'] },
 ]
 export const teams = [
-  ['Prudentech Power Panthers', 'PPP', '#a855f7', 'Men', '01_PrudenTech_Power_Panthers_Men.png', 'Ketan Chawada'],
-  ['Prudentech Power Leopards', 'PPL', '#f59e0b', 'Women', '02_PrudenTech_Power_Leopards_Women.png', 'Ketan Chawada'],
+  ['Prudentech Power Panthers', 'PPP', '#a855f7', 'Men', '01_PrudenTech_Power_Panthers_Men.png', 'Ketan Chawdaa'],
+  ['Prudentech Power Leopards', 'PPL', '#f59e0b', 'Women', '02_PrudenTech_Power_Leopards_Women.png', 'Ketan Chawdaa'],
   ['Preetam Paltan', 'PP', '#ef4444', 'Men', '03_Preetam_Paltan_Men.png', 'Preetam Surana'],
   ['Prisha Smash Queens', 'PSQ', '#38bdf8', 'Women', '04_Prisha_Smash_Queens_Women.jpeg', 'Preetam Surana'],
   ['Bigtrip Royal Lions', 'BRL', '#fbbf24', 'Men', '05_BIGTRIP_Royal_Lions_Men.png', 'Ashish Sharma'],
