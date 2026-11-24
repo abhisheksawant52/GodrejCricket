@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { ArrowRight, ArrowUpRight, Check, CircleDot, Clock3, Download, Printer, Menu, Radio, ShieldCheck, Trash2, Trophy, Users, X, Upload, MapPin, Shirt, Cookie, GlassWater, Camera, Share2 } from 'lucide-react';
 import PlayerProfile from './PlayerProfile.jsx';
-import { LeagueFeatures, SponsorShowcase } from './LeagueFeatures.jsx';
+import { LeagueFeatures, SponsorShowcase, TeamShareGallery } from './LeagueFeatures.jsx';
 import { createPortal } from 'react-dom';
 
 const types = [
@@ -295,7 +295,7 @@ function App() {
   useEffect(() => {
     const reduceMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
     if (reduceMotion || !('IntersectionObserver' in window)) return;
-    const items = document.querySelectorAll('.auction-update-card, .match-info-bar, .teams-heading, .teams-grid .team-card, .register-card, .community-scene');
+    const items = document.querySelectorAll('.auction-update-card, .match-info-bar, .teams-heading, .teams-grid .team-card, .register-card, .community-scene, .league-updates-heading, .league-feature-panel, .team-share-gallery-grid article, .venue-overview-card, .matchday-left, .gallery-section .gallery-empty, .registration-faq');
     if (!items.length) return;
     items.forEach(item => item.classList.add('scroll-reveal'));
     const observer = new IntersectionObserver(entries => {
@@ -999,6 +999,7 @@ function App() {
           </div>
         </div>
       </section>
+      <LeagueFeatures admin={admin && online} adminPass={adminPass} rows={rows} teams={teams} players={registeredPlayers} />
       <section className="teams-section wrap" id="teams">
         <div className="section-tag">03 / MEET THE TEAMS</div>
         <div className="teams-heading"><h2>THE SQUADS.<br /><em>THE PRIDE.</em></h2><p>Meet all ten formed teams, their owners, and the players representing them.</p></div>
@@ -1017,6 +1018,8 @@ function App() {
       </section>
 
 
+
+      <TeamShareGallery teams={teams} players={registeredPlayers} />
 
       <section className="venue-overview wrap" id="venue"><div className="section-tag">GNPL 2026 / VENUE OVERVIEW</div><div className="venue-overview-card"><div><span className="venue-kicker"><MapPin size={15}/> MATCH VENUE</span><h2>Kandivali <em>Turf Zone</em></h2><p>00 Gopinath Munde Ground, Near Sapphire Heights, Lokhandwala Foundation School, Akurli Road, Lokhandwala Complex, Kandivali East, Mumbai - 400101</p><a href="https://www.google.com/maps/search/?api=1&query=Kandivali+Turf+Zone+Gopinath+Munde+Ground+Kandivali+East" target="_blank" rel="noreferrer">Open venue in Google Maps <ArrowUpRight size={15}/></a><div className="venue-pricing"><span><strong>Men</strong> Rs 600</span><span><strong>Women</strong> Rs 400</span><span><strong>Kids</strong> Rs 300</span></div><small>Player T-shirt and refreshments included.</small></div><div className="shirt-showcase official-jersey-showcase" id="venue-shirt"><img className="venue-jersey-mockup" src="/gnpl-audience-jersey.png" alt="Official GNPL 2026 jersey front and back design" /><div className="venue-jersey-details"><strong>OFFICIAL GNPL 2026 T-SHIRT</strong><span>Audience jersey · ₹300</span><button type="button" className="venue-jersey-buy" onClick={() => { const item = types.find(type => type.key === 'Audience'); setNotice(''); setReceipt(null); setFormReady(false); setRegistrationSuccess(false); setModal(item); }}>Buy now <ArrowUpRight size={15} /></button></div></div></div></section>
 
@@ -1039,7 +1042,7 @@ function App() {
 
 
       <section className="matchday wrap" id="schedule"><div className="matchday-left"><div className="section-tag">04 / SAVE THE FEELING</div><h2>THE CROWD.<br /><em>THE CRACK.</em><br />THE CHEER.</h2><p>One boundary can bring the whole neighbourhood to its feet. Get ready for a season worth showing up for.</p><a href="#teams" className="button button-lime">Meet the teams <ArrowRight size={17} /></a></div></section>
-      <LeagueFeatures admin={admin && online} adminPass={adminPass} rows={rows} teams={teams} players={registeredPlayers} />
+
     </main>
 
     <footer className="footer"><div className="wrap footer-main"><a href="#home" className="brand"><span className="brand-mark"><Trophy size={21} /></span><span>GN<span className="brand-accent">PL</span><small>GODREJ NEST PREMIER LEAGUE</small></span></a><p>Arranged by<br /><strong>Godrej Nest Cultural Team</strong></p><a className="footer-top" href="#home">BACK TO TOP ↑</a></div><div className="wrap footer-bottom"><span>© 2026 GNPL · GODREJ NEST PREMIER LEAGUE</span><button onClick={openAdmin}>Registration dashboard</button><span className="footer-credit"><small>WEBSITE CRAFTED BY</small><strong>Abhishek Hemant Sawant <em>(Mindhacker)</em></strong></span><span>PLAY WITH PRIDE <span className="lime">✳</span></span></div></footer>
