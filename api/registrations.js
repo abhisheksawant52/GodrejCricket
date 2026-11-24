@@ -294,7 +294,7 @@ export default async function handler(req, res) {
       const { data: registration, error: readError } = await supabase.from('registrations').select('type, details').eq('id', id).maybeSingle();
       if (readError) return json(res, 500, { error: 'Could not load the player registration.' });
       if (!registration) return json(res, 404, { error: 'Registration was not found.' });
-      if (registration.type !== 'Player') return json(res, 400, { error: 'Only player registrations can be assigned to a team.' });
+      if (!['Player', 'Audience'].includes(registration.type)) return json(res, 400, { error: 'Only player or audience registrations can be assigned to a team.' });
       const oldDetails = registration.details && typeof registration.details === 'object' && !Array.isArray(registration.details) ? registration.details : {};
       const details = { ...oldDetails, team_name: team_name || null };
       if (oldDetails.is_team_captain && team_name !== oldDetails.team_name) details.is_team_captain = false;
