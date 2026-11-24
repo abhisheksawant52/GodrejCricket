@@ -903,7 +903,7 @@ function App() {
     if (!printWindow) { setNotice('Allow pop-ups to print team sheets.'); return; }
     const escapeHtml = value => String(value ?? '').replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;').replaceAll("'", '&#39;');
     const teamKey = value => String(value || '').trim().replace(/\s+/g, ' ').toLocaleLowerCase();
-    const ownerKey = value => teamKey(value).replace(/(.)\1+/g, '$1');
+    const ownerKey = value => teamKey(value).replace(/(.)\1+/g, '$1').replace(/\bchaw(?:a)?da+\b/g, 'chawda');
     const teamSections = teams.map((team, index) => {
       const assignedMembers = rows.filter(row => ['Player', 'Audience'].includes(row.type) && teamKey(row.details?.team_name || row.team_name) === teamKey(team.name));
       const assignedOwners = rows.filter(row => row.type === 'Owner' && teamKey(row.details?.team_name || row.team_name) === teamKey(team.name));
