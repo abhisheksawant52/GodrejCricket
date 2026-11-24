@@ -295,7 +295,7 @@ function App() {
   useEffect(() => {
     const reduceMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
     if (reduceMotion || !('IntersectionObserver' in window)) return;
-    const items = document.querySelectorAll('.auction-update-card, .match-info-bar, .teams-heading, .teams-grid .team-card, .register-card, .community-scene, .league-updates-heading, .league-feature-panel, .team-share-gallery-grid article, .venue-overview-card, .matchday-left, .gallery-section .gallery-empty, .registration-faq');
+    const items = document.querySelectorAll('.auction-update-card, .match-info-bar, .teams-heading, .teams-grid .team-card, .register-card, .community-scene, .league-updates-heading, .league-feature-panel, .team-share-gallery-grid article, .venue-overview-card, .matchday-left, .gallery-section .gallery-empty, .registration-faq, .trophy-showcase-heading, .trophy-award-card');
     if (!items.length) return;
     items.forEach(item => item.classList.add('scroll-reveal'));
     const observer = new IntersectionObserver(entries => {
@@ -1000,7 +1000,10 @@ function App() {
         </div>
       </section>
       <LeagueFeatures admin={admin && online} adminPass={adminPass} rows={rows} teams={teams} players={registeredPlayers} />
-      <section className="teams-section wrap" id="teams">
+      <section className="trophy-showcase wrap" aria-labelledby="trophy-showcase-title">
+        <div className="trophy-showcase-heading"><div><span className="section-tag">GNPL 2026 / THE PRIZE</span><h2 id="trophy-showcase-title">PLAY FOR <em>GLORY.</em></h2></div><p>Three championships. One league. A season to remember.</p></div>
+        <div className="trophy-showcase-grid">{[{ title: 'Men’s Championship', label: 'MEN', accent: '#ffd166' }, { title: 'Women’s Championship', label: 'WOMEN', accent: '#ff78b8' }, { title: 'Kids’ Championship', label: 'KIDS', accent: '#63d9e5' }].map((award, index) => <article key={award.label} className={`trophy-award-card trophy-award-${index + 1}`} style={{ '--trophy-accent': award.accent }}><span className="trophy-award-kicker">GNPL 2026 / {award.label}</span><div className="trophy-award-art"><span className="trophy-award-halo"/><Trophy aria-hidden="true" strokeWidth={1.25}/><span className="trophy-award-spark trophy-spark-one">✦</span><span className="trophy-award-spark trophy-spark-two">✦</span></div><strong>{award.title}</strong><small>THE NEXT CHAMPIONS</small></article>)}</div>
+      </section>      <section className="teams-section wrap" id="teams">
         <div className="section-tag">03 / MEET THE TEAMS</div>
         <div className="teams-heading"><h2>THE SQUADS.<br /><em>THE PRIDE.</em></h2><p>Meet all ten formed teams, their owners, and the players representing them.</p></div>
         <div className="team-filter-bar" aria-label="Filter teams by category"><span>SHOW TEAMS</span><div>{['All', 'Men', 'Women', 'Kids'].map(category => <button type="button" key={category} aria-pressed={publicTeamCategory === category} className={publicTeamCategory === category ? 'active' : ''} onClick={() => setPublicTeamCategory(category)}>{category === 'All' ? 'All teams' : `${category}’s`}</button>)}</div><small>{teams.filter(team => publicTeamCategory === 'All' || team.category === publicTeamCategory).length} teams</small></div>
