@@ -1735,6 +1735,19 @@ main>section{scroll-margin-top:96px}
   .scroll-reveal{opacity:1!important}
 }
 
+/* Keep a little stadium motion on the homepage without distracting from the content. */
+.hero-art .orbit-a{animation:homepage-orbit-turn 38s linear infinite}
+.hero-art .orbit-b{animation:homepage-orbit-turn 52s linear infinite reverse}
+.button-lime{position:relative;isolation:isolate;overflow:hidden}
+.button-lime:after{position:absolute;inset:-35% auto -35% -55%;width:30%;content:"";background:linear-gradient(90deg,transparent,rgba(255,255,255,.55),transparent);transform:skewX(-18deg);pointer-events:none}
+.button-lime:hover:after,.button-lime:focus-visible:after{animation:homepage-button-sheen .75s ease-out}
+.teams-grid .team-card,.register-grid .register-card{transition:transform .32s cubic-bezier(.2,.75,.25,1),border-color .32s ease,box-shadow .32s ease}
+.register-grid .register-card:hover,.register-grid .register-card:focus-within{transform:translateY(-5px);border-color:color-mix(in srgb,var(--lime) 54%,var(--line));box-shadow:0 18px 38px rgba(0,0,0,.26),0 0 22px rgba(197,243,99,.08)}
+@keyframes homepage-orbit-turn{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+@keyframes homepage-button-sheen{from{left:-55%}to{left:130%}}
+@media(max-width:760px){.register-grid .register-card:hover,.register-grid .register-card:focus-within{transform:translateY(-2px)}}
+@media(prefers-reduced-motion:reduce){.hero-art .orbit-a,.hero-art .orbit-b,.button-lime:after,.teams-grid .team-card,.register-grid .register-card,.register-grid .register-card:hover,.register-grid .register-card:focus-within{animation:none!important;transition:none!important;transform:none!important}}
+
 /* Highlight the cultural team credit in the first-screen hero. */
 .organizer-banner{position:relative;display:flex!important;flex-direction:column;align-items:flex-start;gap:4px;width:fit-content;max-width:100%;margin:0 0 18px;padding:9px 16px 10px;border:1px solid rgba(215,255,89,.26);border-left:4px solid #d7ff59;border-radius:0 10px 10px 0;background:linear-gradient(100deg,rgba(215,255,89,.11),rgba(255,90,167,.07) 62%,rgba(105,232,241,.04));box-shadow:0 8px 26px rgba(0,0,0,.15),inset 0 1px rgba(255,255,255,.06);color:#e7d5e5;font:800 9px/1.2 'DM Sans',sans-serif;letter-spacing:.19em;text-transform:uppercase}
 .organizer-banner:before{content:"";position:absolute;top:10px;right:11px;width:6px;height:6px;border-radius:50%;background:#d7ff59;box-shadow:0 0 12px rgba(215,255,89,.75)}
