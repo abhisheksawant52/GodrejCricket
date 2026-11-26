@@ -12,6 +12,7 @@ const db = (env, makeClient) => {
 const json = (res, status, body) => res.status(status).setHeader('Cache-Control', 'no-store').json(body);
 const clean = (s, max = 160) => typeof s === 'string' ? s.trim().slice(0, max) : '';
 const PLAYER_PHOTO_BUCKET = 'player-photos';
+const VALID_TEAM_NAMES = ['Prudentech Power Panthers', 'Prudentech Power Leopards', 'Preetam Paltan', 'Prisha Smash Queens', 'Bigtrip Royal Lions', 'Ashish Knight Riders', 'Titan Thunder', 'Black Thunder', 'Nest Warriors', 'Nest Sanskriti'];
 
 async function uploadPlayerPhoto(supabase, dataUrl, id) {
   const match = /^data:image\/jpeg;base64,([\s\S]+)$/.exec(dataUrl);
@@ -96,12 +97,14 @@ export function createRegistrationHandler({ env = process.env, now = () => Date.
       details['t-shirt_name'] = clean(details['t-shirt_name'], 30);
       details['t-shirt_number'] = clean(details['t-shirt_number'], 3);
     }
-    if (type === 'Audience' && !['Prudentech Power Panthers', 'Prudentech Power Leopards', 'Preetam Paltan', 'Prisha Smash Queens', 'Bigtrip Royal Lions', 'Ashish Knight Riders', 'Titan Thunder', 'Black Thunder', 'Nest Warriors', 'Nest Sanskriti'].includes(clean(details.team_name, 80))) return json(res, 400, { error: 'Choose a valid team for your T-shirt order.' });
+    if (type === 'Audience' && !VALID_TEAM_NAMES.includes(clean(details.team_name, 80))) return json(res, 400, { error: 'Choose a valid team for your T-shirt order.' });
     if (type === 'Audience' && !['XS', 'S', 'M', 'L', 'XL', 'XXL', 'XXXL'].includes(clean(details['t-shirt_size'], 10))) return json(res, 400, { error: 'Choose a valid audience T-shirt size.' });
     if (type === 'Audience' && (!clean(details['t-shirt_name'], 30) || !/^\d{1,3}$/.test(clean(details['t-shirt_number'], 3)))) return json(res, 400, { error: 'Enter the T-shirt name and a number from 0 to 999.' });
     if (type === 'Player') {
       const age = Number(details.age);
       const category = clean(details.player_category, 20);
+      details.team_name = clean(details.team_name, 80);
+      if (!VALID_TEAM_NAMES.includes(details.team_name)) return json(res, 400, { error: 'Choose a team assignment before registering.' });
       if (!Number.isInteger(age) || age < 8 || age > 120) return json(res, 400, { error: 'Age must be a whole number from 8 to 120.' });
       const eligible = category === 'Kids' ? age <= 15 : ['Men', 'Women'].includes(category) && age >= 16;
       if (!eligible) return json(res, 400, { error: category === 'Kids' ? 'Kids category is for ages 8–15.' : category === 'Women' ? 'Women players must be 16 or older.' : 'Men category is for ages 16–120.' });
