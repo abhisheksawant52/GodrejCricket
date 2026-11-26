@@ -1053,7 +1053,7 @@ return <div className="site-shell">
               <span className="gnpl-trophy-plaque back-plaque">GODREJ NEST PREMIER LEAGUE<br />2026</span>
             </div>
           </div>
-          <div className="gnpl-trophy-copy"><span>GODREJ NEST PREMIER LEAGUE CHAMPIONSHIP TROPHY</span><strong>ONE LEAGUE.<br />THREE CHAMPIONS.</strong><small>13 DECEMBER 2026 / KANDIVALI TURF ZONE</small></div>
+          <div className="gnpl-trophy-copy"><span>GODREJ NEST PREMIER LEAGUE CHAMPIONSHIP TROPHY</span><strong>1 LEAGUE.<br />3 CHAMPIONS.</strong><small>13 DECEMBER 2026 / KANDIVALI TURF ZONE</small></div>
         </div>
       </section>      <section className="teams-section wrap" id="teams">
         <div className="section-tag">03 / MEET THE TEAMS</div>
