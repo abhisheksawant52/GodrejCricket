@@ -97,26 +97,27 @@ export function LeagueFeatures({ admin = false, adminPass = '', rows = [], teams
 }
 
 export function TeamShareGallery({ teams = [], players = [] }) {
-  return <section className="team-share-gallery wrap" aria-label="Shareable team cards"><div className="section-tag">GNPL 2026 / SHARE THE TEAMS</div><h2>Take your team <em>everywhere.</em></h2><div className="team-share-gallery-grid">{teams.map(team => <article key={team.name} style={{ '--team-accent': team.color }}><img src={team.logo} alt="" /><div><strong>{team.name}</strong><small>{players.filter(player => player.team_name === team.name).length} players &middot; {team.owner}</small></div><TeamShareCard team={team} players={players.filter(player => player.team_name === team.name)} /></article>)}</div></section>;
+  return <section className="team-share-gallery wrap" aria-label="Shareable team cards"><div className="section-tag">GNPL 2026 / SHARE THE TEAMS</div><h2>Take your team <em>everywhere.</em></h2><div className="team-share-gallery-grid">{teams.map(team => { const teamPlayers = players.filter(player => player.team_name === team.name); const captain = teamPlayers.find(player => player.is_team_captain)?.name || (team.captain && team.captain !== 'To be announced' ? team.captain : ''); return <article key={team.name} style={{ '--team-accent': team.color }}><img src={team.logo} alt="" /><div><strong>{team.name}</strong><small>{teamPlayers.length} players · {team.owner} · Captain: {captain || 'Not announced'}</small></div><TeamShareCard team={team} players={teamPlayers} captain={captain} /></article>; })}</div></section>;
 }
 
-export function TeamShareCard({ team, players = [] }) {
+export function TeamShareCard({ team, players = [], captain: captainProp = '' }) {
   const [status, setStatus] = useState('');
   const createCard = async () => {
+    const captain = captainProp || players.find(player => player.is_team_captain)?.name || (team.captain && team.captain !== 'To be announced' ? team.captain : 'Not announced');
     const canvas = document.createElement('canvas'); canvas.width = 1200; canvas.height = 630;
     const ctx = canvas.getContext('2d'); const gradient = ctx.createLinearGradient(0, 0, 1200, 630); gradient.addColorStop(0, '#17091f'); gradient.addColorStop(1, team.color || '#442050');
     ctx.fillStyle = gradient; ctx.fillRect(0, 0, 1200, 630); ctx.strokeStyle = team.color || '#b2f54a'; ctx.lineWidth = 8; ctx.strokeRect(24, 24, 1152, 582);
     ctx.fillStyle = '#b2f54a'; ctx.font = 'bold 24px Arial'; ctx.fillText('GNPL 2026  /  TEAM ROSTER', 70, 82);
     ctx.fillStyle = '#fff4f8'; ctx.font = 'bold 54px Arial'; ctx.fillText(team.name, 70, 166, 1040);
     ctx.fillStyle = team.color || '#b2f54a'; ctx.font = 'bold 21px Arial'; ctx.fillText(`${(team.category || 'GNPL').toUpperCase()} TEAM`, 70, 211);
-    ctx.fillStyle = '#8fe9ee'; ctx.font = '26px Arial'; ctx.fillText(`Owner: ${team.owner || '—'}  ·  Captain: ${team.captain || 'To be announced'}`, 70, 253, 1060);
-    ctx.fillStyle = '#fff4f8'; ctx.font = 'bold 24px Arial'; ctx.fillText(`PLAYERS  ·  ${players.length}`, 70, 311);
-    ctx.font = '22px Arial'; players.slice(0, 10).forEach((player, index) => ctx.fillText(`${index + 1}. ${player.name}${player.role ? `  —  ${player.role}` : ''}`, 74 + (index > 4 ? 540 : 0), 356 + (index % 5) * 42, 500));
+    ctx.fillStyle = '#8fe9ee'; ctx.font = '26px Arial'; ctx.fillText(`Owner: ${team.owner || '\u2014'}  \u00b7  Captain: ${captain}`, 70, 253, 1060);
+    ctx.fillStyle = '#fff4f8'; ctx.font = 'bold 24px Arial'; ctx.fillText(`PLAYERS  \u00b7  ${players.length}`, 70, 311);
+    ctx.font = '20px Arial'; players.slice(0, 14).forEach((player, index) => ctx.fillText(`${index + 1}. ${player.name}${player.role ? `  \u2014  ${player.role}` : ''}`, 74 + (index > 6 ? 540 : 0), 350 + (index % 7) * 30, 500));
     ctx.fillStyle = '#d5bacf'; ctx.font = '18px Arial'; ctx.fillText('Godrej Nest Premier League', 70, 566);
     const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
     if (!blob) throw new Error('Could not create the team card.');
     const file = new File([blob], `${team.short || 'team'}-gnpl-2026.png`, { type: 'image/png' });
-    if (navigator.canShare?.({ files: [file] }) && navigator.share) await navigator.share({ title: `${team.name} · GNPL 2026`, text: 'Meet the team.', files: [file] });
+    if (navigator.canShare?.({ files: [file] }) && navigator.share) await navigator.share({ title: `${team.name} \u00b7 GNPL 2026`, text: 'Meet the team.', files: [file] });
     else { const url = URL.createObjectURL(blob); const link = document.createElement('a'); link.href = url; link.download = file.name; link.click(); URL.revokeObjectURL(url); }
     setStatus('Team card ready to share.');
   };
