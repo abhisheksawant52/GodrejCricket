@@ -1,6 +1,8 @@
 export const PLAYER_REGISTRATION_CUTOFF = Date.parse('2026-11-26T10:04:10Z');
+export const PUBLIC_REGISTRATIONS_CLOSED = true;
 
 export function isPlayerRegistrationOpen(savedSetting, now = Date.now()) {
+  if (PUBLIC_REGISTRATIONS_CLOSED) return false;
   if (now >= PLAYER_REGISTRATION_CUTOFF) return false;
   if (savedSetting === true) return true;
   if (savedSetting === false) return false;

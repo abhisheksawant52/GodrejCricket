@@ -1,6 +1,6 @@
 import { createClient } from '@supabase/supabase-js';
 import { randomUUID } from 'node:crypto';
-import { isAdminAuthorized, isPlayerRegistrationOpen, PLAYER_REGISTRATION_CUTOFF } from '../src/registrationPolicy.js';
+import { isAdminAuthorized, isPlayerRegistrationOpen, PLAYER_REGISTRATION_CUTOFF, PUBLIC_REGISTRATIONS_CLOSED } from '../src/registrationPolicy.js';
 
 const db = (env, makeClient) => {
   if (!env.SUPABASE_URL || !env.SUPABASE_SERVICE_ROLE_KEY) return null;
@@ -44,6 +44,7 @@ export function createRegistrationHandler({ env = process.env, now = () => Date.
     const body = req.body || {};
     const type = clean(body.type, 20);
     const isAdmin = isAdminAuthorized(env.ADMIN_PASSWORD, req.headers['x-admin-password']);
+    if (!isAdmin && PUBLIC_REGISTRATIONS_CLOSED) return json(res, 403, { error: 'All public registrations, T-shirt orders, and sponsorship offers are closed.' });
     if (!isAdmin && ['Player', 'Audience'].includes(type) && now() >= PLAYER_REGISTRATION_CUTOFF) return json(res, 403, { error: 'Public registration forms are closed.' });
     if (!isAdmin && type === 'Owner') return json(res, 403, { error: 'Team owner registration is closed.' });
     if (!isAdmin && type === 'Player') {
