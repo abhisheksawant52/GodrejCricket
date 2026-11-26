@@ -1047,11 +1047,12 @@ return <div className="site-shell">
             <span className="gnpl-trophy-orbit orbit-one" />
             <span className="gnpl-trophy-orbit orbit-two" />
             <div className="gnpl-trophy-rotator">
-              <img src="/gnpl-champion-trophy.png" alt="" />
+              <img className="gnpl-trophy-face front-face" src="/gnpl-champion-trophy-3d.png" alt="" />
+              <img className="gnpl-trophy-face back-face" src="/gnpl-champion-trophy-3d.png" alt="" />
               <span className="gnpl-trophy-plaque">GNPL 2026</span>
             </div>
           </div>
-          <div className="gnpl-trophy-copy"><span>THE GNPL CHAMPIONSHIP TROPHY</span><strong>ONE LEAGUE.<br />ONE CHAMPION.</strong><small>13 DECEMBER 2026 / KANDIVALI TURF ZONE</small></div>
+          <div className="gnpl-trophy-copy"><span>THE GNPL CHAMPIONSHIP TROPHY</span><strong>ONE LEAGUE.<br />THREE CHAMPIONS.</strong><small>13 DECEMBER 2026 / KANDIVALI TURF ZONE</small></div>
         </div>
       </section>      <section className="teams-section wrap" id="teams">
         <div className="section-tag">03 / MEET THE TEAMS</div>
