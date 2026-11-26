@@ -90,6 +90,8 @@ export function createRegistrationHandler({ env = process.env, now = () => Date.
       details.sponsorship_type = kind;
       details.contribution_amount = kind === 'Cash' ? amountText : '';
       details.contribution_details = contributionDetails;
+      details.public_showcase_permission = details.public_showcase_permission === 'yes' ? 'yes' : 'no';
+      details.sponsorship_confirmed = isAdmin && details.sponsorship_confirmed === 'yes' ? 'yes' : 'no';
     }
     if (type === 'Audience') {
       details.team_name = clean(details.team_name, 80);

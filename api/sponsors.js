@@ -2,7 +2,7 @@ import { createClient } from '@supabase/supabase-js';
 import communitySponsors from '../src/communitySponsors.js';
 
 const json = (res, status, body) => res.status(status).setHeader('Cache-Control', 'no-store').json(body);
-const publicCommunitySponsors = communitySponsors.filter(sponsor => sponsor.publicShowcasePermission === true);
+const publicCommunitySponsors = communitySponsors.filter(sponsor => sponsor.sponsorshipConfirmed === true && sponsor.publicShowcasePermission === true);
 
 export default async function handler(req, res) {
   if (!['GET', 'POST'].includes(req.method)) {
@@ -25,6 +25,8 @@ export default async function handler(req, res) {
           contribution_details: sponsor.support,
           organization_name: sponsor.name,
           logo_url: sponsor.logo,
+          public_showcase_permission: sponsor.publicShowcasePermission === true ? 'yes' : 'no',
+          sponsorship_confirmed: sponsor.sponsorshipConfirmed === true ? 'yes' : 'no',
         };
         const { data: matches, error: readError } = await supabase.from('registrations').select('id, apartment, details').eq('type', 'Sponsor').ilike('name', sponsor.name);
         if (readError) return json(res, 500, { error: `Could not check existing sponsor records: ${readError.message}` });
@@ -43,7 +45,7 @@ export default async function handler(req, res) {
     }
     const { data, error } = await supabase.from('registrations').select('name, details').eq('type', 'Sponsor').order('created_at', { ascending: true });
     if (error) return json(res, 200, { sponsors: publicCommunitySponsors });
-    const registeredSponsors = (data || []).filter(row => row.details?.public_showcase_permission === 'yes').map(row => {
+    const registeredSponsors = (data || []).filter(row => row.details?.public_showcase_permission === 'yes' && row.details?.sponsorship_confirmed === 'yes').map(row => {
       const details = row.details || {};
       const logo = typeof details.logo_url === 'string' && /^https:\/\//i.test(details.logo_url) ? details.logo_url : '';
       const support = details.sponsorship_type === 'In-kind'
