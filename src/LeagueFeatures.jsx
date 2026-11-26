@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { CalendarDays, Crown, Megaphone, Plus, Save, Share2, Trash2, Download, UserRound } from 'lucide-react';
+import { CalendarDays, Crown, Megaphone, Plus, Save, Share2, Trash2, Download } from 'lucide-react';
 import communitySponsors from './communitySponsors.js';
 
 const emptyContent = { schedule: [], announcements: [] };
