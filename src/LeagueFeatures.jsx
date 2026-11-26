@@ -12,8 +12,9 @@ export function SponsorShowcase() {
   useEffect(() => {
     fetch('/api/sponsors').then(response => response.ok ? response.json() : { sponsors: [] }).then(data => setSponsors(Array.isArray(data.sponsors) ? data.sponsors : [])).catch(() => setSponsors([])).finally(() => setLoading(false));
   }, []);
-  const named = new Set(communitySponsors.map(sponsor => sponsor.name.toLowerCase()));
-  const listedSponsors = [...communitySponsors, ...sponsors.filter(sponsor => !named.has(sponsor.name.toLowerCase()))];
+  const approvedCommunitySponsors = communitySponsors.filter(sponsor => sponsor.publicShowcasePermission === true);
+  const named = new Set(approvedCommunitySponsors.map(sponsor => sponsor.name.toLowerCase()));
+  const listedSponsors = [...approvedCommunitySponsors, ...sponsors.filter(sponsor => !named.has(sponsor.name.toLowerCase()))];
   return <section className="sponsor-showcase wrap" aria-labelledby="sponsor-showcase-title">
     <div className="section-tag">GNPL 2026 / WITH THANKS TO OUR SUPPORTERS</div>
     <div className="sponsor-showcase-heading">
@@ -109,9 +110,10 @@ export function TeamShareCard({ team, players = [] }) {
     ctx.fillStyle = gradient; ctx.fillRect(0, 0, 1200, 630); ctx.strokeStyle = team.color || '#b2f54a'; ctx.lineWidth = 8; ctx.strokeRect(24, 24, 1152, 582);
     ctx.fillStyle = '#b2f54a'; ctx.font = 'bold 24px Arial'; ctx.fillText('GNPL 2026  /  TEAM ROSTER', 70, 82);
     ctx.fillStyle = '#fff4f8'; ctx.font = 'bold 54px Arial'; ctx.fillText(team.name, 70, 166, 1040);
-    ctx.fillStyle = '#8fe9ee'; ctx.font = '26px Arial'; ctx.fillText(`Owner: ${team.owner || '—'}  ·  Captain: ${team.captain || 'To be announced'}`, 70, 222, 1060);
-    ctx.fillStyle = '#fff4f8'; ctx.font = 'bold 24px Arial'; ctx.fillText(`PLAYERS  ·  ${players.length}`, 70, 294);
-    ctx.font = '22px Arial'; players.slice(0, 10).forEach((player, index) => ctx.fillText(`${index + 1}. ${player.name}${player.role ? `  —  ${player.role}` : ''}`, 74 + (index > 4 ? 540 : 0), 345 + (index % 5) * 44, 500));
+    ctx.fillStyle = team.color || '#b2f54a'; ctx.font = 'bold 21px Arial'; ctx.fillText(`${(team.category || 'GNPL').toUpperCase()} TEAM`, 70, 211);
+    ctx.fillStyle = '#8fe9ee'; ctx.font = '26px Arial'; ctx.fillText(`Owner: ${team.owner || '—'}  ·  Captain: ${team.captain || 'To be announced'}`, 70, 253, 1060);
+    ctx.fillStyle = '#fff4f8'; ctx.font = 'bold 24px Arial'; ctx.fillText(`PLAYERS  ·  ${players.length}`, 70, 311);
+    ctx.font = '22px Arial'; players.slice(0, 10).forEach((player, index) => ctx.fillText(`${index + 1}. ${player.name}${player.role ? `  —  ${player.role}` : ''}`, 74 + (index > 4 ? 540 : 0), 356 + (index % 5) * 42, 500));
     ctx.fillStyle = '#d5bacf'; ctx.font = '18px Arial'; ctx.fillText('Godrej Nest Premier League', 70, 566);
     const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
     if (!blob) throw new Error('Could not create the team card.');
