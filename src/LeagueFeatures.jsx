@@ -17,11 +17,11 @@ export function SponsorShowcase() {
   const listedSponsors = [...approvedCommunitySponsors, ...sponsors.filter(sponsor => !named.has(sponsor.name.toLowerCase()))];
   return <section className={`sponsor-showcase wrap${sponsorsLoaded ? ' sponsors-loaded' : ''}`} id="sponsors" aria-labelledby="sponsor-showcase-title">
     <div className="sponsor-showcase-heading">
-      <div><h2 id="sponsor-showcase-title">Our <em>sponsors.</em></h2></div>
+      <div><span className="sponsor-showcase-kicker">GNPL 2026 / COMMUNITY PARTNERS</span><h2 id="sponsor-showcase-title">Our <em>sponsors.</em></h2></div>
     </div>
-    {listedSponsors.length ? <div className="sponsor-showcase-grid">{listedSponsors.map((sponsor, index) => <article className="sponsor-showcase-card" key={`${sponsor.name}-${index}`}>
-      <div className="sponsor-showcase-logo">{sponsor.logo && <img src={sponsor.logo} alt={`${sponsor.name} logo`} loading="lazy" onError={event => { event.currentTarget.style.display = 'none'; }} />}<span aria-hidden="true">{sponsor.name.slice(0, 1).toUpperCase()}</span></div>
-      <div className="sponsor-showcase-main"><strong>{sponsor.name}</strong><span className="sponsor-showcase-flatno"><small>FLAT NO.</small><b>{sponsor.flatNo || 'Not provided'}</b></span></div>
+    {listedSponsors.length ? <div className="sponsor-showcase-grid">{listedSponsors.map((sponsor, index) => <article className="sponsor-showcase-card" key={`${sponsor.name}-${index}`} style={{'--sponsor-accent': index % 2 ? '#53dee8' : '#ffd166'}}>
+      <div className="sponsor-showcase-logo">{sponsor.logo && <img src={sponsor.logo} alt={`${sponsor.name} logo`} loading="lazy" onError={event => { event.currentTarget.style.display = 'none'; }} />}<span aria-hidden="true">{sponsor.name.slice(0, 1).toUpperCase()}</span><small aria-hidden="true">GNPL</small></div>
+      <div className="sponsor-showcase-main"><small className="sponsor-partner-label">COMMUNITY PARTNER</small><strong>{sponsor.name}</strong><span className="sponsor-showcase-flatno"><small>FLAT NO.</small><b>{sponsor.flatNo || 'Not provided'}</b></span></div>
       <div className="sponsor-showcase-support"><small>SPONSORING</small><strong>{sponsor.area || 'Match-day support'}</strong>{sponsor.support && sponsor.support.trim().toLowerCase() !== String(sponsor.area || '').trim().toLowerCase() && <span>{sponsor.support}</span>}</div>
     </article>)}</div> : <p className="sponsor-showcase-empty">Sponsor listings will appear here.</p>}
   </section>;
