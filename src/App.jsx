@@ -85,14 +85,14 @@ function MatchCountdown() {
     const timer = setInterval(() => setNow(Date.now()), 1000);
     return () => clearInterval(timer);
   }, []);
-  const remaining = Math.max(0, new Date('2026-12-13T09:00:00+05:30').getTime() - now);
+  const remaining = Math.max(0, new Date('2026-12-13T08:00:00+05:30').getTime() - now);
   const units = [
     { label: 'DAYS', value: Math.floor(remaining / 86400000) },
     { label: 'HOURS', value: String(Math.floor((remaining % 86400000) / 3600000)).padStart(2, '0') },
     { label: 'MIN', value: String(Math.floor((remaining % 3600000) / 60000)).padStart(2, '0') },
     { label: 'SEC', value: String(Math.floor((remaining % 60000) / 1000)).padStart(2, '0') },
   ];
-  return <div className="match-countdown" role="timer" aria-label="Countdown to match start, 13 December 2026 at 9 AM India time">
+  return <div className="match-countdown" role="timer" aria-label="Countdown to match start, 13 December 2026 at 8 AM India time">
     <span className="match-countdown-label">COUNTDOWN TO FIRST BALL</span>
     <div className="match-countdown-values">{units.map((unit, index) => <React.Fragment key={unit.label}>{index > 0 && <i>:</i>}<span><strong>{unit.value}</strong><small>{unit.label}</small></span></React.Fragment>)}</div>
   </div>;
@@ -995,7 +995,7 @@ return <div className="site-shell">
           <div className="match-info-details">
             <span className="match-ready-kicker"><span className="match-ready-live-dot" /> GNPL MATCH DAY</span>
             <strong>13 December 2026</strong>
-            <small>9:00 AM IST · Kandivali Turf Zone</small>
+            <small>8:00 AM IST · Kandivali Turf Zone</small>
             <small className="match-venue-address">Gopinath Munde Ground, Near Sapphire Heights, Kandivali East, Mumbai 400101</small>
             <a className="match-directions-link" href="https://www.google.com/maps/search/?api=1&amp;query=Kandivali+Turf+Zone+Gopinath+Munde+Ground+Kandivali+East" target="_blank" rel="noreferrer"><MapPin size={13} /> Get venue directions <ArrowUpRight size={13} /></a>
           </div>
