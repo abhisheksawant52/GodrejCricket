@@ -1042,17 +1042,16 @@ return <div className="site-shell">
       <LeagueFeatures admin={admin && online} adminPass={adminPass} rows={rows} teams={teams} players={registeredPlayers} />
       <section className="trophy-showcase wrap" aria-labelledby="trophy-showcase-title">
         <div className="trophy-showcase-heading"><div><span className="section-tag">GNPL 2026 / THE PRIZE</span><h2 id="trophy-showcase-title">PLAY FOR <em>GLORY.</em></h2></div><p>The GNPL championship trophy is waiting for its next champions.</p></div>
-        <div className="gnpl-trophy-feature" aria-label="Rotating GNPL championship trophy">
+        <div className="gnpl-trophy-feature" aria-label="Rotating Godrej Nest Premier League 2026 championship trophy">
           <div className="gnpl-trophy-stage" aria-hidden="true">
             <span className="gnpl-trophy-orbit orbit-one" />
             <span className="gnpl-trophy-orbit orbit-two" />
             <div className="gnpl-trophy-rotator">
               <img className="gnpl-trophy-face front-face" src="/gnpl-champion-trophy-3d.png" alt="" />
-              <img className="gnpl-trophy-face back-face" src="/gnpl-champion-trophy-3d.png" alt="" />
-              <span className="gnpl-trophy-plaque">GNPL 2026</span>
+              <span className="gnpl-trophy-plaque">GODREJ NEST PREMIER LEAGUE 2026</span>
             </div>
           </div>
-          <div className="gnpl-trophy-copy"><span>THE GNPL CHAMPIONSHIP TROPHY</span><strong>ONE LEAGUE.<br />THREE CHAMPIONS.</strong><small>13 DECEMBER 2026 / KANDIVALI TURF ZONE</small></div>
+          <div className="gnpl-trophy-copy"><span>GODREJ NEST PREMIER LEAGUE CHAMPIONSHIP TROPHY</span><strong>ONE LEAGUE.<br />THREE CHAMPIONS.</strong><small>13 DECEMBER 2026 / KANDIVALI TURF ZONE</small></div>
         </div>
       </section>      <section className="teams-section wrap" id="teams">
         <div className="section-tag">03 / MEET THE TEAMS</div>
