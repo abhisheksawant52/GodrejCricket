@@ -1049,8 +1049,8 @@ return <div className="site-shell">
             <div className="gnpl-trophy-rotator">
               <img className="gnpl-trophy-face front-face" src="/gnpl-champion-trophy-hq.png" alt="" />
               <img className="gnpl-trophy-face back-face" src="/gnpl-champion-trophy-back.png" alt="" />
-              <span className="gnpl-trophy-plaque front-plaque">GODREJ NEST PREMIER LEAGUE<br />2026</span>
-              <span className="gnpl-trophy-plaque back-plaque">GODREJ NEST PREMIER LEAGUE<br />2026</span>
+              <span className="gnpl-trophy-plaque front-plaque">GODREJ NEST<br />PREMIER LEAGUE 2026</span>
+              <span className="gnpl-trophy-plaque back-plaque">GODREJ NEST<br />PREMIER LEAGUE 2026</span>
             </div>
           </div>
           <div className="gnpl-trophy-copy"><span>GODREJ NEST PREMIER LEAGUE CHAMPIONSHIP TROPHY</span><strong>1 LEAGUE.<br />3 CHAMPIONS.</strong><small>13 DECEMBER 2026 / KANDIVALI TURF ZONE</small></div>
