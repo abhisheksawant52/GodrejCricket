@@ -2217,3 +2217,10 @@ main>section:not(.hero):not(:first-child){scroll-margin-top:96px}
  .public-roster-button,.venue-jersey-buy,.sponsor-showcase-cta,.matchday-left>.button{min-height:46px}
 }
 @media(prefers-reduced-motion:reduce){.hero-quick-links>a,.hero-quick-links>button,.featured-team-chip{transition:none!important}.hero-quick-links>a:hover,.featured-team-chip:hover{transform:none!important}}
+.hero-actions>.sponsor-front-cta{flex:0 1 440px;min-height:74px;padding:0 28px;border-radius:14px;font-size:17px;gap:16px;animation:sponsor-cta-glow 2.4s ease-in-out infinite}
+.hero-actions>.sponsor-front-cta svg:first-child{width:25px;height:25px}
+.hero-actions>.sponsor-front-cta svg:last-child{width:21px;height:21px}
+.hero-actions>.sponsor-front-cta:hover,.hero-actions>.sponsor-front-cta:focus-visible{animation-play-state:paused;transform:translateY(-3px) scale(1.015);box-shadow:0 16px 42px rgba(255,125,164,.5),0 0 0 6px rgba(255,209,102,.16),0 0 34px rgba(255,195,81,.4),inset 0 1px rgba(255,255,255,.72)}
+@keyframes sponsor-cta-glow{0%,100%{box-shadow:0 8px 24px rgba(255,157,104,.24),0 0 0 3px rgba(255,209,102,.06),0 0 12px rgba(255,195,81,.1),inset 0 1px rgba(255,255,255,.5)}50%{box-shadow:0 12px 34px rgba(255,125,164,.46),0 0 0 6px rgba(255,209,102,.15),0 0 30px rgba(255,195,81,.34),inset 0 1px rgba(255,255,255,.7)}}
+@media(max-width:760px){.hero-actions>.sponsor-front-cta{min-height:66px;padding:0 20px;font-size:16px}}
+@media(prefers-reduced-motion:reduce){.hero-actions>.sponsor-front-cta{animation:none!important;box-shadow:0 10px 30px rgba(255,157,104,.32),0 0 0 4px rgba(255,209,102,.08),inset 0 1px rgba(255,255,255,.58)}.hero-actions>.sponsor-front-cta:hover,.hero-actions>.sponsor-front-cta:focus-visible{transform:none}}
