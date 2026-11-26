@@ -10,9 +10,10 @@ export default async function handler(req, res) {
   const supabase = db();
   if (!supabase) return response(res, 503, { error: 'Content database is not configured.' });
   if (req.method === 'GET') {
-    const { data, error } = await supabase.from('site_content').select('schedule, announcements, updated_at').eq('id', 'public').maybeSingle();
+    const { data, error } = await supabase.from('site_content').select('schedule, announcements, player_registration_open, updated_at').eq('id', 'public').maybeSingle();
     if (error) return response(res, 500, { error: 'Could not load league updates.' });
-    return response(res, 200, { schedule: data?.schedule || [], announcements: data?.announcements || [], updated_at: data?.updated_at || null });
+    const defaultPlayerWindowOpen = Date.now() < Date.parse('2026-11-27T00:00:00+05:30');
+    return response(res, 200, { schedule: data?.schedule || [], announcements: data?.announcements || [], player_registration_open: data?.player_registration_open ?? defaultPlayerWindowOpen, updated_at: data?.updated_at || null });
   }
   if (req.method !== 'PUT') {
     res.setHeader('Allow', 'GET, PUT');

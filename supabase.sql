@@ -20,8 +20,10 @@ create table if not exists public.site_content (
   id text primary key check (id = 'public'),
   schedule jsonb not null default '[]'::jsonb,
   announcements jsonb not null default '[]'::jsonb,
+  player_registration_open boolean default null,
   updated_at timestamptz not null default now()
 );
+alter table public.site_content add column if not exists player_registration_open boolean default null;
 alter table public.site_content enable row level security;
 -- The Vercel API accesses site content using the service role key.
 

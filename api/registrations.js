@@ -42,7 +42,11 @@ export default async function handler(req, res) {
     const type = clean(body.type, 20);
     const isAdmin = Boolean(process.env.ADMIN_PASSWORD && req.headers['x-admin-password'] === process.env.ADMIN_PASSWORD);
     if (!isAdmin && type === 'Owner') return json(res, 403, { error: 'Team owner registration is closed.' });
-    if (!isAdmin && type === 'Player' && Date.now() >= Date.parse('2026-11-27T00:00:00+05:30')) return json(res, 403, { error: 'Player registration is closed.' });
+    if (!isAdmin && type === 'Player') {
+      const { data: settings, error: settingsError } = await supabase.from('site_content').select('player_registration_open').eq('id', 'public').maybeSingle();
+      if (settingsError) return json(res, 500, { error: 'Could not check player registration status.' });
+      if (settings?.player_registration_open === false || (settings?.player_registration_open !== true && Date.now() >= Date.parse('2026-11-27T00:00:00+05:30'))) return json(res, 403, { error: 'Player registration is closed.' });
+    }
     if (!isAdmin && type === 'Sponsor' && Date.now() < Date.parse('2026-11-27T00:00:00+05:30')) return json(res, 403, { error: 'Sponsorship registration opens after player registration closes.' });
     if (!isAdmin && type === 'Audience' && Date.now() >= Date.parse('2026-11-24T13:55:21Z')) return json(res, 403, { error: 'The two-hour T-shirt order window has closed.' });
     if (isAdmin && ['Player', 'Owner'].includes(type)) {
@@ -66,6 +70,7 @@ export default async function handler(req, res) {
     if (!['Player', 'Owner', 'Audience', 'Sponsor'].includes(type) || !name || !phone) return json(res, 400, { error: 'Please complete the required fields.' });
     if (type !== 'Sponsor' && (!wing || !flatNo)) return json(res, 400, { error: 'Please enter your wing and flat number.' });
     const details = body.details && typeof body.details === 'object' && !Array.isArray(body.details) ? body.details : {};
+    if (!isAdmin && type === 'Player' && clean(details.player_category, 20) !== 'Women') return json(res, 403, { error: 'Only Women player registrations are open today.' });
     if (type !== 'Sponsor' && !(isAdmin && type === 'Audience') && !/^([01]\d|2[0-3]):[0-5]\d$/.test(paymentTime)) return json(res, 400, { error: 'Choose a valid payment time using the time picker.' });
     if (type === 'Sponsor') {
       const area = clean(details.sponsorship_area, 40);
@@ -97,7 +102,7 @@ export default async function handler(req, res) {
       const category = clean(details.player_category, 20);
       if (!Number.isInteger(age) || age < 8 || age > 120) return json(res, 400, { error: 'Age must be a whole number from 8 to 120.' });
       const eligible = category === 'Kids' ? age <= 15 : ['Men', 'Women'].includes(category) && age >= 16;
-      if (!eligible) return json(res, 400, { error: category === 'Kids' ? 'Kids category is for ages 8–15.' : 'Men and Women categories are for ages 16–120.' });
+      if (!eligible) return json(res, 400, { error: category === 'Kids' ? 'Kids category is for ages 8–15.' : category === 'Women' ? 'Women players must be 16 or older.' : 'Men category is for ages 16–120.' });
       const experienceText = clean(details.experience, 10);
       const experience = Number(experienceText);
       if (!/^\d+$/.test(experienceText) || !Number.isInteger(experience) || experience > 80 || experience > age) return json(res, 400, { error: 'Enter cricket experience as whole years from 0 to 80, no more than the player’s age.' });
@@ -167,6 +172,12 @@ export default async function handler(req, res) {
     return json(res, 200, { ok: true });
   }
   if (req.method === 'PATCH') {
+    const requestBody = req.body || {};
+    if (typeof requestBody.player_registration_open === 'boolean') {
+      const { data, error } = await supabase.from('site_content').upsert({ id: 'public', player_registration_open: requestBody.player_registration_open, updated_at: new Date().toISOString() }).select('player_registration_open').single();
+      if (error) return json(res, 500, { error: 'Could not save player registration status. Apply the player registration setting migration first.' });
+      return json(res, 200, { player_registration_open: data.player_registration_open });
+    }
     const { id, ids, auction_import, payment_status, team_name, captain_id, captain_team, jersey_issued, duplicate_reviewed, auction_sold, player_grade, player_profile, edit_registration } = req.body || {};
     if (Array.isArray(auction_import)) {
       const allowedTeams = ['Prudentech Power Panthers', 'Prudentech Power Leopards', 'Preetam Paltan', 'Prisha Smash Queens', 'Bigtrip Royal Lions', 'Ashish Knight Riders', 'Titan Thunder', 'Black Thunder', 'Nest Warriors', 'Nest Sanskriti'];
