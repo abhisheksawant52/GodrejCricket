@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { ArrowRight, ArrowUpRight, Check, CircleDot, Clock3, Download, Printer, Menu, Radio, ShieldCheck, Trash2, Trophy, Users, X, Upload, MapPin, Shirt, Cookie, GlassWater, Camera, Share2 } from 'lucide-react';
 import PlayerProfile from './PlayerProfile.jsx';
-import { LeagueFeatures, SponsorShowcase, TeamShareGallery } from './LeagueFeatures.jsx';
+import { CaptainSpotlights, LeagueFeatures, SponsorShowcase, TeamShareGallery } from './LeagueFeatures.jsx';
 import AdminDashboard from './AdminDashboard.jsx';
 import AdminRenderBoundary from './AdminRenderBoundary.jsx';
 import RegistrationSection from './RegistrationSection.jsx';
@@ -1083,6 +1083,7 @@ return <div className="site-shell">
 
 
 
+      <CaptainSpotlights teams={teams} players={registeredPlayers} />
       <TeamShareGallery teams={teams} players={registeredPlayers} />
 
       <section className="venue-overview wrap" id="venue"><div className="section-tag">GNPL 2026 / VENUE OVERVIEW</div><div className="venue-overview-card"><div><span className="venue-kicker"><MapPin size={15}/> MATCH VENUE</span><h2>Kandivali <em>Turf Zone</em></h2><p>00 Gopinath Munde Ground, Near Sapphire Heights, Lokhandwala Foundation School, Akurli Road, Lokhandwala Complex, Kandivali East, Mumbai - 400101</p><a href="https://www.google.com/maps/search/?api=1&query=Kandivali+Turf+Zone+Gopinath+Munde+Ground+Kandivali+East" target="_blank" rel="noreferrer">Open venue in Google Maps <ArrowUpRight size={15}/></a><div className="venue-pricing"><span><strong>Men</strong> Rs 600</span><span><strong>Women</strong> Rs 400</span><span><strong>Kids</strong> Rs 300</span></div><small>Player T-shirt and refreshments included.</small></div><div className="shirt-showcase official-jersey-showcase" id="venue-shirt"><img className="venue-jersey-mockup" src="/gnpl-audience-jersey.png" alt="Official GNPL 2026 jersey front and back design" /><div className="venue-jersey-details"><strong>OFFICIAL GNPL 2026 T-SHIRT</strong><span>Audience jersey · ₹300</span><button type="button" className="venue-jersey-buy" disabled>Audience T-Shirt Closed <ArrowUpRight size={15} /></button></div></div></div></section>

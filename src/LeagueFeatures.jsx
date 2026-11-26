@@ -1,10 +1,35 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { CalendarDays, Megaphone, Plus, Save, Share2, Trash2, Download } from 'lucide-react';
+import { CalendarDays, Crown, Megaphone, Plus, Save, Share2, Trash2, Download, UserRound } from 'lucide-react';
 import communitySponsors from './communitySponsors.js';
 
 const emptyContent = { schedule: [], announcements: [] };
 const makeId = () => globalThis.crypto?.randomUUID?.() || `${Date.now()}-${Math.random().toString(36).slice(2)}`;
+
+export function CaptainSpotlights({ teams = [], players = [] }) {
+  const sectionRef = useRef(null);
+  const [visible, setVisible] = useState(false);
+  const captains = teams.map(team => ({ team, player: players.find(player => player.team_name === team.name && player.is_team_captain) })).filter(item => item.player);
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section || !captains.length) return undefined;
+    const reduceMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+    if (reduceMotion || !('IntersectionObserver' in window)) { setVisible(true); return undefined; }
+    const observer = new IntersectionObserver(entries => {
+      if (entries.some(entry => entry.isIntersecting)) { setVisible(true); observer.disconnect(); }
+    }, { threshold: .15 });
+    observer.observe(section);
+    return () => observer.disconnect();
+  }, [captains.length]);
+  if (!captains.length) return null;
+  return <section ref={sectionRef} className={`captain-spotlights wrap${visible ? ' is-visible' : ''}`} aria-labelledby="captain-spotlights-title">
+    <div className="captain-spotlights-heading"><div><span className="section-tag"><Crown size={14} /> GNPL 2026 / TEAM LEADERS</span><h2 id="captain-spotlights-title">Meet the <em>captains.</em></h2></div><p>Get to know the players leading their teams.</p></div>
+    <div className="captain-spotlights-grid">{captains.map(({ team, player }, index) => <article className="captain-spotlight-card" key={team.name} style={{ '--team-accent': team.color, '--captain-delay': `${Math.min(index, 6) * 70}ms` }}>
+      <div className="captain-spotlight-photo">{player.photo ? <img src={player.photo} alt={`${player.name}, captain of ${team.name}`} loading="lazy" decoding="async" /> : <span aria-hidden="true">{player.name.slice(0, 1).toUpperCase()}</span>}<span className="captain-spotlight-crown" aria-label="Team captain"><Crown size={15} /></span></div>
+      <div className="captain-spotlight-copy"><small>TEAM CAPTAIN</small><strong>{player.name}</strong><span>{team.name}</span>{player.role && <em>{player.role}</em>}</div>
+    </article>)}</div>
+  </section>;
+}
 
 export function SponsorShowcase() {
   const [sponsors, setSponsors] = useState([]);
