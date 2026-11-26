@@ -50,7 +50,7 @@ export function createRegistrationHandler({ env = process.env, now = () => Date.
       if (!isPlayerRegistrationOpen(settings?.player_registration_open, now())) return json(res, 403, { error: 'Player registration is closed.' });
     }
     if (!isAdmin && type === 'Sponsor' && now() < PLAYER_REGISTRATION_CUTOFF) return json(res, 403, { error: 'Sponsorship registration opens after player registration closes.' });
-    if (!isAdmin && type === 'Audience' && now() >= Date.parse('2026-11-24T13:55:21Z')) return json(res, 403, { error: 'The two-hour T-shirt order window has closed.' });
+    if (!isAdmin && type === 'Audience' && now() >= Date.parse('2026-12-13T00:00:00+05:30')) return json(res, 403, { error: 'The two-hour T-shirt order window has closed.' });
     if (isAdmin && ['Player', 'Owner'].includes(type)) {
       const name = clean(body.name), phone = clean(body.phone, 24);
       const wing = clean(body.wing, 60), flatNo = clean(body.flat_no, 60);
@@ -72,7 +72,6 @@ export function createRegistrationHandler({ env = process.env, now = () => Date.
     if (!['Player', 'Owner', 'Audience', 'Sponsor'].includes(type) || !name || !phone) return json(res, 400, { error: 'Please complete the required fields.' });
     if (type !== 'Sponsor' && (!wing || !flatNo)) return json(res, 400, { error: 'Please enter your wing and flat number.' });
     const details = body.details && typeof body.details === 'object' && !Array.isArray(body.details) ? body.details : {};
-    if (!isAdmin && type === 'Player' && clean(details.player_category, 20) !== 'Women') return json(res, 403, { error: 'Only Women player registrations are open today.' });
     if (type !== 'Sponsor' && !(isAdmin && type === 'Audience') && !/^([01]\d|2[0-3]):[0-5]\d$/.test(paymentTime)) return json(res, 400, { error: 'Choose a valid payment time using the time picker.' });
     if (type === 'Sponsor') {
       const area = clean(details.sponsorship_area, 40);
