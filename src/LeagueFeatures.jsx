@@ -80,7 +80,7 @@ export function LeagueFeatures({ admin = false, adminPass = '', rows = [], teams
     <section className="league-updates wrap" aria-label="Match schedule and announcements">
       <div className="league-updates-heading"><div><span className="section-tag"><CalendarDays size={14} /> GNPL 2026 / LEAGUE UPDATES</span><h2>Fixtures & <em>updates.</em></h2></div></div>
       <div className="league-updates-grid">
-        <section className="league-feature-panel"><h3><CalendarDays size={18} /> Match schedule & results</h3>{content.schedule.length ? <div className="league-fixture-list">{content.schedule.slice().sort((a,b) => a.date.localeCompare(b.date)).map(f => <article className="league-fixture" key={f.id}><div><small>{f.date}{f.time ? ` Â· ${f.time}` : ''} Â· {f.venue || 'Venue to be announced'}</small><strong>{f.home} <span>vs</span> {f.away}</strong>{f.status === 'Completed' && <p>{f.homeScore || 'â€”'} : {f.awayScore || 'â€”'}{f.result ? ` Â· ${f.result}` : ''}</p>}</div><b className={f.status === 'Completed' ? 'fixture-complete' : ''}>{f.status}</b></article>)}</div> : <p className="league-empty">Match fixtures and team timings are yet to be announced. Please check back soon.</p>}
+        <section className="league-feature-panel"><h3><CalendarDays size={18} /> Match schedule & results</h3>{content.schedule.length ? <div className="league-fixture-list">{content.schedule.slice().sort((a,b) => a.date.localeCompare(b.date)).map(f => <article className="league-fixture" key={f.id}><div><small>{f.date}{f.time ? ` · ${f.time}` : ''} · {f.venue || 'Venue to be announced'}</small><strong>{f.home} <span>vs</span> {f.away}</strong>{f.status === 'Completed' && <p>{f.homeScore || '—'} : {f.awayScore || '—'}{f.result ? ` · ${f.result}` : ''}</p>}</div><b className={f.status === 'Completed' ? 'fixture-complete' : ''}>{f.status}</b></article>)}</div> : <p className="league-empty">Match fixtures and team timings are yet to be announced. Please check back soon.</p>}
           {standings.length > 0 && <><h4>Standings</h4><div className="table-wrap"><table><thead><tr><th>Team</th><th>P</th><th>W</th><th>T</th><th>L</th><th>Pts</th></tr></thead><tbody>{standings.map(s => <tr key={s.name}><td>{s.name}</td><td>{s.played}</td><td>{s.won}</td><td>{s.tied}</td><td>{s.lost}</td><td>{s.points}</td></tr>)}</tbody></table></div></>}
         </section>
         <section className="league-feature-panel"><h3><Megaphone size={18} /> Announcements</h3>{content.announcements.filter(a => a.active).length ? <div className="league-announcements">{content.announcements.filter(a => a.active).map(a => <article key={a.id}><small>{a.date}</small><strong>{a.title}</strong><p>{a.message}</p></article>)}</div> : <p className="league-empty">Announcements are yet to be made. Please check back soon.</p>}</section>
@@ -109,14 +109,14 @@ export function TeamShareCard({ team, players = [] }) {
     ctx.fillStyle = gradient; ctx.fillRect(0, 0, 1200, 630); ctx.strokeStyle = team.color || '#b2f54a'; ctx.lineWidth = 8; ctx.strokeRect(24, 24, 1152, 582);
     ctx.fillStyle = '#b2f54a'; ctx.font = 'bold 24px Arial'; ctx.fillText('GNPL 2026  /  TEAM ROSTER', 70, 82);
     ctx.fillStyle = '#fff4f8'; ctx.font = 'bold 54px Arial'; ctx.fillText(team.name, 70, 166, 1040);
-    ctx.fillStyle = '#8fe9ee'; ctx.font = '26px Arial'; ctx.fillText(`Owner: ${team.owner || 'â€”'}  Â·  Captain: ${team.captain || 'To be announced'}`, 70, 222, 1060);
-    ctx.fillStyle = '#fff4f8'; ctx.font = 'bold 24px Arial'; ctx.fillText(`PLAYERS  Â·  ${players.length}`, 70, 294);
-    ctx.font = '22px Arial'; players.slice(0, 10).forEach((player, index) => ctx.fillText(`${index + 1}. ${player.name}${player.role ? `  â€”  ${player.role}` : ''}`, 74 + (index > 4 ? 540 : 0), 345 + (index % 5) * 44, 500));
+    ctx.fillStyle = '#8fe9ee'; ctx.font = '26px Arial'; ctx.fillText(`Owner: ${team.owner || '—'}  ·  Captain: ${team.captain || 'To be announced'}`, 70, 222, 1060);
+    ctx.fillStyle = '#fff4f8'; ctx.font = 'bold 24px Arial'; ctx.fillText(`PLAYERS  ·  ${players.length}`, 70, 294);
+    ctx.font = '22px Arial'; players.slice(0, 10).forEach((player, index) => ctx.fillText(`${index + 1}. ${player.name}${player.role ? `  —  ${player.role}` : ''}`, 74 + (index > 4 ? 540 : 0), 345 + (index % 5) * 44, 500));
     ctx.fillStyle = '#d5bacf'; ctx.font = '18px Arial'; ctx.fillText('Godrej Nest Premier League', 70, 566);
     const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
     if (!blob) throw new Error('Could not create the team card.');
     const file = new File([blob], `${team.short || 'team'}-gnpl-2026.png`, { type: 'image/png' });
-    if (navigator.canShare?.({ files: [file] }) && navigator.share) await navigator.share({ title: `${team.name} Â· GNPL 2026`, text: 'Meet the team.', files: [file] });
+    if (navigator.canShare?.({ files: [file] }) && navigator.share) await navigator.share({ title: `${team.name} · GNPL 2026`, text: 'Meet the team.', files: [file] });
     else { const url = URL.createObjectURL(blob); const link = document.createElement('a'); link.href = url; link.download = file.name; link.click(); URL.revokeObjectURL(url); }
     setStatus('Team card ready to share.');
   };
