@@ -8,24 +8,22 @@ const makeId = () => globalThis.crypto?.randomUUID?.() || `${Date.now()}-${Math.
 
 export function SponsorShowcase() {
   const [sponsors, setSponsors] = useState([]);
-  const [loading, setLoading] = useState(true);
   useEffect(() => {
-    fetch('/api/sponsors').then(response => response.ok ? response.json() : { sponsors: [] }).then(data => setSponsors(Array.isArray(data.sponsors) ? data.sponsors : [])).catch(() => setSponsors([])).finally(() => setLoading(false));
+    fetch('/api/sponsors').then(response => response.ok ? response.json() : { sponsors: [] }).then(data => setSponsors(Array.isArray(data.sponsors) ? data.sponsors : [])).catch(() => setSponsors([]));
   }, []);
-  const approvedCommunitySponsors = communitySponsors.filter(sponsor => sponsor.sponsorshipConfirmed === true && sponsor.publicShowcasePermission === true).map(sponsor => ({ ...sponsor, confirmed: true }));
+  const approvedCommunitySponsors = communitySponsors.filter(sponsor => sponsor.sponsorshipConfirmed === true && sponsor.publicShowcasePermission === true).map(sponsor => ({ ...sponsor, flatNo: sponsor.flatNo || sponsor.area, support: sponsor.sponsorshipArea || sponsor.support }));
   const named = new Set(approvedCommunitySponsors.map(sponsor => sponsor.name.toLowerCase()));
   const listedSponsors = [...approvedCommunitySponsors, ...sponsors.filter(sponsor => !named.has(sponsor.name.toLowerCase()))];
+  if (!listedSponsors.length) return null;
   return <section className="sponsor-showcase wrap" id="sponsors" aria-labelledby="sponsor-showcase-title">
-    <div className="section-tag">GNPL 2026 / WITH THANKS TO OUR SUPPORTERS</div>
     <div className="sponsor-showcase-heading">
-      <div><h2 id="sponsor-showcase-title">Thank you, <em>sponsors.</em></h2><p>We recognize confirmed supporters here only with their permission.</p></div>
-      <a href="#register" className="sponsor-showcase-cta">Support match day <Share2 size={15} /></a>
+      <div><h2 id="sponsor-showcase-title">Our <em>sponsors.</em></h2></div>
     </div>
-    {loading && listedSponsors.length === 0 ? <p className="sponsor-showcase-empty">Loading confirmed sponsor profiles…</p> : listedSponsors.length ? <div className="sponsor-showcase-grid">{listedSponsors.map((sponsor, index) => <article className="sponsor-showcase-card" key={`${sponsor.name}-${index}`}>
+    <div className="sponsor-showcase-grid">{listedSponsors.map((sponsor, index) => <article className="sponsor-showcase-card" key={`${sponsor.name}-${index}`}>
       <div className="sponsor-showcase-logo">{sponsor.logo && <img src={sponsor.logo} alt={`${sponsor.name} logo`} loading="lazy" onError={event => { event.currentTarget.style.display = 'none'; }} />}<span aria-hidden="true">{sponsor.name.slice(0, 1).toUpperCase()}</span></div>
-      <div className="sponsor-showcase-main"><strong>{sponsor.name}</strong><small>{sponsor.area || sponsor.type || 'GNPL 2026 supporter'}</small><span className="sponsor-confirmed-badge">CONFIRMED</span></div>
-      <span className="sponsor-showcase-support">{sponsor.support}</span>
-    </article>)}</div> : <p className="sponsor-showcase-empty">Confirmed sponsors will be thanked here after they approve public recognition.</p>}
+      <div className="sponsor-showcase-main"><strong>{sponsor.name}</strong><small>FLAT NO. {sponsor.flatNo || 'Not provided'}</small></div>
+      <div className="sponsor-showcase-support"><small>SPONSORING</small><strong>{sponsor.support || 'Match-day support'}</strong></div>
+    </article>)}</div>
   </section>;
 }
 

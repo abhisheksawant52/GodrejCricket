@@ -98,35 +98,6 @@ function MatchCountdown() {
   </div>;
 }
 
-function TeamSpotlight({ teamList, players }) {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [reducedMotion, setReducedMotion] = useState(false);
-  useEffect(() => {
-    const media = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const update = () => setReducedMotion(media.matches);
-    update();
-    media.addEventListener?.('change', update);
-    return () => media.removeEventListener?.('change', update);
-  }, []);
-  useEffect(() => {
-    if (reducedMotion || teamList.length < 2) return undefined;
-    const timer = window.setInterval(() => setActiveIndex(index => (index + 1) % teamList.length), 5200);
-    return () => window.clearInterval(timer);
-  }, [reducedMotion, teamList.length]);
-  if (!teamList.length) return null;
-  const team = teamList[activeIndex % teamList.length];
-  const assignedPlayers = players.filter(player => player.team_name === team.name);
-  const shiftTeam = () => setActiveIndex(index => (index + 1) % teamList.length);
-  return <div className="team-spotlight" style={{'--team-accent': team.color}} role="region" aria-label="Featured team spotlight">
-    <div className="team-spotlight-label">TEAM SPOTLIGHT <span>{String(activeIndex + 1).padStart(2, '0')} / {String(teamList.length).padStart(2, '0')}</span></div>
-    <div className="team-spotlight-content" key={team.short}>
-      <img src={team.logo} alt={`${team.name} logo`} loading="lazy" decoding="async" />
-      <div className="team-spotlight-copy"><strong>{team.name}</strong><span>{team.category} team · Owner: {team.owner}</span><small>{assignedPlayers.length ? `${assignedPlayers.length} player${assignedPlayers.length === 1 ? '' : 's'} assigned` : 'Squad update coming soon'}</small></div>
-      <button type="button" onClick={shiftTeam} aria-label="Show next team">Next <ArrowRight size={15} /></button>
-    </div>
-  </div>;
-}
-
 function App() {
   const displayPlayerKey = new URLSearchParams(window.location.search).get('playerDisplay');
   const [displayPlayer] = useState(() => {
@@ -1035,11 +1006,10 @@ return <div className="site-shell">
             <span className="match-ready-trophy-unit match-ready-trophy-kids"><Trophy className="match-ready-trophy match-ready-trophy-three" /><small>KIDS</small></span>
           </div>
         </div>
-        <TeamSpotlight teamList={teams} players={registeredPlayers} />
       </section>
       <section className="featured-teams-strip wrap" aria-label="Featured GNPL teams">
         <div className="featured-teams-heading"><span>MEET THE TEAMS</span><a href="#teams">View all ten <ArrowRight size={14} /></a></div>
-        <div className="featured-teams-track">{teams.map(team => <a className="featured-team-chip" href="#teams" key={team.short} style={{'--team-accent': team.color}} aria-label={`${team.name}, ${team.category} team`}><img src={team.logo} alt="" loading="lazy" decoding="async" /><span>{team.name}</span></a>)}</div>
+        <div className="featured-teams-track"><div className="featured-teams-marquee"><div className="featured-team-group">{teams.map(team => <a className="featured-team-chip" href="#teams" key={team.short} style={{'--team-accent': team.color}} aria-label={`${team.name}, ${team.category} team`}><img src={team.logo} alt="" loading="lazy" decoding="async" /><span>{team.name}</span></a>)}</div><div className="featured-team-group" aria-hidden="true">{teams.map(team => <a className="featured-team-chip" href="#teams" tabIndex={-1} key={`loop-${team.short}`} style={{'--team-accent': team.color}}><img src={team.logo} alt="" loading="lazy" decoding="async" /><span>{team.name}</span></a>)}</div></div></div>
       </section>
       <SponsorShowcase />
       

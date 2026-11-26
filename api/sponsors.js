@@ -50,8 +50,9 @@ export default async function handler(req, res) {
       const logo = typeof details.logo_url === 'string' && /^https:\/\//i.test(details.logo_url) ? details.logo_url : '';
       const support = details.sponsorship_type === 'In-kind'
         ? details.contribution_details || details.sponsorship_area
-        : `${details.sponsorship_area || 'Match-day support'} · Cash sponsorship`;
-      return { name: String(details.organization_name || row.name).trim().slice(0, 120), logo, support: String(support || '').trim().slice(0, 300), area: String(details.sponsorship_area || '').slice(0, 80), type: details.sponsorship_type === 'In-kind' ? 'In-kind' : 'Cash' };
+        : details.sponsorship_area || 'Match-day support';
+      const flatNo = details.wing && details.flat_no ? `${details.wing}-${details.flat_no}` : details.flat_no || details.apartment || '';
+      return { name: String(details.organization_name || row.name).trim().slice(0, 120), logo, support: String(support || '').trim().slice(0, 300), flatNo: String(flatNo).trim().slice(0, 40), type: details.sponsorship_type === 'In-kind' ? 'In-kind' : 'Cash' };
     }).filter(sponsor => sponsor.name);
     const communityNames = new Set(publicCommunitySponsors.map(sponsor => sponsor.name.toLowerCase()));
     const sponsors = [...publicCommunitySponsors, ...registeredSponsors.filter(sponsor => !communityNames.has(sponsor.name.toLowerCase()))];
