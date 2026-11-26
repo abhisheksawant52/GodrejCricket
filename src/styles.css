@@ -2151,3 +2151,42 @@ main>section:not(.hero):not(:first-child){scroll-margin-top:96px}
 .gnpl-trophy-rotator{animation:gnpl-trophy-spin 16s linear infinite}.gnpl-trophy-rotator img.gnpl-trophy-face.back-face{display:block;transform:rotateY(180deg) translateZ(9px);filter:brightness(.88) drop-shadow(0 0 16px rgba(255,199,68,.2))}.gnpl-trophy-plaque{backface-visibility:hidden;-webkit-backface-visibility:hidden}.gnpl-trophy-plaque.front-plaque{transform:translateX(-50%) translateZ(12px)}.gnpl-trophy-plaque.back-plaque{transform:translateX(-50%) rotateY(180deg) translateZ(12px)}@media(prefers-reduced-motion:reduce){.gnpl-trophy-rotator{animation:none!important;transform:none!important}}
 .gnpl-trophy-rotator{aspect-ratio:1199/1312}.gnpl-trophy-copy>span{max-width:100%;font-size:clamp(12px,1vw,15px);line-height:1.35;letter-spacing:.11em}.gnpl-trophy-plaque{font-size:clamp(11px,1vw,14px);letter-spacing:.035em}.gnpl-trophy-rotator img.gnpl-trophy-face.back-face{display:block}@media(max-width:760px){.gnpl-trophy-copy>span{font-size:12px;letter-spacing:.08em}}
 .gnpl-trophy-plaque{bottom:13%;width:50%;font-size:clamp(10px,.9vw,12px);letter-spacing:.02em;line-height:1.08}.gnpl-trophy-plaque.front-plaque{transform:translateX(-50%) translateZ(12px)}.gnpl-trophy-plaque.back-plaque{transform:translateX(-50%) rotateY(180deg) translateZ(12px)}@media(max-width:760px){.gnpl-trophy-plaque{bottom:14%;width:53%;font-size:10px}}
+
+/* Compact page rhythm: preserve readable type while reducing excess vertical space. */
+.topline{height:30px}
+.nav{min-height:64px}
+.hero{min-height:unset!important;padding-top:12px!important;padding-bottom:22px!important}
+.intro-section{padding-top:34px!important;padding-bottom:38px!important}
+.intro-grid{padding-top:18px!important;padding-bottom:20px!important}
+.live-board{margin-top:18px!important;padding:17px!important}
+.trophy-showcase{padding-top:30px;padding-bottom:48px}
+.trophy-showcase-heading{margin-bottom:18px}
+.trophy-showcase-grid{gap:12px}
+.trophy-award-card{min-height:238px;padding:16px 14px}
+.teams-section{padding-top:30px!important;padding-bottom:42px!important}
+.teams-heading{margin-bottom:18px!important}
+.teams-grid{gap:12px!important}
+.team-card{min-height:unset;padding:16px!important}
+.register-section{padding-top:34px!important;padding-bottom:42px!important}
+.register-heading{margin-top:14px!important;margin-bottom:18px!important}
+.register-grid{gap:12px!important}
+.register-card{min-height:unset;padding:16px!important}
+.sponsor-showcase{padding-top:26px;padding-bottom:34px}
+.league-updates{padding-top:38px;padding-bottom:44px}
+.league-updates-heading{margin-bottom:18px}
+.matchday{padding-top:34px!important;padding-bottom:36px!important}
+.team-share-gallery{padding-top:30px!important;padding-bottom:40px!important}
+.announcements-section{padding-top:30px!important;padding-bottom:38px!important}
+@media(max-width:760px){
+  .hero{padding-top:8px!important;padding-bottom:16px!important}
+  .intro-section,.teams-section,.register-section{padding-top:26px!important;padding-bottom:32px!important}
+  .intro-grid{padding-top:12px!important;padding-bottom:14px!important}
+  .live-board{margin-top:14px!important;padding:12px!important}
+  .trophy-showcase{padding-top:24px;padding-bottom:34px}
+  .trophy-showcase-heading{margin-bottom:14px}
+  .teams-grid,.register-grid{gap:10px!important}
+  .team-card,.register-card{padding:14px!important}
+  .league-updates{padding-top:28px;padding-bottom:34px}
+  .matchday{padding-top:26px!important;padding-bottom:30px!important}
+  .team-share-gallery{padding-top:24px!important;padding-bottom:32px!important}
+}
