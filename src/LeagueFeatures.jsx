@@ -15,7 +15,7 @@ export function SponsorShowcase() {
   const approvedCommunitySponsors = communitySponsors.filter(sponsor => sponsor.publicShowcasePermission === true);
   const named = new Set(approvedCommunitySponsors.map(sponsor => sponsor.name.toLowerCase()));
   const listedSponsors = [...approvedCommunitySponsors, ...sponsors.filter(sponsor => !named.has(sponsor.name.toLowerCase()))];
-  return <section className="sponsor-showcase wrap" aria-labelledby="sponsor-showcase-title">
+  return <section className="sponsor-showcase wrap" id="sponsors" aria-labelledby="sponsor-showcase-title">
     <div className="section-tag">GNPL 2026 / WITH THANKS TO OUR SUPPORTERS</div>
     <div className="sponsor-showcase-heading">
       <div><h2 id="sponsor-showcase-title">Our match-day <em>sponsors.</em></h2><p>Thanks for backing the league.</p></div>

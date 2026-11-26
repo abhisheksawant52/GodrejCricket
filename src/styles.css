@@ -2190,3 +2190,30 @@ main>section:not(.hero):not(:first-child){scroll-margin-top:96px}
   .matchday{padding-top:26px!important;padding-bottom:30px!important}
   .team-share-gallery{padding-top:24px!important;padding-bottom:32px!important}
 }
+
+/* Front-page navigation and featured teams. */
+.hero-quick-links{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin:15px 0 0;padding:10px 12px;border:1px solid rgba(105,232,241,.18);border-radius:10px;background:rgba(16,22,39,.62)}
+.hero-quick-links>span{margin-right:3px;color:#9daabc;font-size:9px;font-weight:900;letter-spacing:.14em}
+.hero-quick-links>a,.hero-quick-links>button{display:inline-flex;align-items:center;justify-content:center;gap:5px;min-height:32px;padding:0 10px;border:1px solid rgba(255,255,255,.1);border-radius:7px;background:rgba(255,255,255,.045);color:#eaf6fa;font:700 11px/1 'DM Sans',sans-serif;text-decoration:none;transition:background .2s ease,border-color .2s ease,transform .2s ease}
+.hero-quick-links>a:hover,.hero-quick-links>button:hover{transform:translateY(-1px);border-color:rgba(105,232,241,.44);background:rgba(83,222,232,.1)}
+.hero-quick-links>button{cursor:pointer}
+.featured-teams-strip{position:relative;z-index:1;margin-top:10px;margin-bottom:10px;padding:12px 15px;border:1px solid rgba(105,232,241,.2);border-radius:12px;background:linear-gradient(100deg,rgba(22,19,39,.96),rgba(30,17,40,.88));box-shadow:0 10px 28px rgba(0,0,0,.16)}
+.featured-teams-heading{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:9px;color:#a8f7f7;font-size:9px;font-weight:900;letter-spacing:.16em}
+.featured-teams-heading>a{display:inline-flex;align-items:center;gap:5px;color:#d7ff59;font-size:10px;letter-spacing:0;text-decoration:none}
+.featured-teams-track{display:flex;gap:8px;overflow-x:auto;padding:1px 1px 4px;scrollbar-width:thin;scrollbar-color:rgba(83,222,232,.38) transparent;overscroll-behavior-x:contain}
+.featured-team-chip{display:flex;flex:0 0 auto;align-items:center;gap:8px;min-height:42px;padding:5px 10px 5px 6px;border:1px solid color-mix(in srgb,var(--team-accent),transparent 65%);border-radius:999px;background:color-mix(in srgb,var(--team-accent),transparent 94%);color:#f6edf5;text-decoration:none;transition:transform .22s ease,border-color .22s ease,background .22s ease}
+.featured-team-chip:hover{transform:translateY(-2px);border-color:var(--team-accent);background:color-mix(in srgb,var(--team-accent),transparent 87%)}
+.featured-team-chip img{width:30px;height:30px;flex:none;border-radius:50%;background:#11182a;object-fit:contain}
+.featured-team-chip span{max-width:150px;overflow:hidden;font-size:11px;font-weight:800;text-overflow:ellipsis;white-space:nowrap}
+.hero-actions>.button,.hero-actions>.tshirt-buy-shortcut,.hero-actions>.hero-player-list-button,.hero-actions>.sponsor-front-cta,.public-roster-button,.venue-jersey-buy,.sponsor-showcase-cta,.matchday-left>.button{box-sizing:border-box;min-height:44px;border-radius:8px;font-weight:800}
+.hero-actions>.button:focus-visible,.hero-actions>.tshirt-buy-shortcut:focus-visible,.hero-actions>.hero-player-list-button:focus-visible,.hero-actions>.sponsor-front-cta:focus-visible,.hero-quick-links>a:focus-visible,.hero-quick-links>button:focus-visible,.featured-team-chip:focus-visible,.public-roster-button:focus-visible{outline:3px solid rgba(215,255,89,.8);outline-offset:3px}
+@media(max-width:760px){
+ .hero-quick-links{gap:6px;margin-top:12px;padding:9px}
+ .hero-quick-links>span{flex:1 0 100%;margin:0 0 1px}
+ .hero-quick-links>a,.hero-quick-links>button{flex:1 1 auto;min-height:40px;padding:0 9px;font-size:11px}
+ .featured-teams-strip{margin-top:8px;margin-bottom:8px;padding:10px}
+ .featured-team-chip{min-height:44px}
+ .hero-actions>.button,.hero-actions>.tshirt-buy-shortcut,.hero-actions>.hero-player-list-button,.hero-actions>.sponsor-front-cta{min-height:48px}
+ .public-roster-button,.venue-jersey-buy,.sponsor-showcase-cta,.matchday-left>.button{min-height:46px}
+}
+@media(prefers-reduced-motion:reduce){.hero-quick-links>a,.hero-quick-links>button,.featured-team-chip{transition:none!important}.hero-quick-links>a:hover,.featured-team-chip:hover{transform:none!important}}
