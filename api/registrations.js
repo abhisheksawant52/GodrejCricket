@@ -1,10 +1,11 @@
 import { createClient } from '@supabase/supabase-js';
 import { randomUUID } from 'node:crypto';
+import { isAdminAuthorized, isPlayerRegistrationOpen, PLAYER_REGISTRATION_CUTOFF } from '../src/registrationPolicy.js';
 
-const db = () => {
-  if (!process.env.SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY) return null;
+const db = (env, makeClient) => {
+  if (!env.SUPABASE_URL || !env.SUPABASE_SERVICE_ROLE_KEY) return null;
   const boundedFetch = (input, init = {}) => fetch(input, { ...init, signal: AbortSignal.timeout(7000) });
-  return createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY, {
+  return makeClient(env.SUPABASE_URL, env.SUPABASE_SERVICE_ROLE_KEY, {
     auth: { persistSession: false }, global: { fetch: boundedFetch }
   });
 };
@@ -33,22 +34,23 @@ async function uploadPlayerPhoto(supabase, dataUrl, id) {
   return bucket.getPublicUrl(path).data.publicUrl;
 }
 
-export default async function handler(req, res) {
-  const supabase = db();
+export function createRegistrationHandler({ env = process.env, now = () => Date.now(), makeClient = createClient } = {}) {
+  return async function handler(req, res) {
+  const supabase = db(env, makeClient);
   if (!supabase) return json(res, 503, { error: 'Registration database is not configured yet.' });
 
   if (req.method === 'POST') {
     const body = req.body || {};
     const type = clean(body.type, 20);
-    const isAdmin = Boolean(process.env.ADMIN_PASSWORD && req.headers['x-admin-password'] === process.env.ADMIN_PASSWORD);
+    const isAdmin = isAdminAuthorized(env.ADMIN_PASSWORD, req.headers['x-admin-password']);
     if (!isAdmin && type === 'Owner') return json(res, 403, { error: 'Team owner registration is closed.' });
     if (!isAdmin && type === 'Player') {
       const { data: settings, error: settingsError } = await supabase.from('site_content').select('player_registration_open').eq('id', 'public').maybeSingle();
       if (settingsError) return json(res, 500, { error: 'Could not check player registration status.' });
-      if (settings?.player_registration_open === false || (settings?.player_registration_open !== true && Date.now() >= Date.parse('2026-11-27T00:00:00+05:30'))) return json(res, 403, { error: 'Player registration is closed.' });
+      if (!isPlayerRegistrationOpen(settings?.player_registration_open, now())) return json(res, 403, { error: 'Player registration is closed.' });
     }
-    if (!isAdmin && type === 'Sponsor' && Date.now() < Date.parse('2026-11-27T00:00:00+05:30')) return json(res, 403, { error: 'Sponsorship registration opens after player registration closes.' });
-    if (!isAdmin && type === 'Audience' && Date.now() >= Date.parse('2026-11-24T13:55:21Z')) return json(res, 403, { error: 'The two-hour T-shirt order window has closed.' });
+    if (!isAdmin && type === 'Sponsor' && now() < PLAYER_REGISTRATION_CUTOFF) return json(res, 403, { error: 'Sponsorship registration opens after player registration closes.' });
+    if (!isAdmin && type === 'Audience' && now() >= Date.parse('2026-11-24T13:55:21Z')) return json(res, 403, { error: 'The two-hour T-shirt order window has closed.' });
     if (isAdmin && ['Player', 'Owner'].includes(type)) {
       const name = clean(body.name), phone = clean(body.phone, 24);
       const wing = clean(body.wing, 60), flatNo = clean(body.flat_no, 60);
@@ -109,7 +111,7 @@ export default async function handler(req, res) {
     }
     if (type === 'Player' && !details.photo) return json(res, 400, { error: 'A player photo is required to complete player registration.' });
     if (details.photo && (typeof details.photo !== 'string' || !/^data:image\/jpeg;base64,/.test(details.photo) || details.photo.length > 1800000)) return json(res, 400, { error: 'Player photo is too large. Please choose a smaller image and try again.' });
-    const startedAt = Date.now();
+    const startedAt = now();
     const id = randomUUID();
     console.info('[registrations] request accepted', { type, photoBytes: details.photo ? Buffer.byteLength(details.photo) : 0 });
     let result;
@@ -118,7 +120,7 @@ export default async function handler(req, res) {
         details.photo = await uploadPlayerPhoto(supabase, details.photo, id);
         console.info('[registrations] player photo stored', { id });
       } catch (cause) {
-        console.error('[registrations] photo upload failed', { name: cause?.name, message: cause?.message, durationMs: Date.now() - startedAt });
+        console.error('[registrations] photo upload failed', { name: cause?.name, message: cause?.message, durationMs: now() - startedAt });
         return json(res, 502, { error: 'Could not upload the player photo. Please retry in a moment.' });
       }
     }
@@ -129,20 +131,20 @@ export default async function handler(req, res) {
         payment_reference: paymentReference, payment_status: 'Pending'
       }).select('id, created_at').single();
     } catch (cause) {
-      console.error('[registrations] save request threw', { name: cause?.name, message: cause?.message, durationMs: Date.now() - startedAt });
+      console.error('[registrations] save request threw', { name: cause?.name, message: cause?.message, durationMs: now() - startedAt });
       return json(res, 502, { error: 'The registration database did not respond. Please retry in a moment.' });
     }
     const { data, error } = result;
     if (error) {
-      console.error('[registrations] Supabase insert failed', JSON.stringify({ code: error.code, message: error.message, durationMs: Date.now() - startedAt }));
+      console.error('[registrations] Supabase insert failed', JSON.stringify({ code: error.code, message: error.message, durationMs: now() - startedAt }));
       if (type === 'Player') void supabase.storage.from(PLAYER_PHOTO_BUCKET).remove([`${id}.jpg`]).catch(() => {});
       return json(res, 500, { error: `Could not save registration${error.code ? ` (${error.code})` : ''}: ${error.message || 'database insert failed'}` });
     }
-    console.info('[registrations] insert completed', { type, durationMs: Date.now() - startedAt });
+    console.info('[registrations] insert completed', { type, durationMs: now() - startedAt });
     return json(res, 201, { ok: true, ...data });
   }
 
-  if (!process.env.ADMIN_PASSWORD || req.headers['x-admin-password'] !== process.env.ADMIN_PASSWORD) return json(res, 401, { error: 'Admin sign-in required.' });
+  if (!isAdminAuthorized(env.ADMIN_PASSWORD, req.headers['x-admin-password'])) return json(res, 401, { error: 'Admin sign-in required.' });
   if (req.method === 'GET') {
     console.info('[admin] registrations fetch started');
     const { data, error } = await supabase.from('registrations').select('*').order('created_at', { ascending: false });
@@ -351,4 +353,7 @@ export default async function handler(req, res) {
   }
   res.setHeader('Allow', 'GET, POST, PATCH, DELETE');
   return json(res, 405, { error: 'Method not allowed.' });
+  };
 }
+
+export default createRegistrationHandler();

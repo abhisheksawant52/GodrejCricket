@@ -1,6 +1,7 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import App, { AdminRenderBoundary } from './App.jsx';
+import App from './App.jsx';
+import AdminRenderBoundary from './AdminRenderBoundary.jsx';
 import './styles.css';
 import './nav-highlights.css';
 

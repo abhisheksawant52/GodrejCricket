@@ -6,6 +6,7 @@ A React + Vite event site with three registration paths (Player, Owner, Audience
 
 1. Install Node.js 20 or newer.
 2. Run `npm install`, then `npm run dev`.
+3. Run `npm test` for registration and Admin API checks.
 3. Without Supabase settings, registrations are saved in this browser only. Use **Admin → View registrations on this device** to inspect or export them.
 
 ## Shared registrations on Vercel

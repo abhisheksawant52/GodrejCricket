@@ -1,4 +1,5 @@
 import { createClient } from '@supabase/supabase-js';
+import { isPlayerRegistrationOpen } from '../src/registrationPolicy.js';
 
 const response = (res, status, body) => res.status(status).setHeader('Cache-Control', 'no-store').json(body);
 const db = () => {
@@ -12,8 +13,7 @@ export default async function handler(req, res) {
   if (req.method === 'GET') {
     const { data, error } = await supabase.from('site_content').select('schedule, announcements, player_registration_open, updated_at').eq('id', 'public').maybeSingle();
     if (error) return response(res, 500, { error: 'Could not load league updates.' });
-    const defaultPlayerWindowOpen = Date.now() < Date.parse('2026-11-27T00:00:00+05:30');
-    return response(res, 200, { schedule: data?.schedule || [], announcements: data?.announcements || [], player_registration_open: data?.player_registration_open ?? defaultPlayerWindowOpen, updated_at: data?.updated_at || null });
+    return response(res, 200, { schedule: data?.schedule || [], announcements: data?.announcements || [], player_registration_open: isPlayerRegistrationOpen(data?.player_registration_open), updated_at: data?.updated_at || null });
   }
   if (req.method !== 'PUT') {
     res.setHeader('Allow', 'GET, PUT');
