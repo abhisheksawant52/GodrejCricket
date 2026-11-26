@@ -52,7 +52,7 @@ export default async function handler(req, res) {
         ? details.contribution_details || details.sponsorship_area
         : details.sponsorship_area || 'Match-day support';
       const flatNo = details.wing && details.flat_no ? `${details.wing}-${details.flat_no}` : details.flat_no || details.apartment || '';
-      return { name: String(details.organization_name || row.name).trim().slice(0, 120), logo, support: String(support || '').trim().slice(0, 300), flatNo: String(flatNo).trim().slice(0, 40), type: details.sponsorship_type === 'In-kind' ? 'In-kind' : 'Cash' };
+      return { name: String(details.organization_name || row.name).trim().slice(0, 120), logo, area: String(details.sponsorship_area || '').trim().slice(0, 80), support: String(support || '').trim().slice(0, 300), flatNo: String(flatNo).trim().slice(0, 40), type: details.sponsorship_type === 'In-kind' ? 'In-kind' : 'Cash' };
     }).filter(sponsor => sponsor.name);
     const communityNames = new Set(publicCommunitySponsors.map(sponsor => sponsor.name.toLowerCase()));
     const sponsors = [...publicCommunitySponsors, ...registeredSponsors.filter(sponsor => !communityNames.has(sponsor.name.toLowerCase()))];
