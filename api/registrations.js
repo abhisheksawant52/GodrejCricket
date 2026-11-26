@@ -44,7 +44,7 @@ export function createRegistrationHandler({ env = process.env, now = () => Date.
     const body = req.body || {};
     const type = clean(body.type, 20);
     const isAdmin = isAdminAuthorized(env.ADMIN_PASSWORD, req.headers['x-admin-password']);
-    if (!isAdmin && ['Player', 'Audience', 'Sponsor'].includes(type) && now() >= PLAYER_REGISTRATION_CUTOFF) return json(res, 403, { error: 'Public registration forms are closed.' });
+    if (!isAdmin && ['Player', 'Audience'].includes(type) && now() >= PLAYER_REGISTRATION_CUTOFF) return json(res, 403, { error: 'Public registration forms are closed.' });
     if (!isAdmin && type === 'Owner') return json(res, 403, { error: 'Team owner registration is closed.' });
     if (!isAdmin && type === 'Player') {
       const { data: settings, error: settingsError } = await supabase.from('site_content').select('player_registration_open').eq('id', 'public').maybeSingle();
