@@ -312,7 +312,7 @@ function App() {
   useEffect(() => {
     const reduceMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
     if (reduceMotion || !('IntersectionObserver' in window)) return;
-    const items = document.querySelectorAll('.auction-update-card, .match-info-bar, .teams-heading, .teams-grid .team-card, .register-card, .community-scene, .league-updates-heading, .league-feature-panel, .team-share-gallery-grid article, .venue-overview-card, .matchday-left, .gallery-section .gallery-empty, .registration-faq, .trophy-showcase-heading, .trophy-award-card');
+    const items = document.querySelectorAll('.auction-update-card, .match-info-bar, .teams-heading, .teams-grid .team-card, .featured-teams-strip, .register-card, .community-scene, .league-updates-heading, .league-feature-panel, .team-share-gallery-grid article, .venue-overview-card, .matchday-left, .gallery-section .gallery-empty, .registration-faq, .trophy-showcase-heading, .trophy-award-card');
     if (!items.length) return;
     items.forEach(item => item.classList.add('scroll-reveal'));
     const observer = new IntersectionObserver(entries => {

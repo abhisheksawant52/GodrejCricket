@@ -2406,3 +2406,25 @@ main>section:not(.hero){scroll-margin-top:124px}
 }
 @media(max-width:360px){.sponsor-showcase-card{grid-template-columns:48px minmax(0,1fr);gap:10px 11px;padding:13px}.sponsor-showcase-logo{width:46px;height:46px}.sponsor-showcase-main>strong{font-size:15px}}
 @media(max-width:760px) and (hover:none){.sponsors-loaded .sponsor-showcase-card:hover,.sponsors-loaded .sponsor-showcase-card:hover .sponsor-showcase-logo{transform:none}}
+:root{--ui-space-1:4px;--ui-space-2:8px;--ui-space-3:12px;--ui-space-4:16px;--ui-space-5:24px;--ui-card-gap:16px;--ui-card-radius:16px;--ui-card-border:rgba(156,207,226,.24);--ui-card-shadow:0 16px 38px rgba(0,0,0,.24)}
+.teams-grid,.register-grid,.league-updates-grid,.sponsor-showcase-grid,.team-share-gallery-grid{gap:var(--ui-card-gap)}
+.team-card,.register-card,.auction-update-card,.match-info-bar,.sponsor-showcase-card,.team-share-gallery-grid article,.league-feature-panel,.venue-overview-card,.trophy-award-card{border-radius:var(--ui-card-radius)}
+.team-card,.team-share-gallery-grid article{border-width:1px;border-style:solid;border-color:color-mix(in srgb,var(--team-accent),var(--ui-card-border) 32%);box-shadow:var(--ui-card-shadow),inset 0 1px rgba(255,255,255,.06)}
+.team-card{position:relative;isolation:isolate;overflow:hidden}
+.team-card:before{position:absolute;z-index:0;top:0;left:18px;width:76px;height:3px;border-radius:0 0 4px 4px;content:"";background:var(--team-accent);box-shadow:0 0 16px color-mix(in srgb,var(--team-accent),transparent 20%);opacity:.9}
+.team-card-top,.team-identity,.squad-heading,.squad-list{z-index:1}
+.team-identity .team-captain-name{border:1px solid color-mix(in srgb,var(--team-accent),transparent 52%);border-left:3px solid var(--team-accent);border-radius:999px;background:color-mix(in srgb,var(--team-accent) 10%,rgba(13,12,26,.95));color:#f4e9f3!important}
+.team-identity .team-captain-name strong{color:#fff!important}
+.team-share-gallery-grid article{position:relative;isolation:isolate;overflow:hidden;min-width:0;gap:14px;padding:15px 17px;border-left:3px solid var(--team-accent);background:linear-gradient(120deg,color-mix(in srgb,var(--team-accent) 12%,#1a1224),#171321 72%,#121b27);box-shadow:var(--ui-card-shadow),inset 0 1px rgba(255,255,255,.055)}
+.team-share-gallery-grid article>img{position:relative;z-index:1;flex:none;width:52px;height:52px;padding:3px;border:1px solid color-mix(in srgb,var(--team-accent),transparent 28%);border-radius:12px;background:#08070d;object-fit:contain;filter:drop-shadow(0 4px 11px color-mix(in srgb,var(--team-accent),transparent 64%))}
+.team-share-gallery-info{position:relative;z-index:1;display:grid;gap:6px;min-width:0}
+.team-share-gallery-info>strong{overflow-wrap:anywhere;color:#fff4f8;font-size:14px;line-height:1.25}
+.team-share-gallery-info>small{color:#d8c7db;font-size:10px;line-height:1.35}
+.team-share-gallery-info>small i{padding:0 3px;color:var(--team-accent);font-style:normal}
+.team-share-gallery-info .team-share-captain{display:inline-flex;align-items:center;gap:6px;width:max-content;max-width:100%;padding:4px 7px;border:1px solid color-mix(in srgb,var(--team-accent),transparent 60%);border-radius:999px;background:color-mix(in srgb,var(--team-accent) 10%,transparent);color:var(--team-accent);font-size:8px;font-weight:900;letter-spacing:.06em}
+.team-share-gallery-info .team-share-captain b{overflow:hidden;color:#fff;text-overflow:ellipsis;white-space:nowrap}
+.team-share-card-button{position:relative;z-index:1;min-height:42px!important;padding:8px 11px;border:1px solid color-mix(in srgb,var(--team-accent),transparent 42%);border-radius:8px;background:color-mix(in srgb,var(--team-accent) 10%,rgba(24,15,34,.9));color:#fff;font-weight:800;transition:transform .2s ease,background .2s ease,box-shadow .2s ease}
+.team-share-card-button:hover{transform:translateY(-2px);background:color-mix(in srgb,var(--team-accent) 20%,rgba(24,15,34,.9));box-shadow:0 8px 20px color-mix(in srgb,var(--team-accent),transparent 82%)}
+@media(max-width:760px){:root{--ui-card-gap:12px}.team-share-gallery-grid article{gap:10px;padding:13px}.team-share-gallery-grid article>img{width:46px;height:46px}.team-share-gallery-info>strong{font-size:13px}.team-share-card-button{min-height:44px!important}}
+@media(max-width:480px){.team-share-gallery-grid article{display:grid;grid-template-columns:48px minmax(0,1fr);align-items:center;gap:8px 11px}.team-share-gallery-grid article>img{grid-column:1;grid-row:1;width:44px;height:44px}.team-share-gallery-grid article>div{grid-column:2;grid-row:1}.team-share-gallery-grid article>.team-share-card-button{grid-column:1/-1;justify-self:stretch;width:100%;margin:0}.team-share-gallery-info .team-share-captain{width:max-content;max-width:100%}}
+@media(prefers-reduced-motion:reduce){.team-card:before{display:none}.team-share-gallery-grid article,.team-share-card-button,.team-card{transition:none!important}.team-share-card-button:hover{transform:none}}
