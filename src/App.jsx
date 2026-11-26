@@ -6,7 +6,7 @@ import AdminDashboard from './AdminDashboard.jsx';
 import AdminRenderBoundary from './AdminRenderBoundary.jsx';
 import RegistrationSection from './RegistrationSection.jsx';
 import { types } from './data/registrationTypes.js';
-import { PUBLIC_REGISTRATIONS_CLOSED } from './registrationPolicy.js';
+import { isPublicRegistrationClosed } from './registrationPolicy.js';
 import { createPortal } from 'react-dom';
 
 
@@ -294,7 +294,7 @@ function App() {
   useEffect(() => {
     const joinType = new URLSearchParams(window.location.search).get('join');
     const matchingType = types.find(item => item.key.toLowerCase() === String(joinType || '').toLowerCase());
-    if (matchingType) { if (!PUBLIC_REGISTRATIONS_CLOSED && !['Player', 'Owner'].includes(matchingType.key)) setModal(matchingType); document.getElementById('register')?.scrollIntoView({ behavior: 'smooth' }); }
+    if (matchingType) { if (!isPublicRegistrationClosed(matchingType.key) && !['Player', 'Owner'].includes(matchingType.key)) setModal(matchingType); document.getElementById('register')?.scrollIntoView({ behavior: 'smooth' }); }
     const teamCode = new URLSearchParams(window.location.search).get('team');
     const linkedTeam = teams.find(team => team.short.toLowerCase() === String(teamCode || '').toLowerCase());
     if (linkedTeam) { setSelectedTeam(linkedTeam); window.setTimeout(() => document.getElementById('teams')?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 150); }

@@ -1,6 +1,6 @@
 import { createClient } from '@supabase/supabase-js';
 import { randomUUID } from 'node:crypto';
-import { isAdminAuthorized, isPlayerRegistrationOpen, PLAYER_REGISTRATION_CUTOFF, PUBLIC_REGISTRATIONS_CLOSED } from '../src/registrationPolicy.js';
+import { isAdminAuthorized, isPlayerRegistrationOpen, isPublicRegistrationClosed, PLAYER_REGISTRATION_CUTOFF } from '../src/registrationPolicy.js';
 
 const db = (env, makeClient) => {
   if (!env.SUPABASE_URL || !env.SUPABASE_SERVICE_ROLE_KEY) return null;
@@ -44,7 +44,7 @@ export function createRegistrationHandler({ env = process.env, now = () => Date.
     const body = req.body || {};
     const type = clean(body.type, 20);
     const isAdmin = isAdminAuthorized(env.ADMIN_PASSWORD, req.headers['x-admin-password']);
-    if (!isAdmin && PUBLIC_REGISTRATIONS_CLOSED) return json(res, 403, { error: 'All public registrations, T-shirt orders, and sponsorship offers are closed.' });
+    if (!isAdmin && isPublicRegistrationClosed(type)) return json(res, 403, { error: 'This public registration form is closed.' });
     if (!isAdmin && ['Player', 'Audience'].includes(type) && now() >= PLAYER_REGISTRATION_CUTOFF) return json(res, 403, { error: 'Public registration forms are closed.' });
     if (!isAdmin && type === 'Owner') return json(res, 403, { error: 'Team owner registration is closed.' });
     if (!isAdmin && type === 'Player') {
@@ -52,7 +52,6 @@ export function createRegistrationHandler({ env = process.env, now = () => Date.
       if (settingsError) return json(res, 500, { error: 'Could not check player registration status.' });
       if (!isPlayerRegistrationOpen(settings?.player_registration_open, now())) return json(res, 403, { error: 'Player registration is closed.' });
     }
-    if (!isAdmin && type === 'Sponsor' && now() < PLAYER_REGISTRATION_CUTOFF) return json(res, 403, { error: 'Sponsorship registration opens after player registration closes.' });
     if (!isAdmin && type === 'Audience' && now() >= Date.parse('2026-12-13T00:00:00+05:30')) return json(res, 403, { error: 'The two-hour T-shirt order window has closed.' });
     if (isAdmin && ['Player', 'Owner'].includes(type)) {
       const name = clean(body.name), phone = clean(body.phone, 24);
